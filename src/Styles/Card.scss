@@ -1,0 +1,22 @@
+figure{
+    width: 100%;
+    padding: 3em;
+
+    img{
+        width: 10%;
+    }
+
+    .wishNumber{
+        font-size: 0.8em;
+        padding: 1em;
+        text-decoration: underline;
+    }
+
+    .status{
+        display: inline-block;
+        padding: 0.5em;
+        margin: 0.5em;
+        background-color: rgba(119, 58, 58, 0.448);
+        font-size: 0.8em;
+    }
+}

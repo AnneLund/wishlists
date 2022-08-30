@@ -1,35 +1,22 @@
 import {useState, useEffect} from 'react'
 
-//Axios er et promise-baseret javascript bibliotek der bruges til HTTP requests.
-//Den skaber forbindelse imellem node.js og browseren.
 import Axios from 'axios'
-
-//Jeg laver et kontrolleret komponent, dvs at den value som brugeren skriver i inputtet,
-//er kontrolleret af React state.  
-
+ 
 const Form = () => {
-//Min constructor er en metode som bliver påkaldt under kontruktionen af et objekt.
-//
-
-//Følgende funktion starter så snart jeg begynder at skrive noget i mit input.
-//setState sørger for at min value bliver opdateret
-//'e' er en syntetisk event der sørger for at den virker i alle browsere.
-
-const [title, setTitle] = useState("her er jeg")
-const handleChange = (e) => {setTitle(e.target.value)}
+const [id, setId] = useState("")
+const handleChange = (e) => {setId(e.target.value)}
 
 const handleSubmit = (e) => {e.preventDefault();
-    const data = {title};
+    const data = {id, købt: 1};
 
-        Axios.post('https://next-database.vercel.app/api/wishes', data)
+        Axios.put('https://next-database.vercel.app/api/wishes', data)
             .then(response => {           
             this.setState({}) 
             console.log(response.data)          
             })
 
-            .catch(error => error);           
+            .catch(error => error);
             
-            alert('Tak for din tilmelding!')
     }
    
         return (
@@ -38,10 +25,10 @@ const handleSubmit = (e) => {e.preventDefault();
                <div>
                   <form>
                       <input 
-                      placeholder="Ønske"
+                      placeholder="Ønske nr:"
                       type="text" 
-                      id="titel"
-                      value={title}
+                      id="id"
+                      value={id}
                       onChange={handleChange}
                       />
                       <button onClick={handleSubmit} type="submit">Send</button>
