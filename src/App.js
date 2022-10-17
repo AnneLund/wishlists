@@ -1,14 +1,24 @@
-import './App.scss';
-import Router from './Components/App/Router/Router'
-import Nav from './Components/Nav'
+import { StyledGlobals } from './Components/StyledComponents/Globals.Styled';
+import Router from './Components/Router/Router'
+import Header from './Components/Partials/Header'
+import FlashMessages from './Components/FlashMessages/FlashMessages'
+import './index.css'
+
+
 
 
 function App() {
+
   return (
-    <div className="App">
-      <Nav/>
+   
+    <StyledGlobals>
+      <FlashMessages/>
+       <div className='App'>
+      <Header/>
       <Router/>
-    </div>
+      </div>
+    </StyledGlobals>
+   
   );
 }
 

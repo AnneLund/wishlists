@@ -1,8 +1,10 @@
-// import { StyledGlobals } from "../Components/StyledComponents/Globals.Styled";
-import bg from '../Assets/Images/webdevelopment.jpeg'
+import React from 'react'
+import { Page } from '../Components/Layout/Page';
+import Contactform from '../Components/Contactform'
 import styled from 'styled-components'
+import bg from '../Assets/Images/webdevelopment.jpeg'
 
-const Home = () => {
+const Contact = () => {
 
 const Content = styled.section`
 background-image: url(${bg});
@@ -14,10 +16,13 @@ background-size: cover;
 min-height: 100vh;
 padding: 4em 0;
 
+
 h1{
 color: white;
 font-family: 'Aboreto', cursive;  
 margin-top:2em;
+font-size: 3vw;
+
 }
 
 h2{
@@ -28,16 +33,16 @@ margin-top: 0.5em;
 }
 
 `
+  return (
+    <Content>
+    <section>
+    <h1>Send mig en besked og få et uforpligtende tilbud</h1>
 
-return (
-<Content>
- <section>
-<h1>Din webudvikler</h1>
-<h2>- Udvikling og design efter dine behov og ønsker</h2>
- </section>
- </Content>
-    )
+        <Contactform/>
+       
+    </section>
+    </Content>
+  )
 }
 
-
-export default Home;
+export default Contact;

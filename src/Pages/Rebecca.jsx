@@ -1,15 +1,21 @@
-import React from 'react'
-import Form from '../Components/form'
-import Card from '../Components/App/Card'
+import React, { useState } from 'react'
+import Form from '../Components/Partials/form'
+import Card from '../Components/Partials/Card'
+import {Grid} from '../Components/StyledComponents/Grid.Styled'
+import { StyledGlobals } from '../Components/StyledComponents/Globals.Styled'
 
-const rebecca = () => {
+const Rebecca = () => {
+
   return (
-    <section>
+    <StyledGlobals>
+   
 <h2>Rebeccas ønskeseddel</h2>
+<Grid as="section">
 <Card/>
 <Form/>
-</section>
+</Grid>
+</StyledGlobals>
   )
 }
 
-export default rebecca;
+export default Rebecca;
