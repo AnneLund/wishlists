@@ -40,6 +40,13 @@ const Wishlists = () => {
                         </p>
                         </Link>
                 </li>
+                <li>
+                    <Link to="/wishlists/mikkel">
+                        <p className='mikkel_link'>
+                            Mikkels ønskeseddel
+                        </p>
+                        </Link>
+                </li>
             </ul>
         </nav>
        <Outlet/>  

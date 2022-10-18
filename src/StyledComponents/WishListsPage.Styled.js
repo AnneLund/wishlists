@@ -53,7 +53,7 @@ const WishListsPage = styled.section`
 
  @media screen and (max-width: 600px) {
     .reb_link{
-     font-size: 6vw;    
+     font-size: 4vw;    
     }
    
  }
@@ -69,7 +69,7 @@ const WishListsPage = styled.section`
 
         @media screen and (max-width: 600px) {
     .val_link{
-     font-size: 6vw;    
+     font-size: 4vw;    
     }
    
  }
@@ -85,7 +85,23 @@ const WishListsPage = styled.section`
 
         @media screen and (max-width: 600px) {
     .anne_link{
-     font-size: 6vw;    
+     font-size: 4vw;    
+    }
+   
+ }
+
+ .mikkel_link{
+    color: white;
+  &:hover{
+                 color: blue;
+                 transition: 300ms;
+             }    
+
+        }
+
+        @media screen and (max-width: 600px) {
+    .mikkel_link{
+     font-size: 4vw;    
     }
    
  }
@@ -95,7 +111,13 @@ const WishListsPage = styled.section`
      
      @media screen and (max-width: 600px) {
         .nav{
-            margin: 5vh 0 15vh 0;
+         ul{
+          display: flex;
+         flex-direction: column; 
+         padding: 0 ;
+         }
+            margin: 0;
+           
         }
      }
     

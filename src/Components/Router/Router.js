@@ -7,6 +7,7 @@ import Valdemar from '../../Pages/Valdemar'
 import Contact from '../../Pages/Contact'
 import Loginform from '../../Pages/Login/LoginPage'
 import Anne from '../../Pages/Anne'
+import Mikkel from '../../Pages/Mikkel'
 
 const Router = () => {
 
@@ -21,6 +22,7 @@ const Router = () => {
           <Route path='/wishlists/rebecca' element={<Rebecca/>}/>
           <Route path='/wishlists/valdemar' element={<Valdemar/>}/>
           <Route path='/wishlists/anne' element={<Anne/>}/>
+          <Route path='/wishlists/mikkel' element={<Mikkel/>}/>
           </Route>
           
         <Route path='/contact' element={<Contact/>}/>
