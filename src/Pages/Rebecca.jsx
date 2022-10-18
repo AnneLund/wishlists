@@ -1,20 +1,16 @@
-import React, { useState } from 'react'
-import Form from '../Components/Partials/form'
+import React from 'react'
 import Card from '../Components/Partials/Card'
-import {Grid} from '../Components/StyledComponents/Grid.Styled'
-import { StyledGlobals } from '../Components/StyledComponents/Globals.Styled'
+import Grid from '../StyledComponents/Grid.Styled'
+import { Page } from '../Components/Layout/Page'
 
 const Rebecca = () => {
 
   return (
-    <StyledGlobals>
-   
-<h2>Rebeccas ønskeseddel</h2>
+<Page title="Rebeccas ønskeseddel">
 <Grid as="section">
 <Card/>
-<Form/>
 </Grid>
-</StyledGlobals>
+</Page>
   )
 }
 

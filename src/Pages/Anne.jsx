@@ -1,18 +1,17 @@
 import React from 'react'
-import Card2 from '../Components/Partials/Card2'
+import Card3 from '../Components/Partials/Card3'
 import Grid from '../StyledComponents/Grid.Styled'
 import { Page } from '../Components/Layout/Page'
 
-
-const Valdemar = () => {
+const Anne = () => {
 
   return (
-<Page title="Valdemars ønskeseddel">
+<Page title="Annes ønskeseddel">
 <Grid as="section">
-<Card2 wishId={2}/>
+<Card3/>
 </Grid>
 </Page>
   )
 }
 
-export default Valdemar;
+export default Anne;

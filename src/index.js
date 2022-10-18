@@ -4,11 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {HashRouter} from 'react-router-dom'
+import GlobalStyle from './StyledComponents/Globals.Styled';
+import Header from './Components/Partials/Header';
+import FlashMessages from './Components/FlashMessages/FlashMessages';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
   <React.StrictMode>
+  <Header/>
+    <GlobalStyle/>
+    <FlashMessages/> 
     <App />
   </React.StrictMode>
   </HashRouter>

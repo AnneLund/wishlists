@@ -1,11 +1,10 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import {StyledForm} from './StyledComponents/Form.Styled';
+import {StyledForm} from '../StyledComponents/Form.Styled';
 import { useFlashMessageStore } from "../Components/FlashMessages/useFlashMessageStore";
 
 
 const Contact = () => {
-
 
   const { setFlashMessage } = useFlashMessageStore((store) => ({
     setFlashMessage: store.setFlashMessage,

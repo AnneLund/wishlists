@@ -1,11 +1,17 @@
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
+position: fixed;
+background-color: grey;
+padding: 1em;
+top: 10%;
+right: 0;
+
 fieldset{
 display: flex;
 flex-direction: column;
 position: relative;
-color: black;
+color: white;
 border-radius: 5px;
 border-style: solid 3px black;
 box-shadow: black 5px 5px 5px;

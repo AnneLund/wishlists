@@ -12,4 +12,4 @@ margin: 2em;
 }
 
 `
-export {Grid}
+export default Grid;

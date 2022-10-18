@@ -4,7 +4,7 @@ import Loading from '../../Components/Partials/Loading'
 import { StyledForm } from '../../StyledComponents/Form.Styled'
 import { useForm } from "react-hook-form";
  
-const Form = (props) => {
+const Book = (props) => {
 const form = props.formId ? props.formId: "";
 const [id, setId] = useState("")
 const handleChange = (e) => {setId(e.target.value)}
@@ -36,17 +36,14 @@ setLoading(true)
         return (
             <StyledForm formId={props.formId} onSubmit={handleSubmit(onSubmit)} >
                 <article className='form'>
-                <h3 className='formTitle'>Skriv det ønske du vil opfylde!</h3>
                <div>
                   <>
-                      <input 
-                      placeholder="Ønske nr:"
-                      type="text" 
+                      <button 
+                      type="submit"
                       id="id"
                       value={id}
-                      onChange={handleChange}
-                      />
-                      <button type="submit">Send</button>
+                      onClick={handleChange}
+                      >Reverver</button>
                   </>
                   </div>
                   </article>
@@ -54,6 +51,4 @@ setLoading(true)
         );
     }
 
-export default Form;
-    
-  
+export default Book;

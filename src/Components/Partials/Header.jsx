@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom'
-import {StyledHeader} from '../StyledComponents/Header.Styled';
+import {StyledHeader} from '../../StyledComponents/Header.Styled';
 import { slide as Menu } from 'react-burger-menu'
 
 

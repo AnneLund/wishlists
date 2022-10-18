@@ -1,7 +1,6 @@
-import styled from 'styled-components'
-
-
-const StyledGlobals = styled.div`
+import { createGlobalStyle } from 'styled-components';
+ 
+const GlobalStyle = createGlobalStyle`
 
 *{
   margin: 0;
@@ -11,14 +10,14 @@ const StyledGlobals = styled.div`
 }
 
 .container{
-  background-color: black;
-  min-height: 80vh;
+  min-height: 100vh;
   padding: 1em;
 }  
 
 h1{
 font-size: 3em;
 padding: 1em;
+color: white;
 }
 
 h2{
@@ -38,5 +37,15 @@ min-height: 100vh;
 text-align: center;
   }
 
-`
-export {StyledGlobals}
+  button{
+    padding: 0.5em;
+    margin: 0.5em;
+    font-size: 20px;
+  }
+
+
+
+`;
+ 
+export default GlobalStyle;
+
