@@ -15,8 +15,12 @@ padding: 4em 0;
 h1{
 color: white;
 font-family: 'Aboreto', cursive; 
-font-size: 1em;
+font-size: 1.3em;
 margin-top: 0.5em;
+}
+
+input{
+  font-size: 25px;
 }
 
 button{

@@ -113,8 +113,8 @@ const WishListsPage = styled.section`
         .nav{
          ul{
           display: flex;
-         flex-direction: column; 
-         padding: 0 ;
+         flex-direction: column;
+         gap: 1.5em;
          }
             margin: 0;
            

@@ -9,6 +9,13 @@ const GlobalStyle = createGlobalStyle`
   font-family: 'Cormorant', serif;
 }
 
+.App{
+min-height: 100vh; 
+text-align: center;
+display: flex;
+flex-direction: column;
+  }
+
 .container{
   min-height: 100vh;
   padding: 1em;
@@ -31,11 +38,6 @@ h2{
 .section{
   position:relative;
 }
-
-.App{
-min-height: 100vh; 
-text-align: center;
-  }
 
   button{
     padding: 0.5em;

@@ -12,6 +12,10 @@ background-blend-mode: darken;
 background-color: #000000c6;
 background-size: cover;
 min-height: 100vh;
+display: flex;
+width: 100%;
+flex-direction: column;
+justify-content: center;
 padding: 4em 0;
 
 h1{
@@ -25,6 +29,13 @@ color: white;
 font-family: 'Aboreto', cursive; 
 font-size: 1em;
 margin-top: 0.5em;
+}
+
+@media screen and (max-width: 768px) {
+    margin: auto;
+    h1{
+        font-size: 8vw;
+    }
 }
 
 `
