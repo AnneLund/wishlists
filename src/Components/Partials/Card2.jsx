@@ -47,7 +47,7 @@ return(
     <>
 {data.data?.map(wish => {
     return(
-<StyledCard>
+<StyledCard key={wish.id}>
        
             <img src={wish.image}/>
             <figcaption>

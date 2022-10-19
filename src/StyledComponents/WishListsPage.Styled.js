@@ -19,8 +19,8 @@ const WishListsPage = styled.section`
     
   .logout{
     position: absolute;
-    top: 1%;
-    right: 10%;
+    top: 25px;
+    right: 30%;
     padding: 0.5em;
     margin: 0.2em;
   } 
@@ -30,6 +30,7 @@ const WishListsPage = styled.section`
     justify-content: center;
     align-items: center;
     padding: 2em;
+    margin-top: 4em;
 
      ul{
         display: flex;
@@ -53,7 +54,7 @@ const WishListsPage = styled.section`
 
  @media screen and (max-width: 600px) {
     .reb_link{
-     font-size: 4vw;    
+     font-size: 5vw;    
     }
    
  }
@@ -69,7 +70,7 @@ const WishListsPage = styled.section`
 
         @media screen and (max-width: 600px) {
     .val_link{
-     font-size: 4vw;    
+     font-size: 5vw;    
     }
    
  }
@@ -85,7 +86,7 @@ const WishListsPage = styled.section`
 
         @media screen and (max-width: 600px) {
     .anne_link{
-     font-size: 4vw;    
+     font-size: 5vw;    
     }
    
  }
@@ -101,7 +102,7 @@ const WishListsPage = styled.section`
 
         @media screen and (max-width: 600px) {
     .mikkel_link{
-     font-size: 4vw;    
+     font-size: 5vw;    
     }
    
  }
@@ -111,6 +112,7 @@ const WishListsPage = styled.section`
      
      @media screen and (max-width: 600px) {
         .nav{
+         padding-top: 5em;
          ul{
           display: flex;
          flex-direction: column;

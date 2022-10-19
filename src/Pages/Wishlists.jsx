@@ -12,8 +12,6 @@ const Wishlists = () => {
         window.location.replace('/#/login');
       };
 
-    
-
     return(
             <WishListsPage>
      <button className='logout' onClick={() => handleLogOut()}>Log ud</button>

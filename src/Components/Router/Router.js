@@ -11,6 +11,9 @@ import Mikkel from '../../Pages/Mikkel'
 
 const Router = () => {
 
+
+
+
   return (
   
 
@@ -22,8 +25,9 @@ const Router = () => {
           <Route path='/wishlists/rebecca' element={<Rebecca/>}/>
           <Route path='/wishlists/valdemar' element={<Valdemar/>}/>
           <Route path='/wishlists/anne' element={<Anne/>}/>
-          <Route path='/wishlists/mikkel' element={<Mikkel/>}/>
-          </Route>
+  <Route path='/wishlists/mikkel' element={<Mikkel/>}/>
+           
+        </Route>
           
         <Route path='/contact' element={<Contact/>}/>
         <Route path="*" element={<Notfound/>} />

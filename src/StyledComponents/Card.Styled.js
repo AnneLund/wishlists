@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledCard = styled.figure`
-background-color: ${(props) => {return props.wishId === 2 ? "rgba(63, 113, 156, 0.432)": "rgba(128, 0, 128, 0.300)"}};
+background-color: #ffffff3b;
 box-shadow: rgb(0, 0, 0) 10px 5px 10px;
 width: 300px;
 margin: 0 auto;
@@ -38,7 +38,7 @@ figcaption{
 }
 
 @media screen and (max-width: 600px) {
-height: 75vh;
+height: auto;
 }
 
 .title{

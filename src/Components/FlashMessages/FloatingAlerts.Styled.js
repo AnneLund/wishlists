@@ -5,14 +5,14 @@ export const Flashmessage = styled.span`
     display: block;
     position: fixed;
     z-index: 999999;
-    top: 50%;
+    top: 20%;
     left: 50%;
     transform: translateX(-50%);
-    animation: floatingAlert ease-in 5s forwards;
+    animation: floatingAlert ease-in-out 2s forwards;
     animation-fill-mode: forwards;
-    background-color: rgb(24, 157, 24);
+    background-color:  #00ff4885;
     color:  black;
-    padding: 20px;
+    padding: 10px;
     border: solid 2px black;
     border-radius: 3px;
     font-weight: 400;
