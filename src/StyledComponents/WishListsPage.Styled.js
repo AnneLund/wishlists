@@ -20,7 +20,7 @@ const WishListsPage = styled.section`
   .logout{
     position: absolute;
     top: 25px;
-    right: 30%;
+    right: 100px;
     padding: 0.5em;
     margin: 0.2em;
   } 
