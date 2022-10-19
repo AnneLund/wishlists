@@ -17,6 +17,7 @@ width: 100%;
 flex-direction: column;
 justify-content: center;
 padding: 4em 0;
+color: #ffffff3b;
 
 h1{
 color: white;
@@ -25,7 +26,7 @@ margin-top:2em;
 }
 
 h2{
-color: white;
+color: #ffffff;
 font-family: 'Aboreto', cursive; 
 font-size: 1em;
 margin-top: 0.5em;
