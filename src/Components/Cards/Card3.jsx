@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
-import {StyledCard} from '../../StyledComponents/Card.Styled'
+import {StyledCard} from './Card.Styled'
 import Axios from 'axios'
 import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
+import { useLoginStore } from '../../Pages/Login/useLoginStore';
 
 
 const Card = () => {
@@ -11,7 +12,6 @@ const Card = () => {
   const {register, formState: {errors}, handleSubmit} = useForm();
   const [isLoading, setLoading] = useState(true)
   const database = {id, købt: 1};
-
 
   const [data, setData] = useState([])
   useEffect(() => {
@@ -43,19 +43,24 @@ const Card = () => {
         if (!data) return 
     }
 
+    const { userInfo} = useLoginStore((store) => ({
+      userInfo: store.userInfo,
+    }));
+  
+
 return(
     <>
 {data.data?.map(wish => {
     return(
-<StyledCard key={wish.id}>
+<StyledCard style={userInfo === 'Anne' ? {height: '50vh', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
       
             <img src={wish.image}/>
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 25) + "..."}</p> 
-           
-            {wish.købt === 1 ? <p className='bought'>Gaven er købt</p> 
+          
+            {wish.købt === 1 ? <p style={userInfo === 'Anne' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
               : 
-              <>
+              <div style={userInfo === 'Anne' ? {display: 'none'} : {display: 'block'}}>
               <p className='status'>Gaven er ikke købt endnu..</p>
              
               <form onSubmit={handleSubmit(onSubmit)} >
@@ -69,7 +74,7 @@ return(
 
              <p className='link'>Køb gaven <a href={wish.url} target="_blank" rel="noopener noreferrer">her</a></p>
             
-              </>
+              </div>
               
               }
                 </figcaption>

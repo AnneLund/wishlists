@@ -1,11 +1,7 @@
 import styled from 'styled-components'
 
 const StyledForm = styled.form`
-position: fixed;
-background-color: grey;
 padding: 1em;
-top: 10%;
-right: 0;
 
 fieldset{
 display: flex;
@@ -18,6 +14,10 @@ box-shadow: black 5px 5px 5px;
 margin: 1em auto;
 width: 30%;
 padding: 1%;  
+
+legend{
+  font-size: 1.5em;
+}
 }
 
 div{

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import {StyledForm} from '../StyledComponents/Form.Styled';
-import { useFlashMessageStore } from "../Components/FlashMessages/useFlashMessageStore";
+import {StyledForm} from './ContactForm.Styled';
+import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
 
 
 const Contact = () => {
@@ -30,14 +30,13 @@ const Contact = () => {
 
 
   return (
-<>  
     <StyledForm onSubmit={sendEmail}>
 
       <fieldset>
 
         <legend>Dine informationer</legend>
 
-        <div>
+        <div className='inputs'>
  
       <input type="text" placeholder='Navn:' id="first" name="user_name" required />
 
@@ -52,8 +51,6 @@ const Contact = () => {
       </fieldset>
       
     </StyledForm>
-
-    </> 
   );
 };
 

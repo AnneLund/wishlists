@@ -12,6 +12,7 @@
     "react-burger-menu": "^3.0.8",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
+    "react-jwt": "^1.1.7",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sass": "^1.54.6",
@@ -20,7 +21,7 @@
     "zustand": "^4.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --max-http-header-size=1024 start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

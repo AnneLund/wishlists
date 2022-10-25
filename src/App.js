@@ -1,5 +1,4 @@
 import Router from './Components/Router/Router'
-import './index.css'
 
 function App() {
 

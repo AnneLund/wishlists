@@ -1,6 +1,5 @@
 import Axios from "axios";
-
-import API_URL from "./API_URL";
+import {API_URL, API_ANNE, API_MIKKEL, API_REBECCA, API_VALDEMAR} from "./API_URL";
 import authHeader from "./auth-header";
 
 const getAll = (e) => {
@@ -17,14 +16,34 @@ const get = (e, id) => {
   });
 };
 
-const create = (e, data) => {
-  return Axios.post(`${API_URL}/${e}`, data, {
+const create_ANNE = (titel, description, image, url, købt) => {
+  return Axios.post(`${API_ANNE}`,{ titel, description, image, url, købt } , {
+    headers: authHeader(),
+  });
+};
+
+const create_MIKKEL = (titel, description, image, url, købt) => {
+  return Axios.post(`${API_MIKKEL}`, { titel, description, image, url, købt }, {
+    headers: authHeader(),
+  });
+};
+
+const create_REBECCA = (titel, description, image, url, købt) => {
+  return Axios.post(`${API_REBECCA}`, { titel, description, image, url, købt }, {
+    headers: authHeader(),
+  });
+};
+
+const create_VALDEMAR = (titel, description, image, url, købt) => {
+  return Axios.post(`${API_VALDEMAR}`, { titel, description, image, url, købt }, {
     headers: authHeader(),
   });
 };
 
 const login = async (username, password) => {
-  return await Axios.post(`https://next-database.vercel.app/api/users`, { username, password });
+  return await Axios.post(`https://next-database.vercel.app/api/users`, { username, password }, {
+    headers: authHeader(),
+  });
 };
 
 const logout = async () => {
@@ -49,11 +68,14 @@ const remove = (e, id) => {
 const appService = {
   getAll,
   get,
-  create,
+  create_ANNE,
+  create_MIKKEL,
+  create_REBECCA,
+  create_VALDEMAR,
   update,
   remove,
   login,
-  logout,
+  logout
 };
 
 export default appService;

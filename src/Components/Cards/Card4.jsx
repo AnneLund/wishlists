@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
-import {StyledCard} from '../../StyledComponents/Card.Styled'
+import {StyledCard} from './Card.Styled'
 import Axios from 'axios'
 import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
+import { useLoginStore } from '../../Pages/Login/useLoginStore';
 
 
 const Card4 = () => {
@@ -43,17 +44,21 @@ const Card4 = () => {
         if (!data) return 
     }
 
+    const { userInfo} = useLoginStore((store) => ({
+      userInfo: store.userInfo,
+    }));
+
 return(
     <>
 {data.data?.map(wish => {
     return(
-<StyledCard key={wish.id}>
+<StyledCard style={userInfo === 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
       
             <img src={wish.image}/>
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 25) + "..."}</p> 
            
-            {wish.købt === 1 ? <p className='bought'>Gaven er købt</p> 
+            {wish.købt === 1 ? <p style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
               : 
               <>
               <p className='status'>Gaven er ikke købt endnu..</p>

@@ -16,7 +16,6 @@ display: flex;
 width: 100%;
 flex-direction: column;
 justify-content: center;
-padding: 4em 0;
 color: #ffffff3b;
 
 h1{
@@ -43,10 +42,8 @@ margin-top: 0.5em;
 
 return (
 <Content>
- <section>
 <h1>Din webudvikler</h1>
 <h2>- Udvikling og design efter dine behov og ønsker</h2>
- </section>
  </Content>
     )
 }

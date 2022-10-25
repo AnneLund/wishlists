@@ -3,28 +3,35 @@ import Axios from 'axios'
 import {useFlashMessageStore} from "../../Components/FlashMessages/useFlashMessageStore";
 import {useLoginStore} from "./useLoginStore";
 import {Navigate} from 'react-router-dom'
-import Wishlists from "../Wishlists";
-import StyledLoginPage from "../../StyledComponents/LoginPage.Styled";
+import StyledLoginPage from "./LoginPage.Styled";
 
 const LoginPage = () => {
+  const { setLoggedIn, loggedIn } = useLoginStore((store) => ({
+    setLoggedIn: store.setLoggedIn,
+    loggedIn: store.loggedIn,
+    userInfo: store.userInfo,
+    userName: store.username,
+  }));
 
-  const [username, setUername] = useState();
-  const [password, setPassword] = useState ();
   const [data, setData] = useState([]);
   const { setFlashMessage } = useFlashMessageStore();
 
-const { setLoggedIn } = useLoginStore((store) => ({
-   setLoggedIn: store.setLoggedIn,
- }));
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
 
- const { loggedIn } = useLoginStore((store) => ({
-   loggedIn: store.loggedIn,
- }));
+  const handleChange = (evt) => {
+    const value = evt.target.value;
+    setUser({
+      ...user,
+      [evt.target.name]: value,
+    });
+  };
 
   useEffect(()=> {
       const fetchData = async () => {
       const result = await Axios('https://next-database.vercel.app/api/users');
-  
         setData(result.data);
       };
   
@@ -33,7 +40,9 @@ const { setLoggedIn } = useLoginStore((store) => ({
       }, []);
 
 const login = () => {
-
+  const username = user.username;
+  const password = user.password;
+ 
   const userName = data.user.map(use => {
     return use.username;
   })
@@ -41,52 +50,32 @@ const login = () => {
   const passWord = data.user.map(pass => {
     return pass.password;
   })
-    
-  // console.log(userName)
-  // console.log(passWord)
-  // console.log(idx)
 
 if(userName.includes(`${username}`) && passWord.includes(`${password}`)){
-  setFlashMessage('Du er logget ind!')
-  setLoggedIn()
+  setFlashMessage(`Velkommen ${username}!`)
+  setLoggedIn(true, username, data.userInfo, data.userName)
   window.location.replace('/#/wishlists');
 }
 else{
   setFlashMessage('Forkert brugernavn eller password!')
 }
+};
 
-   };
-   
    return (
   <StyledLoginPage>
    {!loggedIn ? 
-         <div className='login'>
-             <h1>Log ind for at se ønskesedlerne</h1>
-             <input
-                type='text'
-                placeholder='Brugernavn'
-                onChange = { (e) => {
-                   setUername (e.target.value);
-                }}
-                /> <br/>
-             <input
-                type='password'
-                placeholder='Kodeord'
-                onChange = { (e) => {
-                   setPassword (e.target.value);
-                }}
-             />
-         <button onClick={() => login()}>Log ind</button>
- </div>
-
+         <form className='login' onSubmit={login}>
+             <h1>Log ind for at få adgang</h1>
+             <input type="text" name="username" placeholder="Brugernavn" onChange={(e) => handleChange(e)} />
+      <input type="password" name="password" placeholder="Password" onChange={(e) => handleChange(e)} />
+      <button>Log ind</button>
+ </form>
 :
+<Navigate to="/wishlists" />
+}
 
-<Wishlists/>
-
-      }
-      </StyledLoginPage>
+</StyledLoginPage>
    );
-
 }
 
 export default LoginPage;

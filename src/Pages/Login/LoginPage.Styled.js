@@ -1,6 +1,5 @@
-import bg from '../Assets/Images/webdevelopment.jpeg'
+import bg from '../../Assets/Images/webdevelopment.jpeg'
 import styled from 'styled-components'
-
 
 const StyledLoginPage = styled.section`
 background-image: url(${bg});
@@ -21,10 +20,11 @@ margin-top: 0.5em;
 
 input{
   font-size: 25px;
+  margin: 0.2em;
 }
 
 button{
-  padding: 1em;
+  padding: 0.5em;
   margin: 1em;
 }
 `

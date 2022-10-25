@@ -15,7 +15,8 @@ position: relative;
 
 img{
     height: 35vh;
-    width: 100%;
+    width: 90%;
+    margin-top: 20px;
 }
    
 figcaption{
@@ -60,8 +61,6 @@ height: auto;
     margin: 1em 0;
     font-size: 25px;
   }
-
-
 `
 
 export {StyledCard};

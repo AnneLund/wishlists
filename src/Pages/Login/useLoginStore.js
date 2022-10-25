@@ -3,13 +3,14 @@ import { persist } from "zustand/middleware";
 
 export const useLoginStore = create(
   persist(
-    (set) => ({
-      loggedIn: false,
-      userName: "",
-      passWord: "",
-      setLoggedIn: (loggedIn, passWord, userName) => set((state) => ({ ...state, loggedIn, passWord, userName })),
-      setLoggedOut: () => set(() => ({loggedIn: false, passWord: "", userName: "" })),
-    }),
-    { name: "user" }
+    (set) => {
+      return {
+        loggedIn: false,
+        userInfo: "",
+        userName: "",
+        setLoggedIn: (loggedIn, userInfo, userName) => set((state) => ({ ...state, loggedIn, userInfo, userName })),
+      };
+    },
+    { name: "token" }
   )
 );
