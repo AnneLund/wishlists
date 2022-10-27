@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import appService from '../../Appservices/App.service';
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
+import { useLoginStore } from "../Login/useLoginStore";
 
 const AnneAdmin = () => {
 const {register, handleSubmit, reset} = useForm();
@@ -22,9 +23,17 @@ const { setFlashMessage } = useFlashMessageStore();
         reset()
       };
 
+      const { userInfo} = useLoginStore((store) => ({
+        userInfo: store.userInfo,
+      }));
+
 return(   
     <section className='admin'>
-    <h1>Indsæt nyt ønske på din ønskeseddel</h1> 
+      <header>
+    <h1>Hej {userInfo}!</h1> 
+    <h3>Tilføj et nyt ønske på din ønskseddel..</h3>
+      </header>
+    
     <form onSubmit={handleSubmit(onSubmit)} >
                     
               <input {...register("titel", { required: "Titlen er påkrævet" })} type="text" placeholder="Titel" />

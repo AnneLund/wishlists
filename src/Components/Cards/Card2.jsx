@@ -4,6 +4,7 @@ import Axios from 'axios'
 import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
+import { Link } from 'react-router-dom';
 
 
 const Card2 = () => {
@@ -51,15 +52,15 @@ return(
     <>
 {data.data?.map(wish => {
     return(
-<StyledCard key={wish.id}>
+<StyledCard key={wish.id} style={userInfo === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
        
             <img src={wish.image}/>
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 20) + "..."}</p> 
 
-            {wish.købt === "1" ? <p style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
+            {wish.købt === "1" ? <p className='bought'>Gaven er købt</p> 
               : 
-              <div style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}}>
+              <div>
               <p className='status'>Gaven er ikke købt endnu..</p>
               <form onSubmit={handleSubmit(onSubmit)} >
                       <button 
@@ -74,7 +75,25 @@ return(
 
               </div>
               }
-                </figcaption>
+
+{userInfo === 'Anne' || 'Mikkel' ? <div className='update'>
+
+<button 
+id="id" 
+onClick={() => {
+const payload = {
+  data: {
+    id: wish.id
+  }
+}
+Axios.delete(`https://next-database.vercel.app/api/wishes2`, payload)}}
+value={wish.id}>Slet ønske</button>   
+
+<button>
+<Link to={"/adminvaldemar/" + wish.id}>Redigér ønske</Link>  
+</button>
+</div> : null}
+</figcaption>
         
 </StyledCard>
     )

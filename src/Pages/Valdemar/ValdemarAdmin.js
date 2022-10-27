@@ -24,16 +24,19 @@ const { setFlashMessage } = useFlashMessageStore();
 
 return(   
     <section className='admin'>
-    <h1>Indsæt nyt ønske på din ønskeseddel</h1> 
+    <header>
+    <h1>Hej Valdemar!</h1> 
+    <h3>Tilføj et nyt ønske på din ønskseddel..</h3>
+      </header>
     <form onSubmit={handleSubmit(onSubmit)} >
                     
               <input {...register("titel", { required: "Titlen er påkrævet" })} type="text" placeholder="Titel" />
 
               <input {...register("description")} type="text" placeholder="Evt beskrivelse"/>
 
-              <input {...register("image", { required: "Billede er påkrævet" })} type="text" placeholder="Billede-url"/>
+              <input {...register("image")} type="text" placeholder="Billede-url"/>
               
-              <input {...register("url", { required: "URL er påkrævet" })} type="text" placeholder="Link til produktet"/>
+              <input {...register("url")} type="text" placeholder="Link til produktet"/>
               
               <button type='submit'>Tilføj til ønskeseddel</button>        
                              

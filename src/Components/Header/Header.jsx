@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link} from "react-router-dom";
 import {MainNav} from './MainNav.styled'
 import {useState, useEffect} from 'react'
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
@@ -8,7 +8,7 @@ import useIsOpenNavStore from './useIsOpenNavStore'
 
 const Header = () => {
 
-  const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore((store) => ({
+  const { setLoggedIn, loggedIn} = useLoginStore((store) => ({
     setLoggedIn: store.setLoggedIn,
     loggedIn: store.loggedIn,
     userInfo: store.userInfo,
@@ -116,7 +116,7 @@ const MenuLink = styled(Link)`
        <span></span>
        <span></span>
       </Hamburger>
-      <Menu isOpen={isOpen}>
+      <Menu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
       <li>
         <MenuLink to="/">Forside</MenuLink>
       </li>
@@ -127,7 +127,7 @@ const MenuLink = styled(Link)`
         {loggedIn ? 
         <>
         <MenuLink to="/wishlists">Ønskesedler</MenuLink>
-        <MenuLink to="/login"><p onClick={logOut}>Log ud</p></MenuLink>
+        <MenuLink to="/login"><p onClick={logOut}>Log ud</p></MenuLink>      
         </>
          :    
         <li>

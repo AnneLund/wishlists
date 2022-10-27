@@ -3,8 +3,7 @@ import styled from 'styled-components'
 const StyledCard = styled.figure`
 background-color: #ffffff3b;
 box-shadow: rgb(0, 0, 0) 10px 5px 10px;
-width: 300px;
-margin: 0 auto;
+width: 15vw;
 height: 75vh;
 color: white;
 display: flex;
@@ -36,10 +35,20 @@ figcaption{
         }
      
     }
+
+    button{
+      padding: 0.2em;
+      a{
+        font-size: 1em;
+        color: black;
+      }
+    }
 }
 
 @media screen and (max-width: 600px) {
 height: auto;
+width: 90%;
+margin: auto;
 }
 
 .title{

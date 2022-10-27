@@ -4,15 +4,19 @@ import Axios from 'axios'
 import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
+import { Link } from 'react-router-dom';
 
 
 const Card4 = () => {
   const [id, setId] = useState("")
   const handleChange = (e) => {setId(e.target.value)}
-  const {register, formState: {errors}, handleSubmit} = useForm();
+  const {handleSubmit} = useForm();
   const [isLoading, setLoading] = useState(true)
   const database = {id, købt: 1};
 
+  const { userInfo } = useLoginStore((store) => ({
+    userInfo: store.userInfo
+  }));
 
   const [data, setData] = useState([])
   useEffect(() => {
@@ -44,10 +48,6 @@ const Card4 = () => {
         if (!data) return 
     }
 
-    const { userInfo} = useLoginStore((store) => ({
-      userInfo: store.userInfo,
-    }));
-
 return(
     <>
 {data.data?.map(wish => {
@@ -60,7 +60,7 @@ return(
            
             {wish.købt === 1 ? <p style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
               : 
-              <>
+              <div style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} >
               <p className='status'>Gaven er ikke købt endnu..</p>
              
               <form onSubmit={handleSubmit(onSubmit)} >
@@ -71,12 +71,28 @@ return(
                       onClick={handleChange}
                       >Denne gave vil jeg købe</button>
             </form>
-
              <p className='link'>Køb gaven <a href={wish.url} target="_blank" rel="noopener noreferrer">her</a></p>
-            
-              </>
+              </div>
               
               }
+
+{userInfo === 'Mikkel' ? <div className='update'>
+
+<button 
+id="id" 
+onClick={() => {
+const payload = {
+  data: {
+    id: wish.id
+  }
+}
+Axios.delete(`https://next-database.vercel.app/api/mikkel`, payload)}}
+value={wish.id}>Slet ønske</button>   
+
+<button>
+<Link to={"/adminmikkel/" + wish.id}>Redigér ønske</Link>  
+</button>
+</div> : null}
                 </figcaption>
       
 </StyledCard>

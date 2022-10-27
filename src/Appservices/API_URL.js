@@ -8,4 +8,6 @@ const API_REBECCA = "https://next-database.vercel.app/api/wishes"
 
 const API_VALDEMAR = "https://next-database.vercel.app/api/wishes2"
 
-export {API_URL, API_ANNE, API_MIKKEL, API_REBECCA, API_VALDEMAR};
+const API = "https://next-database.vercel.app/api"
+
+export {API, API_URL, API_ANNE, API_MIKKEL, API_REBECCA, API_VALDEMAR};

@@ -8,20 +8,23 @@ import Contact from '../../Pages/Contact/Contact'
 import Loginform from '../../Pages/Login/LoginPage'
 import Anne from '../../Pages/Anne/Anne'
 import Mikkel from '../../Pages/Mikkel/Mikkel'
-import { useLoginStore } from '../../Pages/Login/useLoginStore'
 import AnneAdmin from '../../Pages/Anne/AnneAdmin'
 import MikkelAdmin from '../../Pages/Mikkel/MikkelAdmin'
 import RebeccaAdmin from '../../Pages/Rebecca/RebeccaAdmin'
 import ValdemarAdmin from '../../Pages/Valdemar/ValdemarAdmin'
+import AnneUpdate from '../../Pages/Anne/AnneUpdate'
+import MikkelUpdate from '../../Pages/Mikkel/MikkelUpdate'
+import RebeccaUpdate from '../../Pages/Rebecca/RebeccaUpdate'
+import ValdemarUpdate from '../../Pages/Valdemar/ValdemarUpdate'
 
 const Router = () => {
 
-  const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore((store) => ({
-    setLoggedIn: store.setLoggedIn,
-    loggedIn: store.loggedIn,
-    userInfo: store.userInfo,
-    userName: store.username,
-  }));
+  // const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore((store) => ({
+  //   setLoggedIn: store.setLoggedIn,
+  //   loggedIn: store.loggedIn,
+  //   userInfo: store.userInfo,
+  //   userName: store.username,
+  // }));
 
   return (
     <>
@@ -31,9 +34,13 @@ const Router = () => {
         <Route path="/login" element={<Loginform/>} />
 
         <Route path= "/adminanne" element={<AnneAdmin/>}/>
+        <Route path= "/adminanne/:id" element={<AnneUpdate/>}/>
         <Route path= "/adminmikkel" element={<MikkelAdmin/>}/>
+        <Route path= "/adminmikkel/:id" element={<MikkelUpdate/>}/>
         <Route path= "/adminrebecca" element={<RebeccaAdmin/>}/>
+        <Route path= "/adminrebecca/:id" element={<RebeccaUpdate/>}/>
         <Route path= "/adminvaldemar" element={<ValdemarAdmin/>}/>
+        <Route path= "/adminvaldemar/:id" element={<ValdemarUpdate/>}/>
    
         <Route path="/wishlists" element={<Wishlists/>}/>
 

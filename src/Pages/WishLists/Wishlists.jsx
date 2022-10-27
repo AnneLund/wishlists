@@ -90,51 +90,6 @@ const Wishlists = () => {
        </>   
   : null}
 
-
-{userInfo === 'Anne' || 'Mikkel' ? 
-<DropDown2>
-<button onClick={handleOpen2}>Rediger ønskesedler</button>
-{open2 ? <ul onClick={handleOpen2}>
-         <li>
-             <Link to="/adminrebecca">
-                 <p className='reb_link'>
-                 Redigér Rebeccas ønskeseddel
-                 </p>
-                 </Link>
-         </li>
-
-         <li>
-             <Link to="/adminvaldemar">
-                 <p className='val_link'>
-                    Redigér Valdemars ønskeseddel
-                 </p>
-                 </Link>
-         </li>
-
-         {userInfo === 'Anne' ?
-<li>
-<Link to="/adminanne">
-               <p>Redigér din egen ønskeseddel</p> 
-      </Link>  
-</li>
-    
-            
-        : null 
-        }
-         {userInfo === 'Mikkel' ?  
-            <Link to="/adminmikkel">
-              <p> Redigér din egen ønskeseddel</p> 
-            </Link>
-      
-        : null 
-        }
-
-     </ul> : null}
-     
- </DropDown2>
- 
-: null}
-
 </Nav>
        </WishListsPage>       
     )

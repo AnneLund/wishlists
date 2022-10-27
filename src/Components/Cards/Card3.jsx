@@ -4,12 +4,15 @@ import Axios from 'axios'
 import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
+import { useFlashMessageStore } from '../FlashMessages/useFlashMessageStore';
+import { Link, Navigate } from 'react-router-dom';
+
 
 
 const Card = () => {
   const [id, setId] = useState("")
   const handleChange = (e) => {setId(e.target.value)}
-  const {register, formState: {errors}, handleSubmit} = useForm();
+  const {handleSubmit} = useForm();
   const [isLoading, setLoading] = useState(true)
   const database = {id, købt: 1};
 
@@ -18,11 +21,12 @@ const Card = () => {
     fetch('https://next-database.vercel.app/api/anne')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setData(data)
       })
   }, [])
 
+  const { setFlashMessage } = useFlashMessageStore();
+ 
   const onSubmit = () => {
     setLoading(true)
     
@@ -46,13 +50,12 @@ const Card = () => {
     const { userInfo} = useLoginStore((store) => ({
       userInfo: store.userInfo,
     }));
-  
 
 return(
     <>
 {data.data?.map(wish => {
     return(
-<StyledCard style={userInfo === 'Anne' ? {height: '50vh', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
+<StyledCard style={userInfo === 'Anne' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
       
             <img src={wish.image}/>
             <figcaption>
@@ -77,13 +80,31 @@ return(
               </div>
               
               }
-                </figcaption>
+
+{userInfo === 'Anne' ? <div className='update'>
+
+              <button 
+             id="id" 
+             onClick={() => {
+              const payload = {
+                data: {
+                  id: wish.id
+                }
+              }
+              Axios.delete(`https://next-database.vercel.app/api/anne`, payload)}}
+            value={wish.id}>Slet ønske</button>   
+
+<button>
+ <Link to={"/adminanne/" + wish.id}>Redigér ønske</Link>  
+</button>
+              </div> : null}
+            </figcaption>
       
 </StyledCard>
     )
 }
   
-)}    
+)} 
     </>
 )               
 

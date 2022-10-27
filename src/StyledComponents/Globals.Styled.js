@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   padding: 0;
   box-sizing: border-box;
   font-family: 'Cormorant', serif;
+  
 }
 
 .App{
@@ -15,6 +16,7 @@ min-height: 100vh;
 text-align: center;
 display: flex;
 flex-direction: column;
+color: white;
   }
 
 .container{
@@ -83,6 +85,19 @@ h2{
       flex-direction: column;
       gap: 1.5em;
     }
+
+    header{
+       h1{
+      margin: 0;
+    }
+
+    h3{
+      margin: -1em 0 2em 0;
+      font-size: 1.5em;
+    }   
+    }
+
+
 }
 
 .wish{
@@ -93,6 +108,31 @@ background-blend-mode: darken;
 background-color: #000000c6;
 background-size: cover;
 min-height: 110vh;
+display: flex;
+flex-direction: column;
+padding-bottom: 2em;
+justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .wish{
+   
+    h1{
+      padding: 1em 0;
+      font-size: 8vw;
+    }
+  }
+}
+
+.add{
+width: 300px;
+height: auto;
+color: white;
+display: flex;
+justify-content: center;
+position: relative;
+align-items: center;
+font-size: 1em;
 }
 
 .login {
@@ -107,6 +147,11 @@ input {
   width: 250px;
   height: 40px;
   color: black;
+}
+
+.update{
+  display: flex;
+  flex-direction: column;
 }
 
 `;

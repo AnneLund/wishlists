@@ -2,20 +2,18 @@ import styled from 'styled-components'
 
 const Grid = styled.section`
 display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr;
-gap: 4em;
-margin: 2em;
-padding: 4em 0;
-
-padding: 4em 0;
-justify-content: center;
+grid-template-columns: auto auto auto auto;
+gap: 5em;
+margin: auto;
+padding: 0;
 position: relative;
-margin: 0;
 
 @media screen and (max-width: 600px) {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+       grid-template-columns: auto;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
 }
-
 `
 export default Grid;

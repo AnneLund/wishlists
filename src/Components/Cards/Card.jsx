@@ -3,6 +3,8 @@ import {StyledCard} from './Card.Styled';
 import Axios from 'axios'
 import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
+import { Link } from 'react-router-dom';
+import { useLoginStore } from '../../Pages/Login/useLoginStore';
 
 
 const Card = () => {
@@ -11,6 +13,10 @@ const Card = () => {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const [isLoading, setLoading] = useState(true)
     const database = {id, købt: 1};
+
+    const { userInfo } = useLoginStore((store) => ({
+        userInfo: store.userInfo
+      }));
 
     const [data, setData] = useState([])
     useEffect(() => {
@@ -47,7 +53,7 @@ return(
     <>
 {data.data?.map(wish => {
     return(
-<StyledCard key={wish.id}>
+<StyledCard key={wish.id} style={userInfo === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
             <img src={wish.image}/>
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 25) + "..."}</p> 
@@ -67,6 +73,24 @@ return(
               <p className='link'>Køb gaven <a href={wish.url} target="_blank" rel="noopener noreferrer">her</a></p>
               </>
               }
+
+{userInfo === 'Mikkel' || 'Anne' ? <div className='update'>
+
+<button 
+id="id" 
+onClick={() => {
+const payload = {
+  data: {
+    id: wish.id
+  }
+}
+Axios.delete(`https://next-database.vercel.app/api/wishes`, payload)}}
+value={wish.id}>Slet ønske</button>   
+
+<button>
+<Link to={"/adminrebecca/" + wish.id}>Redigér ønske</Link>  
+</button>
+</div> : null}
                 </figcaption>
 </StyledCard>
     )
