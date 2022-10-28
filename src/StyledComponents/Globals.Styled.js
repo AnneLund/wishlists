@@ -72,7 +72,7 @@ h2{
     background-blend-mode: darken;
     background-color: #000000c6;
     background-size: cover;
- 
+ padding: 1em 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -56,23 +56,12 @@ console.log(data)
           [evt.target.name]: value,
         });
       };
-
-      const idx = data.map(wi => {
-        return wi.id
-      })
-
-      let text = "";
-for (let i = 0; i < idx.length; i++) {
-  text += idx[i];
-}
-
-console.log(text)
-
+      
 return(   
     <>
     {data?.map(wish => {
         return(   
-            <section style={text < 2 ? {display: 'block'} : {display:'none'}} className="admin" key={wish.id}>
+            <section className="admin" key={wish.id}>
        <header>          
     <h1>Hej {userInfo}!</h1> 
     <h3>Redigér ønsket '{wish.titel}'</h3>
