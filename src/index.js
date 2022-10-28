@@ -8,6 +8,7 @@ import Header from './Components/Header/Header';
 import FlashMessages from './Components/FlashMessages/FlashMessages';
 import Modal from './Components/Modal/Modal';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>

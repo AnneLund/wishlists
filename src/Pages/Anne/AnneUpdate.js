@@ -1,13 +1,10 @@
 import { useForm } from "react-hook-form";
-import appService from '../../Appservices/App.service';
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
 import { useLoginStore } from "../Login/useLoginStore";
 import {useState, useEffect} from 'react'
-import {useParams} from 'react-router-dom'
 import Axios from "axios";
 
 const AnneUpdate = () => {
-const {register, handleSubmit, reset} = useForm();
 const { setFlashMessage } = useFlashMessageStore();
 
 const [data, setData] = useState([])
@@ -27,6 +24,9 @@ useEffect(() => {
     })
 }, [])
 
+
+const {reset} = useForm();
+
     const onSubmit = (id) => {
 
        const data = {
@@ -36,6 +36,7 @@ useEffect(() => {
             image: wish.image,
             url: wish.url,
        }
+     
 console.log(data)
       Axios.put(`https://next-database.vercel.app/api/anne`, data)
       .then(response => {
@@ -54,9 +55,10 @@ console.log(data)
         setWish({
           ...wish,
           [evt.target.name]: value,
-        });
+        });   
       };
-      
+
+
 return(   
     <>
     {data?.map(wish => {
@@ -69,7 +71,9 @@ return(
   
       <form onSubmit={(e) => {
         e.preventDefault()
-        onSubmit(wish.id)}} >
+        onSubmit(wish.id)
+        setFlashMessage(`Ønsket er opdateret!`)
+        }} >
                     
               <input name="titel" type="text" placeholder="Titel" onChange={(e) => handleChange(e)} />
 
@@ -79,7 +83,8 @@ return(
               
               <input name="url" type="text" placeholder="Link til produktet" onChange={(e) => handleChange(e)}/>
               
-              <button type='submit'>Opdatér ønskeseddel</button>                        
+              <button type='submit'>Opdatér ønskeseddel</button>   
+                             
     </form>  
     </section>    
         ) 
