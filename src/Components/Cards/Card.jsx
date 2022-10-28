@@ -5,6 +5,8 @@ import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
 import { Link } from 'react-router-dom';
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
+import { useModalStore } from "../Modal/useModalStore";
+import RebeccaUpdate from '../../Pages/Rebecca/RebeccaUpdate';
 
 
 const Card = () => {
@@ -13,6 +15,7 @@ const Card = () => {
     const {register, formState: {errors}, handleSubmit} = useForm();
     const [isLoading, setLoading] = useState(true)
     const database = {id, købt: 1};
+    const { setModalPayload } = useModalStore();
 
     const { userInfo } = useLoginStore((store) => ({
         userInfo: store.userInfo
@@ -48,6 +51,9 @@ const onSubmit = () => {
         if (!data) return 
     }
 
+    const update = () => {
+      setModalPayload(<RebeccaUpdate/>)
+    }
 
 return(
     <>
@@ -85,11 +91,12 @@ const payload = {
   }
 }
 Axios.delete(`https://next-database.vercel.app/api/wishes`, payload)}}
-value={wish.id}>Slet ønske</button>   
+value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
-<button>
-<Link to={"/adminrebecca/" + wish.id}>Redigér ønske</Link>  
-</button>
+<button 
+id="id" 
+onClick={update}
+value={wish.id}><p className='deleteWish'>Redigér ønske</p></button> 
 </div> : null}
                 </figcaption>
 </StyledCard>

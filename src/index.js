@@ -6,6 +6,7 @@ import {HashRouter} from 'react-router-dom'
 import GlobalStyle from './StyledComponents/Globals.Styled';
 import Header from './Components/Header/Header';
 import FlashMessages from './Components/FlashMessages/FlashMessages';
+import Modal from './Components/Modal/Modal';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +15,7 @@ root.render(
   <Header/>
     <GlobalStyle/>
     <FlashMessages/> 
+    <Modal/>
     <App />
   </React.StrictMode>
   </HashRouter>

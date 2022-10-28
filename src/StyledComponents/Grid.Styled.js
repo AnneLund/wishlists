@@ -10,10 +10,10 @@ position: relative;
 
 @media screen and (max-width: 600px) {
         display: grid;
-       grid-template-columns: auto;
+        grid-template-columns: auto;
         justify-content: center;
-        margin: 0;
-        padding: 0;
+        width: 100%;
+        margin: auto;
 }
 `
 export default Grid;

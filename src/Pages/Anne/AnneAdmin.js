@@ -2,11 +2,20 @@ import { useForm } from "react-hook-form";
 import appService from '../../Appservices/App.service';
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
 import { useLoginStore } from "../Login/useLoginStore";
+import {useState, useEffect} from 'react'
 
 const AnneAdmin = () => {
 const {register, handleSubmit, reset} = useForm();
 const { setFlashMessage } = useFlashMessageStore();
 
+const [data, setData] = useState([])
+useEffect(() => {
+  fetch('https://next-database.vercel.app/api/anne')
+    .then((res) => res.json())
+    .then((data) => {
+      setData(data.data)
+    })
+}, [])
 
     const onSubmit = (submitdata, e) => {
       e.preventDefault();

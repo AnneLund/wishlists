@@ -87,7 +87,7 @@ const payload = {
   }
 }
 Axios.delete(`https://next-database.vercel.app/api/mikkel`, payload)}}
-value={wish.id}>Slet ønske</button>   
+value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
 <button>
 <Link to={"/adminmikkel/" + wish.id}>Redigér ønske</Link>  

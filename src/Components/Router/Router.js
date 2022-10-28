@@ -35,10 +35,13 @@ const Router = () => {
 
         <Route path= "/adminanne" element={<AnneAdmin/>}/>
         <Route path= "/adminanne/:id" element={<AnneUpdate/>}/>
+        
         <Route path= "/adminmikkel" element={<MikkelAdmin/>}/>
         <Route path= "/adminmikkel/:id" element={<MikkelUpdate/>}/>
+
         <Route path= "/adminrebecca" element={<RebeccaAdmin/>}/>
         <Route path= "/adminrebecca/:id" element={<RebeccaUpdate/>}/>
+
         <Route path= "/adminvaldemar" element={<ValdemarAdmin/>}/>
         <Route path= "/adminvaldemar/:id" element={<ValdemarUpdate/>}/>
    

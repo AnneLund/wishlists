@@ -66,14 +66,13 @@ h2{
   }
 
 .admin{
-    background-image: url(${stars});
+    /* background-image: url(${stars});
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-blend-mode: darken;
     background-color: #000000c6;
-    background-size: cover;
-    min-height: 100vh;
-    padding: 4em 0;
+    background-size: cover; */
+ 
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -133,6 +132,7 @@ justify-content: center;
 position: relative;
 align-items: center;
 font-size: 1em;
+margin: auto;
 }
 
 .login {

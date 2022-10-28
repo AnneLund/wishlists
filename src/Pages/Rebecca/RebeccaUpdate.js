@@ -57,9 +57,22 @@ console.log(data)
         });
       };
 
+      // const idx = data.map(wi => {
+      //   return wi.id
+      // })
+
+      // let text = "";
+      // for (let i = 0; i < idx.length; i++) {
+      //   text += idx[i];
+      // }
+
+      // console.log(text)
+      
+
 return(   
     <>
     {data?.map(wish => {
+    
         return(   
             <section className="admin" key={wish.id}>
        <header>          

@@ -14,6 +14,7 @@ const Anne = () => {
     loggedIn: store.loggedIn,
     userInfo: store.userInfo
   }));
+  
 
   const Add = styled.figure`
     display: flex; 

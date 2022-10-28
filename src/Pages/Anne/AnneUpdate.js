@@ -57,11 +57,22 @@ console.log(data)
         });
       };
 
+      const idx = data.map(wi => {
+        return wi.id
+      })
+
+      let text = "";
+for (let i = 0; i < idx.length; i++) {
+  text += idx[i];
+}
+
+console.log(text)
+
 return(   
     <>
     {data?.map(wish => {
         return(   
-            <section className="admin" key={wish.id}>
+            <section style={text < 2 ? {display: 'block'} : {display:'none'}} className="admin" key={wish.id}>
        <header>          
     <h1>Hej {userInfo}!</h1> 
     <h3>Redigér ønsket '{wish.titel}'</h3>
@@ -79,7 +90,7 @@ return(
               
               <input name="url" type="text" placeholder="Link til produktet" onChange={(e) => handleChange(e)}/>
               
-              <button type='submit'>Opdatér ønsket</button>                        
+              <button type='submit'>Opdatér ønskeseddel</button>                        
     </form>  
     </section>    
         ) 

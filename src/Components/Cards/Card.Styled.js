@@ -45,6 +45,10 @@ figcaption{
     }
 }
 
+.deleteWish{
+  color: red;
+}
+
 @media screen and (max-width: 600px) {
 height: auto;
 width: 90%;
