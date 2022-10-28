@@ -126,8 +126,13 @@ const MenuLink = styled(Link)`
      
         {loggedIn ? 
         <>
-        <MenuLink to="/wishlists">Ønskesedler</MenuLink>
-        <MenuLink to="/login"><p onClick={logOut}>Log ud</p></MenuLink>      
+        <li>
+        <MenuLink to="/wishlists">Ønskesedler</MenuLink>  
+        </li>
+        <li>
+         <MenuLink to="/login"><p onClick={logOut}>Log ud</p></MenuLink>      
+         
+        </li>
         </>
          :    
         <li>

@@ -20,6 +20,7 @@ li{
 }
 
 @media (max-width: 768px){
+    background-color: black;
     padding: 1rem;
     height: auto;
     display: flex;
@@ -27,6 +28,7 @@ li{
 
     li{
         width: 100%;
+        background-color:  rgba(0, 0, 255, 0.582);;
     }
 }
 `

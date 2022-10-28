@@ -18,6 +18,8 @@ const Card4 = () => {
     userInfo: store.userInfo
   }));
 
+
+
   const [data, setData] = useState([])
   useEffect(() => {
     fetch('https://next-database.vercel.app/api/mikkel')
@@ -47,6 +49,8 @@ const Card4 = () => {
         if (isLoading) return <Loading/>
         if (!data) return 
     }
+
+    console.log(data)
 
 return(
     <>

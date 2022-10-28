@@ -27,23 +27,40 @@ useEffect(() => {
     })
 }, [])
 
-    const onSubmit = (id) => {
-
-       const data = {
-            id,
-            titel: wish.titel,
-            description: wish.description,
-            image: wish.image,
-            url: wish.url,
-       }
+const onSubmit = (id) => {
+  const data = {
+       id,
+       titel: wish.titel,
+       description: wish.description,
+       image: wish.image,
+       url: wish.url,
+  }
 console.log(data)
-      Axios.put(`https://next-database.vercel.app/api/mikkel`, data)
-      .then(response => {
-          console.log(response.data)
-      })
+ Axios.put(`https://next-database.vercel.app/api/mikkel`, data)
+ .then(response => {
+     console.log(response.data)
+ })
+
+ .catch(error => error);
+ }
+
+//     const onSubmit = (id) => {
+
+//        const data = {
+//             id,
+//             titel: wish.titel,
+//             description: wish.description,
+//             image: wish.image,
+//             url: wish.url,
+//        }
+// console.log(data)
+//       Axios.put(`https://next-database.vercel.app/api/mikkel`, data)
+//       .then(response => {
+//           console.log(response.data)
+//       })
   
-      .catch(error => error);
-      }
+//       .catch(error => error);
+//       }
 
       const { userInfo} = useLoginStore((store) => ({
         userInfo: store.userInfo,

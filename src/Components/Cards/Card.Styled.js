@@ -4,7 +4,7 @@ const StyledCard = styled.figure`
 background-color: #ffffff3b;
 box-shadow: rgb(0, 0, 0) 10px 5px 10px;
 width: 15vw;
-height: 75vh;
+height: auto;
 color: white;
 display: flex;
 flex-direction: column;

@@ -35,7 +35,7 @@ const Card = () => {
     
         Axios.put(`https://next-database.vercel.app/api/anne`, database)
         .then(response => {
-            this.setState({})
+
             console.log(response.data)
         })
     
@@ -53,10 +53,6 @@ const Card = () => {
     const { userInfo} = useLoginStore((store) => ({
       userInfo: store.userInfo,
     }));
-
-    const update = () => {
-      setModalPayload(<AnneUpdate/>)
-    }
 
 return(
     <>
@@ -103,8 +99,8 @@ return(
             }}
             value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
-<button onClick={update}>
-Redigér ønske  
+<button>
+<Link to={"/adminanne/" + wish.id}>Redigér ønske</Link>  
 </button>
               </div> : null}
             </figcaption>

@@ -15,14 +15,9 @@ const Wishlists = () => {
       }));
 
       const [open, setOpen] = React.useState(false);
-      const [open2, setOpen2] = React.useState(false);
 
       const handleOpen = () => {
         setOpen(!open);
-      };
-
-      const handleOpen2 = () => {
-        setOpen2(!open2);
       };
 
     const WishListsPage = styled.section`

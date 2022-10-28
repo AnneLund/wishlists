@@ -58,6 +58,12 @@ const update_ANNE = (titel, description, image, url, købt, id) => {
   });
 };
 
+const update_MIKKEL = (titel, description, image, url) => {
+  return Axios.put(`${API_MIKKEL}`, { titel, description, image, url}, {
+    headers: authHeader(),
+  });
+};
+
 const remove = (id) => {
   return Axios.remove(`${API_ANNE}`, {id}, {
     headers: authHeader(),
@@ -72,6 +78,7 @@ const appService = {
   create_REBECCA,
   create_VALDEMAR,
   update_ANNE,
+  update_MIKKEL,
   remove,
   login,
   logout

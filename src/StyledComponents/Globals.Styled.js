@@ -66,12 +66,12 @@ h2{
   }
 
 .admin{
-    /* background-image: url(${stars});
+    background-image: url(${stars});
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-blend-mode: darken;
     background-color: #000000c6;
-    background-size: cover; */
+    background-size: cover;
  
     display: flex;
     flex-direction: column;

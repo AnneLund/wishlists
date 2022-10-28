@@ -32,11 +32,10 @@ const Card = () => {
     }, [])
 
 const onSubmit = () => {
-    setLoading(true)
+
     
         Axios.put(`https://next-database.vercel.app/api/wishes`, database)
         .then(response => {
-            this.setState({})
             console.log(response.data)
         })
     
@@ -44,11 +43,6 @@ const onSubmit = () => {
         setTimeout(function(){
             window.location.reload(1)
         }, 3000)
-    
-        setLoading(false)
-    
-        if (isLoading) return <Loading/>
-        if (!data) return 
     }
 
     const update = () => {
@@ -93,10 +87,9 @@ const payload = {
 Axios.delete(`https://next-database.vercel.app/api/wishes`, payload)}}
 value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
-<button 
-id="id" 
-onClick={update}
-value={wish.id}><p className='deleteWish'>Redigér ønske</p></button> 
+<button>
+<Link to={"/adminrebecca/" + wish.id}>Redigér ønske</Link>  
+</button>
 </div> : null}
                 </figcaption>
 </StyledCard>
