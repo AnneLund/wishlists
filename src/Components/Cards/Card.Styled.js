@@ -3,7 +3,7 @@ import styled from 'styled-components'
 const StyledCard = styled.figure`
 background-color: #ffffff3b;
 box-shadow: rgb(0, 0, 0) 10px 5px 10px;
-width: 15vw;
+width: 20vw;
 height: auto;
 color: white;
 display: flex;
@@ -47,6 +47,10 @@ figcaption{
 
 .deleteWish{
   color: red;
+}
+
+.description{
+  margin: 1em auto 0 auto;
 }
 
 @media screen and (max-width: 600px) {

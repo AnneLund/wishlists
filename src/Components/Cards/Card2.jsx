@@ -58,6 +58,8 @@ return(
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 20) + "..."}</p> 
 
+            <p className='description'>{wish.description}</p>
+
             {wish.købt === "1" ? <p className='bought'>Gaven er købt</p> 
               : 
               <div>

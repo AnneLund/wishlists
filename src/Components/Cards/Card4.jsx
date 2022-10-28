@@ -61,6 +61,8 @@ return(
             <img src={wish.image}/>
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 25) + "..."}</p> 
+
+            <p className='description'>{wish.description}</p>
            
             {wish.købt === 1 ? <p style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
               : 

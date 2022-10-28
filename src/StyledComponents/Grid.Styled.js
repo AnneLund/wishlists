@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Grid = styled.section`
 display: grid;
-grid-template-columns: auto auto auto auto;
+grid-template-columns: auto auto auto;
 gap: 5em;
 margin: auto;
 padding: 0;

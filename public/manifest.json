@@ -1,11 +1,11 @@
 {
-    "theme_color": "#284ebe",
-    "background_color": "#f1ece8",
+    "theme_color": "#4a90e2",
+    "background_color": "#4e35f6",
     "display": "standalone",
     "scope": "/",
-    "start_url": "/login",
-    "name": "Wish",
-    "short_name": "wish",
+    "start_url": "/#/login",
+    "name": "Wishes",
+    "short_name": "Wishes",
     "icons": [
         {
             "src": "/images/icon-192x192.png",

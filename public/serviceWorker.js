@@ -1,4 +1,4 @@
-const CACHE_NAME = 'version-3';
+const CACHE_NAME = 'version-6';
 const urlsToCache = ['index.html', 'offline.html'];
 let staticUrlsToCache = ["images/icon-192x192.png", "images/icon-256x256.png", "images/icon-384x384.png", "images/icon-512x512.png"];
 
