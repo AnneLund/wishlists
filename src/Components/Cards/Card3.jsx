@@ -14,10 +14,9 @@ import AnneUpdate from '../../Pages/Anne/AnneUpdate';
 const Card = () => {
   const [id, setId] = useState("")
   const handleChange = (e) => {setId(e.target.value)}
-  const {handleSubmit} = useForm();
+  const {handleSubmit, reset} = useForm();
   const [isLoading, setLoading] = useState(true)
   const database = {id, købt: 1};
-  const { setModalPayload } = useModalStore();
 
   const [data, setData] = useState([])
   useEffect(() => {
@@ -88,18 +87,20 @@ return(
 
 {userInfo === 'Anne' ? <div className='update'>
 
-              <button 
-             id="id" 
-             onClick={() => {
-              const payload = {
-                data: {
-                  id: wish.id
-                }
-              }
-              Axios.delete(`https://next-database.vercel.app/api/anne`, payload)
-              window.location.reload(false);
-            }}
-            value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
+<button 
+id="id" 
+onClick={() => {
+const payload = {
+  data: {
+    id: wish.id
+  }
+}
+Axios.delete(`https://next-database.vercel.app/api/anne`, payload)
+setFlashMessage('Ønsket er slettet!')
+reset()
+window.location.reload()
+}}
+value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
 <button>
 <Link to={"/adminanne/" + wish.id}>Redigér ønske</Link>  

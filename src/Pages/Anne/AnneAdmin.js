@@ -30,6 +30,7 @@ useEffect(() => {
         fetchResults();
         setFlashMessage(`Ønsket er tilføjet!`)
         reset()
+        window.location.reload()
       };
 
       const { userInfo} = useLoginStore((store) => ({

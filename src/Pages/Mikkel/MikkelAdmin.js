@@ -7,26 +7,21 @@ const MikkelAdmin = () => {
 const {register, handleSubmit, reset} = useForm();
 const { setFlashMessage } = useFlashMessageStore();
 
-    const onSubmit = (submitdata, e) => {
-     e.preventDefault();
-        async function fetchResults() {
-       
-          try {
-            await appService.create_MIKKEL(submitdata.titel, submitdata.description, submitdata.image, submitdata.url, submitdata.købt= '0');
-            // if (response.data) {
-            //   localStorage.setItem("user", JSON.stringify(response.data));
-            //    setLoggedIn();
-            //  }
-       
-          } catch (error) {
-            console.log(error);
-          }
-        }
-        fetchResults();
-        setFlashMessage(`Ønsket er oprettet!`)
-      reset()
-        
-      };
+const onSubmit = (submitdata, e) => {
+  e.preventDefault();
+    async function fetchResults() {
+      try {
+        await appService.create_MIKKEL(submitdata.titel, submitdata.description, submitdata.image, submitdata.url, submitdata.købt= '0');
+    
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchResults();
+    setFlashMessage(`Ønsket er tilføjet!`)
+    reset()
+    window.location.reload()
+  };
 
       const { userInfo} = useLoginStore((store) => ({
         userInfo: store.userInfo,

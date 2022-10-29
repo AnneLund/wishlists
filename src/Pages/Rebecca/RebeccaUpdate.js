@@ -36,13 +36,16 @@ useEffect(() => {
             image: wish.image,
             url: wish.url,
        }
-console.log(data)
+
       Axios.put(`https://next-database.vercel.app/api/wishes`, data)
       .then(response => {
           console.log(response.data)
       })
   
       .catch(error => error);
+
+      setFlashMessage('Ønsket er opdateret!')
+      window.location.replace('/wishlists/anne#/wishlists/rebecca')
       }
 
       const { userInfo} = useLoginStore((store) => ({

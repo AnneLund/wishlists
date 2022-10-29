@@ -5,15 +5,17 @@ import Loading from '../../Components/Partials/Loading'
 import { useForm } from "react-hook-form";
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
 import { Link } from 'react-router-dom';
+import { useFlashMessageStore } from '../FlashMessages/useFlashMessageStore';
 
 
 const Card2 = () => {
   const [id, setId] = useState("")
   const handleChange = (e) => {setId(e.target.value)}
-  const {register, formState: {errors}, handleSubmit} = useForm(); 
+  const {reset, handleSubmit} = useForm(); 
   const [isLoading, setLoading] = useState(true)
  const database = {id, købt: 1};
  const [data, setData] = useState([])
+ const { setFlashMessage } = useFlashMessageStore();
 
     useEffect(() => {
       fetch('https://next-database.vercel.app/api/wishes2')
@@ -88,7 +90,11 @@ const payload = {
     id: wish.id
   }
 }
-Axios.delete(`https://next-database.vercel.app/api/wishes2`, payload)}}
+Axios.delete(`https://next-database.vercel.app/api/wishes2`, payload)
+setFlashMessage('Ønsket er slettet!')
+reset()
+window.location.reload()
+}}
 value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
 <button>

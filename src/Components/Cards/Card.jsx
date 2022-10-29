@@ -7,15 +7,16 @@ import { Link } from 'react-router-dom';
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
 import { useModalStore } from "../Modal/useModalStore";
 import RebeccaUpdate from '../../Pages/Rebecca/RebeccaUpdate';
+import { useFlashMessageStore } from '../FlashMessages/useFlashMessageStore';
 
 
 const Card = () => {
     const [id, setId] = useState("")
     const handleChange = (e) => {setId(e.target.value)}
-    const {register, formState: {errors}, handleSubmit} = useForm();
+    const {reset, handleSubmit} = useForm();
     const [isLoading, setLoading] = useState(true)
     const database = {id, købt: 1};
-    const { setModalPayload } = useModalStore();
+    const { setFlashMessage } = useFlashMessageStore();
 
     const { userInfo } = useLoginStore((store) => ({
         userInfo: store.userInfo
@@ -43,10 +44,6 @@ const onSubmit = () => {
         setTimeout(function(){
             window.location.reload(1)
         }, 3000)
-    }
-
-    const update = () => {
-      setModalPayload(<RebeccaUpdate/>)
     }
 
 return(
@@ -85,7 +82,11 @@ const payload = {
     id: wish.id
   }
 }
-Axios.delete(`https://next-database.vercel.app/api/wishes`, payload)}}
+Axios.delete(`https://next-database.vercel.app/api/wishes`, payload)
+setFlashMessage('Ønsket er slettet!')
+reset()
+window.location.reload()
+}}
 value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
 <button>

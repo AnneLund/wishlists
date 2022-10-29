@@ -37,7 +37,7 @@ const {reset} = useForm();
             url: wish.url,
        }
      
-console.log(data)
+
       Axios.put(`https://next-database.vercel.app/api/anne`, data)
       .then(response => {
           console.log(response.data)
@@ -73,6 +73,7 @@ return(
         e.preventDefault()
         onSubmit(wish.id)
         setFlashMessage(`Ønsket er opdateret!`)
+        window.location.replace('/wishlists/anne#/wishlists/anne')
         }} >
                     
               <input name="titel" type="text" placeholder="Titel" onChange={(e) => handleChange(e)} />

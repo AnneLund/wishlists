@@ -1,46 +1,46 @@
-const CACHE_NAME = 'version-6';
+const CACHE_NAME = 'version-8';
 const urlsToCache = ['index.html', 'offline.html'];
 let staticUrlsToCache = ["images/icon-192x192.png", "images/icon-256x256.png", "images/icon-384x384.png", "images/icon-512x512.png"];
 
 const self = this;
 
-// // Install SW
-// self.addEventListener('install', (event) => {
-// 	event.waitUntil(
-// 		caches.open(CACHE_NAME).then((cache) => {
-// 			console.log('Opened cache');
+// Install SW
+self.addEventListener('install', (event) => {
+	event.waitUntil(
+		caches.open(CACHE_NAME).then((cache) => {
+			console.log('Opened cache');
 
-// 			return cache.addAll(urlsToCache);
-// 		})
-// 	);
-// });
+			return cache.addAll(urlsToCache);
+		})
+	);
+});
 
-// // Listen for requests
-// self.addEventListener('fetch', (event) => {
-// 	event.respondWith(
-// 		caches.match(event.request).then(() => {
-// 			return fetch(event.request).catch(() => caches.match('offline.html'));
-// 		})
-// 	);
-// });
+// Listen for requests
+self.addEventListener('fetch', (event) => {
+	event.respondWith(
+		caches.match(event.request).then(() => {
+			return fetch(event.request).catch(() => caches.match('offline.html'));
+		})
+	);
+});
 
-// // Activate the SW
-// self.addEventListener('activate', (event) => {
-// 	const cacheWhitelist = [];
-// 	cacheWhitelist.push(CACHE_NAME);
+// Activate the SW
+self.addEventListener('activate', (event) => {
+	const cacheWhitelist = [];
+	cacheWhitelist.push(CACHE_NAME);
 
-// 	event.waitUntil(
-// 		caches.keys().then((cacheNames) =>
-// 			Promise.all(
-// 				cacheNames.map((cacheName) => {
-// 					if (!cacheWhitelist.includes(cacheName)) {
-// 						return caches.delete(cacheName);
-// 					}
-// 				})
-// 			)
-// 		)
-// 	);
-// });
+	event.waitUntil(
+		caches.keys().then((cacheNames) =>
+			Promise.all(
+				cacheNames.map((cacheName) => {
+					if (!cacheWhitelist.includes(cacheName)) {
+						return caches.delete(cacheName);
+					}
+				})
+			)
+		)
+	);
+});
 
 
 // let staticUrlsToCache = ["/Assets/Images/anne.jpg", "/Assets/Images/icon-192x192.png", "Assets/Images/icon-384x384.png", "Assets/Images/icon-256x256.png", "Assets/Images/icon-512x512.png", "Assets/Styles/style.css"];
@@ -49,15 +49,15 @@ const self = this;
 //Når staticUrlsTocache skal opdateres, skal cacheAllowList's value også ændres. Dermed installeres cachen forfra
 //og sørger for at alt er opdateret.
 
-self.addEventListener('install', event => {
-    console.log('installing..')
+// self.addEventListener('install', event => {
+//     console.log('installing..')
 
-    event.waitUntil(
-        console.log('Cache of Statics'),
-        caches.open(urlsToCache[0])
-        .then(cache => cache.addAll(staticUrlsToCache))
-    )
-})
+//     event.waitUntil(
+//         console.log('Cache of Statics'),
+//         caches.open(urlsToCache[0])
+//         .then(cache => cache.addAll(staticUrlsToCache))
+//     )
+// })
 
 // self.addEventListener('fetch', (event) => {
 //     return;
@@ -96,24 +96,24 @@ self.addEventListener('install', event => {
 //Stale-while-revalidate
 //CACHE ALT UNDTAGEN API
 
-self.addEventListener('fetch', (event) => {
-    //Hvis der er billeder i cachen, henter den dem først. Derefter tjekker den om der er nogle på netværket
-    //som den derefter cacher.
+// self.addEventListener('fetch', (event) => {
+//     //Hvis der er billeder i cachen, henter den dem først. Derefter tjekker den om der er nogle på netværket
+//     //som den derefter cacher.
 
-        console.log('Fandt noget at hente til cachen..')
-      event.respondWith(caches.open(urlsToCache).then((cache) => {
-        return cache.match(event.request).then((cachedResponse) => {
+//         console.log('Fandt noget at hente til cachen..')
+//       event.respondWith(caches.open(urlsToCache).then((cache) => {
+//         return cache.match(event.request).then((cachedResponse) => {
 
-          const fetchedResponse = fetch(event.request).then((networkResponse) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
+//           const fetchedResponse = fetch(event.request).then((networkResponse) => {
+//             cache.put(event.request, networkResponse.clone());
+//             return networkResponse;
+//           });
   
-          return cachedResponse || fetchedResponse;
-        });
-      }));
+//           return cachedResponse || fetchedResponse;
+//         });
+//       }));
       
-  });
+//   });
 
 // self.addEventListener('activate', (event) => {
 //     event.waitUntil(caches.keys().then((keys) => {
