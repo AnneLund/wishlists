@@ -86,7 +86,14 @@ return(
   
       <form onSubmit={(e) => {
         e.preventDefault()
-        onSubmit(wish.id)}} >
+        onSubmit(wish.id)
+        setFlashMessage(`Ønsket er opdateret!`)
+        setTimeout(() => {
+         window.location.replace('/wishlists/mikkel#/wishlists/mikkel')  
+        }, 2000)
+      }
+        
+        } >
                     
               <input name="titel" type="text" placeholder="Titel" onChange={(e) => handleChange(e)} />
 

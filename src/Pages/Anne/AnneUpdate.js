@@ -73,7 +73,9 @@ return(
         e.preventDefault()
         onSubmit(wish.id)
         setFlashMessage(`Ønsket er opdateret!`)
-        window.location.replace('/wishlists/anne#/wishlists/anne')
+        setTimeout(() => {
+         window.location.replace('/wishlists/anne#/wishlists/anne')  
+        }, 2000)
         }} >
                     
               <input name="titel" type="text" placeholder="Titel" onChange={(e) => handleChange(e)} />

@@ -20,7 +20,9 @@ const onSubmit = (submitdata, e) => {
     fetchResults();
     setFlashMessage(`Ønsket er tilføjet!`)
     reset()
-    window.location.reload()
+    setTimeout(() => {
+      window.location.reload()   
+      }, 2000)
   };
 
       const { userInfo} = useLoginStore((store) => ({

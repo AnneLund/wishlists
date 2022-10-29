@@ -19,7 +19,10 @@ const { setFlashMessage } = useFlashMessageStore();
         fetchResults();
         setFlashMessage(`Ønsket er tilføjet!`)
         reset()
-window.location.reload()
+        setTimeout(() => {
+        window.location.reload()   
+        }, 2000)
+       
       };
 
 
