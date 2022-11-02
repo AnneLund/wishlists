@@ -2,6 +2,7 @@
 import bg from '../Assets/Images/webdevelopment.jpeg'
 import styled from 'styled-components'
 
+
 const Home = () => {
 
 const Content = styled.section`
@@ -37,14 +38,21 @@ margin-top: 0.5em;
         font-size: 8vw;
     }
 }
-
 `
-
 return (
+    <>
 <Content>
 <h1>Din webudvikler</h1>
 <h2>- Udvikling og design efter dine behov og ønsker</h2>
+ 
+ 
+
  </Content>
+
+
+
+
+</>
     )
 }
 

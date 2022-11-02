@@ -130,7 +130,7 @@ const MenuLink = styled(Link)`
         <MenuLink to="/wishlists">Ønskesedler</MenuLink>  
         </li>
         <li>
-         <MenuLink to="/login"><p onClick={logOut}>Log ud</p></MenuLink>      
+         <MenuLink to="/login" onClick={logOut}>Log ud</MenuLink>      
         </li>
         </>
          :    

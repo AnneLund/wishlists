@@ -33,11 +33,13 @@ const Router = () => {
         <Route index path="/" element={<Home/>} />
         <Route path="/login" element={<Loginform/>} />
 
-        <Route path= "/adminanne" element={<AnneAdmin/>}/>
-        <Route path= "/adminanne/:id" element={<AnneUpdate/>}/>
-        
-        <Route path= "/adminmikkel" element={<MikkelAdmin/>}/>
-        <Route path= "/adminmikkel/:id" element={<MikkelUpdate/>}/>
+        {/* <Route path= "/anne" element={<AnneAdmin/>}/> */}
+       
+        <Route path='/anne' element={<Anne/>}/>
+          <Route path= "/anne/:id" element={<AnneUpdate/>}/> 
+          
+        <Route path= "/mikkel" element={<MikkelAdmin/>}/>
+        <Route path= "/mikkel/:id" element={<MikkelUpdate/>}/>
 
         <Route path= "/adminrebecca" element={<RebeccaAdmin/>}/>
         <Route path= "/adminrebecca/:id" element={<RebeccaUpdate/>}/>
@@ -49,7 +51,9 @@ const Router = () => {
 
           <Route path='/wishlists/rebecca' element={<Rebecca/>}/>
           <Route path='/wishlists/valdemar' element={<Valdemar/>}/>
-          <Route path='/wishlists/anne' element={<Anne/>}/>
+
+         
+          
           <Route path='/wishlists/mikkel' element={<Mikkel/>}/>
           
         <Route path='/contact' element={<Contact/>}/>

@@ -9,7 +9,7 @@ import Axios from "axios";
 const ValdemarUpdate = () => {
 const {register, handleSubmit, reset} = useForm();
 const { setFlashMessage } = useFlashMessageStore();
-
+const {id} = useParams()
 const [data, setData] = useState([])
 const [wish, setWish] = useState({
     titel: "",
@@ -20,7 +20,7 @@ const [wish, setWish] = useState({
 
 
 useEffect(() => {
-  fetch('https://next-database.vercel.app/api/wishes2')
+  fetch('https://my-wish-api.vercel.app/api/valdemar/' + id)
     .then((res) => res.json())
     .then((data) => {
       setData(data.data)
@@ -37,7 +37,7 @@ useEffect(() => {
             url: wish.url,
        }
 console.log(data)
-      Axios.put(`https://next-database.vercel.app/api/wishes2`, data)
+      Axios.put(`https://my-wish-api.vercel.app/api/valdemar`, data)
       .then(response => {
           console.log(response.data)
       })
@@ -63,24 +63,31 @@ return(
         return(   
             <section className="admin" key={wish.id}>
        <header>          
-    <h1>Hej {userInfo}!</h1> 
+    <h1>Hej Valdemar!</h1> 
     <h3>Redigér ønsket '{wish.titel}'</h3>
       </header>
   
       <form onSubmit={(e) => {
         e.preventDefault()
-        onSubmit(wish.id)}} >
-                    
-              <input name="titel" type="text" placeholder="Titel" onChange={(e) => handleChange(e)} />
-
-              <input name="description" type="text" placeholder="Evt beskrivelse" onChange={(e) => handleChange(e)} />
-
-              <input name="image" type="text" placeholder="Billede-url" onChange={(e) => handleChange(e)}/>
-              
-              <input name="url" type="text" placeholder="Link til produktet" onChange={(e) => handleChange(e)}/>
-              
+        onSubmit(wish.id)
+        setFlashMessage(`Ønsket er opdateret!`)
+        window.sessionStorage()
+        setTimeout(() => {
+          window.location.reload()  
+          }, 2000)
+      }
+        
+        } >
+              <label>Titel</label>
+              <input name="titel" type="text" onChange={(e) => handleChange(e)} />
+              <label>Beskrivelse</label>
+              <textarea id="textarea" style={{height: '10vh'}} name="description" type="text" onChange={(e) => handleChange(e)} />
+              <label>Billedets webadresse</label>
+              <input name="image" type="text" onChange={(e) => handleChange(e)}/>
+              <label>Link til siden</label>
+              <input name="url" type="text" onChange={(e) => handleChange(e)}/>
               <button type='submit'>Opdatér ønsket</button>                        
-    </form>  
+    </form> 
     </section>    
         ) 
     })}

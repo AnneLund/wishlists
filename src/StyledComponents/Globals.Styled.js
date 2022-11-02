@@ -72,7 +72,8 @@ h2{
     background-blend-mode: darken;
     background-color: #000000c6;
     background-size: cover;
- padding: 1em 0;
+    padding: 1em 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -82,7 +83,13 @@ h2{
     form{
       display: flex;
       flex-direction: column;
+      gap: 0.5em;
       gap: 1.5em;
+
+      label{
+    margin: -1em;
+    padding: 0;
+  }
     }
 
     header{
@@ -147,11 +154,13 @@ input {
   width: 250px;
   height: 40px;
   color: black;
+  
 }
 
 .update{
   display: flex;
   flex-direction: column;
+
 }
 
 `;

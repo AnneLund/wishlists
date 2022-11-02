@@ -57,6 +57,15 @@ figcaption{
 height: auto;
 width: 90%;
 margin: auto;
+flex: 25%;
+max-width: 100%;
+
+img{
+  width: 100%;
+  vertical-align: middle;
+  height: auto;
+  margin: 0;
+}
 }
 
 .title{

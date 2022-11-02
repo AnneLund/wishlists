@@ -20,7 +20,7 @@ const Card = () => {
 
   const [data, setData] = useState([])
   useEffect(() => {
-    fetch('https://next-database.vercel.app/api/anne')
+    fetch('https://my-wish-api.vercel.app/api/anne')
       .then((res) => res.json())
       .then((data) => {
         setData(data)
@@ -31,8 +31,8 @@ const Card = () => {
  
   const onSubmit = () => {
     setLoading(true)
-    
-        Axios.put(`https://next-database.vercel.app/api/anne`, database)
+  
+        Axios.put(`https://my-wish-api.vercel.app/api/anne`, database)
         .then(response => {
 
             console.log(response.data)
@@ -95,15 +95,18 @@ const payload = {
     id: wish.id
   }
 }
-Axios.delete(`https://next-database.vercel.app/api/anne`, payload)
+Axios.delete(`https://my-wish-api.vercel.app/api/anne`, payload)
 setFlashMessage('Ønsket er slettet!')
 reset()
-window.location.reload()
+setTimeout(() => {
+window.location.reload()  
+}, 2000)
+
 }}
 value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
 <button>
-<Link to={"/adminanne/" + wish.id}>Redigér ønske</Link>  
+<Link to={"/anne/" + wish.id}>Redigér ønske</Link>  
 </button>
               </div> : null}
             </figcaption>

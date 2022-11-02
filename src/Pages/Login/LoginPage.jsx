@@ -31,7 +31,7 @@ const LoginPage = () => {
 
   useEffect(()=> {
       const fetchData = async () => {
-      const result = await Axios('https://next-database.vercel.app/api/users');
+      const result = await Axios('https://my-wish-api.vercel.app/api/users');
         setData(result.data);
       };
   

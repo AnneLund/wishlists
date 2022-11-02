@@ -3,6 +3,10 @@ import {useLoginStore} from "../Login/useLoginStore";
 import styled from 'styled-components';
 import React from 'react';
 import stars from '../../Assets/Images/stars.jpeg'
+import rebecca from '../../Assets/Images/rebecca.jpg'
+import valdemar from '../../Assets/Images/valdemar.jpg'
+import mikkel from '../../Assets/Images/mikkel.PNG'
+import anne from '../../Assets/Images/anne.JPG'
 import {Nav, DropDown, DropDown2} from './WishNav.Styled'
 
 const Wishlists = () => {
@@ -34,11 +38,239 @@ const Wishlists = () => {
     justify-content: center;
     position: relative;
     margin: 0;
+
+    .rebecca{
+    margin: 2em auto 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0000009d;
+ 
+    div{
+       background-color: #000000d3;
+       background-image: url(${rebecca});
+       background-blend-mode: darken;
+       background-size: cover;
+       background-position: center;
+       background-repeat: no-repeat;
+       margin: auto;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+        width: 100%;
+        height: 50vh;
+        position: relative; 
+        color: white;
+
+        &:hover{
+            background-color: #2e2e2e9d;
+        }
+    }  
+
+    li{
+        list-style: none;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0 1.5em;
+    }
+
+    &:hover{
+            background-color: #2e2e2e9d ;
+        }
+    }
+
+    .valdemar{
+    margin: 2em auto 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0000009d;
+ 
+    div{
+       background-color: #000000d3;
+       background-image: url(${valdemar});
+       background-blend-mode: darken;
+       background-position: 2em 0 0 0;
+       background-size: 120%;
+       background-size: cover;
+       background-repeat: no-repeat;
+       margin: auto;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+        width: 100%;
+        height: 50vh;
+        position: relative; 
+        color: white;
+
+        &:hover{
+            background-color: #2e2e2e9d;
+        }
+    }  
+
+    li{
+        list-style: none;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0 1.5em;
+    }
+
+    &:hover{
+            background-color: #2e2e2e9d ;
+        }
+    }
+
+    .mikkel{
+    margin: 2em auto 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0000009d;
+ 
+    div{
+       background-color: #000000d3;
+       background-image: url(${mikkel});
+       background-blend-mode: darken;
+       background-size: 120%;
+       background-position: center;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+        height: 50vh;
+        position: relative; 
+        color: white;
+        width: 100%;
+
+        &:hover{
+            background-color: #2e2e2e9d;
+        }
+    }  
+
+    li{
+        list-style: none;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0 1.5em;
+    }
+
+    &:hover{
+            background-color: #2e2e2e9d ;
+        }
+    }
+
+    .anne{
+    margin: 2em auto 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #0000009d;
+ 
+    div{
+       background-color: #000000d3;
+       background-image: url(${anne});
+       background-blend-mode: darken;
+       background-size: 150%;
+       background-position: top;
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+        height: 50vh;
+        position: relative; 
+        color: white;
+        width: 100%;
+
+        &:hover{
+            background-color: #2e2e2e9d;
+        }
+    }  
+
+    li{
+        list-style: none;
+        font-size: 2em;
+        font-weight: 600;
+        margin: 0 1.5em;
+    }
+
+    &:hover{
+            background-color: #2e2e2e9d ;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        .mikkel, .anne, .valdemar, .rebecca{
+           div{
+           height: 20vh; 
+           } 
+        }
+    }
 `
     return(
 <WishListsPage>
-    <Nav>
-            {loggedIn ?  <>   
+<section className='rebecca'>
+  <Link to="/wishlists/rebecca"> 
+   <div>
+     <li>
+            
+                 <p>
+                 Rebeccas ønskeseddel
+                 </p>
+              
+         </li>  
+   </div>
+ </Link>    
+            </section>
+
+    <section className='valdemar'>
+  <Link to="/wishlists/valdemar"> 
+   <div>
+     <li>
+            
+                 <p>
+                 Valdemars ønskeseddel
+                 </p>
+              
+         </li>  
+   </div>
+ </Link>     
+ </section>
+
+ <section className='mikkel'>
+  <Link to="/wishlists/mikkel"> 
+   <div>
+     <li>
+            
+                 <p>
+                 Mikkels ønskeseddel
+                 </p>
+              
+         </li>  
+   </div>
+ </Link>     
+ </section>
+
+ <section className='anne'>
+  <Link to="/anne"> 
+   <div>
+     <li>
+            
+                 <p>
+                 Annes ønskeseddel
+                 </p>
+              
+         </li>  
+   </div>
+ </Link>     
+ </section>
+
+    {/* <Nav>
+            {loggedIn ?  <>  
+
+            
+
             <DropDown>
               <button onClick={handleOpen}>Vælg en ønskeseddel</button>
 {open ? 
@@ -85,7 +317,7 @@ const Wishlists = () => {
        </>   
   : null}
 
-</Nav>
+</Nav> */}
        </WishListsPage>       
     )
 }

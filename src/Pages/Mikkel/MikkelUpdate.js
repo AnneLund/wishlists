@@ -9,18 +9,18 @@ import Axios from "axios";
 const MikkelUpdate = () => {
 const {register, handleSubmit, reset} = useForm();
 const { setFlashMessage } = useFlashMessageStore();
-
 const [data, setData] = useState([])
+const {id} = useParams()
+
 const [wish, setWish] = useState({
-    titel: "",
-    description: "",
-    image: "",
-    url: "",
+  titel: "",
+  description: "",
+  image: "",
+  url: "",
 })
 
-
 useEffect(() => {
-  fetch('https://next-database.vercel.app/api/mikkel')
+  fetch('https://my-wish-api.vercel.app/api/mikkel/' + id)
     .then((res) => res.json())
     .then((data) => {
       setData(data.data)
@@ -35,8 +35,9 @@ const onSubmit = (id) => {
        image: wish.image,
        url: wish.url,
   }
+
 console.log(data)
- Axios.put(`https://next-database.vercel.app/api/mikkel`, data)
+ Axios.put(`https://my-wish-api.vercel.app/api/mikkel`, data)
  .then(response => {
      console.log(response.data)
  })
@@ -44,34 +45,13 @@ console.log(data)
  .catch(error => error);
  }
 
-//     const onSubmit = (id) => {
-
-//        const data = {
-//             id,
-//             titel: wish.titel,
-//             description: wish.description,
-//             image: wish.image,
-//             url: wish.url,
-//        }
-// console.log(data)
-//       Axios.put(`https://next-database.vercel.app/api/mikkel`, data)
-//       .then(response => {
-//           console.log(response.data)
-//       })
-  
-//       .catch(error => error);
-//       }
-
       const { userInfo} = useLoginStore((store) => ({
         userInfo: store.userInfo,
       }));
 
       const handleChange = (evt) => {
-        const value = evt.target.value;
-        setWish({
-          ...wish,
-          [evt.target.name]: value,
-        });
+        let value = evt.target.value;
+        setWish({...wish, [evt.target.name]: value});
       };
 
 return(   
@@ -89,27 +69,34 @@ return(
         onSubmit(wish.id)
         setFlashMessage(`Ønsket er opdateret!`)
         setTimeout(() => {
-         window.location.replace('/wishlists/mikkel#/wishlists/mikkel')  
-        }, 2000)
+          window.location.reload()  
+          }, 3000)
       }
         
         } >
-                    
-              <input name="titel" type="text" placeholder="Titel" onChange={(e) => handleChange(e)} />
-
-              <input name="description" type="text" placeholder="Evt beskrivelse" onChange={(e) => handleChange(e)} />
-
-              <input name="image" type="text" placeholder="Billede-url" onChange={(e) => handleChange(e)}/>
-              
-              <input name="url" type="text" placeholder="Link til produktet" onChange={(e) => handleChange(e)}/>
-              
+              <label>Titel</label>
+              <input name="titel" type="text" onChange={(e) => handleChange(e)} />
+              <label>Beskrivelse</label>
+              <textarea 
+              id="textarea"
+              style={{height: '10vh'}}
+              name="description" 
+              type="text" 
+              onChange={(e) => handleChange(e)}
+              />
+              <label>Billedets webadresse</label>
+              <input name="image" type="text" onChange={(e) => handleChange(e)}/>
+              <label>Link til siden</label>
+              <input name="url" type="text" onChange={(e) => handleChange(e)}/>
               <button type='submit'>Opdatér ønsket</button>                        
-    </form>  
+    </form> 
     </section>    
         ) 
     })}
     </>
-)}
+)
+
+}
 
 export default MikkelUpdate;
     
