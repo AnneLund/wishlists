@@ -50,11 +50,8 @@ fetchResults()
       <>
      <Navigate to="/wishlists"/>
       </>
-     
     )}
-        
     </StyledLoginPage>
-
   )
 }
 
