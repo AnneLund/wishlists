@@ -51,7 +51,7 @@ return(
 
               <input {...register("description")} type="text" placeholder="Evt beskrivelse"/>
 
-              <input {...register("image")} type="text" placeholder="Billede-url"/>
+              <input {...register("image")} type="file" placeholder="Billede-url"/>
               
               <input {...register("url")} type="text" placeholder="Link til produktet"/>
               

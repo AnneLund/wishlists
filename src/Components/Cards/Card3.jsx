@@ -43,16 +43,14 @@ const Card = () => {
         if (isLoading) return <Loading/>
         if (!data) return 
     }
-
-    const { userInfo} = useLoginStore((store) => ({
-      userInfo: store.userInfo,
-    }));
+    const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore();
+    console.log(userInfo)
 
 return(
     <>
-{data?.map(wish => {
+{/* {data?.map(wish => {
     return(
-<StyledCard style={userInfo === 'Anne' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
+<StyledCard style={username === 'Anne' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
       
             <img src={wish.image}/>
             <figcaption>
@@ -60,9 +58,9 @@ return(
 
             <p className='description'>{wish.description}</p>
           
-            {wish.købt === 1 ? <p style={userInfo === 'Anne' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
+            {wish.købt === 1 ? <p style={username === 'Anne' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
               : 
-              <div style={userInfo === 'Anne' ? {display: 'none'} : {display: 'block'}}>
+              <div style={username === 'Anne' ? {display: 'none'} : {display: 'block'}}>
               <p className='status'>Gaven er ikke købt endnu..</p>
              
               <form onSubmit={handleSubmit(onSubmit)} >
@@ -80,7 +78,7 @@ return(
               
               }
 
-{userInfo === 'Anne' ? <div className='update'>
+{username === 'Anne' ? <div className='update'>
 
 <button 
 id="id" 
@@ -90,6 +88,7 @@ const payload = {
     id: wish.id
   }
 }
+
 Axios.delete(`https://my-wish-api.vercel.app/api/anne`, payload)
 setFlashMessage('Ønsket er slettet!')
 reset()
@@ -110,7 +109,7 @@ value={wish.id}><p className='deleteWish'>Slet ønske</p></button>
     )
 }
   
-)} 
+)}  */}
     </>
 )               
 

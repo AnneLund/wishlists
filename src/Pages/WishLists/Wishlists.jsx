@@ -17,11 +17,6 @@ const Wishlists = () => {
         userName: store.userName,
       }));
 
-      const [open, setOpen] = React.useState(false);
-
-      const handleOpen = () => {
-        setOpen(!open);
-      };
 
     const WishListsPage = styled.section`
     background-image: url(${stars});

@@ -18,8 +18,8 @@ const Card = () => {
     const database = {id, købt: 1};
     const { setFlashMessage } = useFlashMessageStore();
 
-    const { userInfo } = useLoginStore((store) => ({
-        userInfo: store.userInfo
+    const { username} = useLoginStore((store) => ({
+        username: store.username
       }));
 
     const [data, setData] = useState([])
@@ -49,7 +49,7 @@ return(
     <>
 {data?.map(wish => {
     return(
-<StyledCard key={wish.id} style={userInfo === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
+<StyledCard key={wish.id} style={username === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
             <img src={wish.image}/>
             <figcaption>
             <p className='title'>{wish.titel.substring(0, 25) + "..."}</p> 
@@ -71,7 +71,7 @@ return(
               </>
               }
 
-{userInfo === 'Mikkel' || 'Anne' ? <div className='update'>
+{username === 'Mikkel' || 'Anne' ? <div className='update'>
 
 <button 
 id="id" 

@@ -45,15 +45,17 @@ const onSubmit = () => {
         if (!data) return 
     }
 
-    const { userInfo} = useLoginStore((store) => ({
-        userInfo: store.userInfo,
+    const { username} = useLoginStore((store) => ({
+        username: store.username,
       }));
+
+     
 
 return(
     <>
 {data?.map(wish => {
     return(
-<StyledCard key={wish.id} style={userInfo === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
+<StyledCard key={wish.id} style={username === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
        
             <img src={wish.image}/>
             <figcaption>
@@ -79,7 +81,7 @@ return(
               </div>
               }
 
-{userInfo === 'Anne' || 'Mikkel' ? <div className='update'>
+{username === 'Anne' || 'Mikkel' ? <div className='update'>
 
 <button 
 id="id" 

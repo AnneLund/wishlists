@@ -16,8 +16,8 @@ const Card4 = () => {
   const database = {id, købt: 1};
   const { setFlashMessage } = useFlashMessageStore();
 
-  const { userInfo } = useLoginStore((store) => ({
-    userInfo: store.userInfo
+  const { username } = useLoginStore((store) => ({
+    username: store.username
   }));
 
   const [data, setData] = useState([])
@@ -55,7 +55,7 @@ return(
     <>
 {data?.map(wish => {
     return(
-<StyledCard style={userInfo === 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
+<StyledCard style={username === 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
       
             <img src={wish.image}/>
             <figcaption>
@@ -63,9 +63,9 @@ return(
 
             <p className='description'>{wish.description}</p>
            
-            {wish.købt === 1 ? <p style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
+            {wish.købt === 1 ? <p style={username === 'Mikkel' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
               : 
-              <div style={userInfo === 'Mikkel' ? {display: 'none'} : {display: 'block'}} >
+              <div style={username === 'Mikkel' ? {display: 'none'} : {display: 'block'}} >
               <p className='status'>Gaven er ikke købt endnu..</p>
              
               <form onSubmit={handleSubmit(onSubmit)} >
@@ -81,7 +81,7 @@ return(
               
               }
 
-{userInfo === 'Mikkel' ? <div className='update'>
+{username === 'Mikkel' ? <div className='update'>
 
 <button 
 id="id" 

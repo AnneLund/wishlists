@@ -1,62 +1,82 @@
-import React, { useState } from 'react'
-import {useForm} from 'react-hook-form'
-import styled from 'styled-components'
-import appService from '../../Appservices/App.service'
-import { useLoginStore } from './useLoginStore'
-import StyledLoginPage from './LoginPage.Styled'
-import { Navigate } from 'react-router-dom'
-import { useFlashMessageStore } from '../../Components/FlashMessages/useFlashMessageStore'
+import { useState, useEffect } from "react";
+import Axios from 'axios'
+import {useFlashMessageStore} from "../../Components/FlashMessages/useFlashMessageStore";
+import {useLoginStore} from "./useLoginStore";
+import {Navigate} from 'react-router-dom'
+import StyledLoginPage from "./LoginPage.Styled";
 
-const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1em;
-  color: black;
-  /* background-color: ${(props )=> props.bgColor ? props.bgColor : 'green'} ; */
-`
+const LoginPage = () => {
+  const { setLoggedIn, loggedIn } = useLoginStore((store) => ({
+    setLoggedIn: store.setLoggedIn,
+    loggedIn: store.loggedIn,
+    userInfo: store.userInfo,
+    userName: store.username,
+  }));
 
-const Login = () => {
-  const {loggedIn, setLoggedIn, setLogOut, username} = useLoginStore()
+  const [data, setData] = useState([]);
   const { setFlashMessage } = useFlashMessageStore();
 
-const {register, handleSubmit, reset} = useForm()
+  const [user, setUser] = useState({
+    username: "",
+    password: "",
+  });
 
-const onSubmit = (submitData) => {
+  const handleChange = (evt) => {
+    const value = evt.target.value;
+    setUser({
+      ...user,
+      [evt.target.name]: value,
+    });
+  };
 
-const fetchResults = async() => {
+  useEffect(()=> {
+      const fetchData = async () => {
+      const result = await Axios('https://my-wish-api.vercel.app/api/users');
+        setData(result.data);
+      };
+  
+       fetchData();
+  
+      }, []);
 
-  try {
-    const response = await appService.login(submitData.username, submitData.password)
-      setLoggedIn(response.data.status, response.data.username, response.data.password)  
+const login = () => {
+  const username = user.username;
+  const password = user.password;
+ 
+  const userName = data.user.map(use => {
+    return use.username;
+  })
 
-  } catch (error) {
-    console.error(error)
-    setFlashMessage('Forkert brugernavn eller password')
-    reset()
-  }
+  const passWord = data.user.map(pass => {
+    return pass.password;
+  })
+
+if(userName.includes(`${username}`) && passWord.includes(`${password}`)){
+  setFlashMessage(`Velkommen ${username}!`)
+  setLoggedIn(true, username, data.userInfo, data.userName)
+  window.location.replace('/#/wishlists');
 }
-fetchResults()
+else{
+  setFlashMessage('Forkert brugernavn eller password!')
+}
+};
+
+   return (
+  <StyledLoginPage>
+   {!loggedIn ? 
+         <form className='login' onSubmit={login}>
+             <h1>Log ind for at få adgang</h1>
+             <input type="text" name="username" placeholder="Brugernavn" onChange={(e) => handleChange(e)} />
+      <input type="password" name="password" placeholder="Password" onChange={(e) => handleChange(e)} />
+      <button>Log ind</button>
+ </form>
+:
+<Navigate to="/wishlists" />
 }
 
-  return (
-    <StyledLoginPage>
-      <h1>Log ind for at se ønskesedlerne</h1>
-    {!loggedIn ? (
-    <StyledForm className="login" onSubmit={handleSubmit(onSubmit)}>
-    <input {...register("username", {required:"Username required"})} type="text" autoComplete="username" placeholder='Brugernavn'/>
-    <input {...register("password", {required:"Password required"})} type="password" autoComplete="password" placeholder='Kodeord'/>
-    <button>Log ind</button>
-    </StyledForm>  
-    ) : (
-      <>
-     <Navigate to="/wishlists"/>
-      </>
-    )}
-    </StyledLoginPage>
-  )
+</StyledLoginPage>
+   );
 }
 
-export default Login
+export default LoginPage;
 
