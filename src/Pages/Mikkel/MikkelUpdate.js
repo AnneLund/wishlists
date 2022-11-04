@@ -36,14 +36,23 @@ const onSubmit = (id) => {
        url: wish.url,
   }
 
-console.log(data)
- Axios.put(`https://my-wish-api.vercel.app/api/mikkel`, data)
- .then(response => {
-     console.log(response.data)
- })
 
- .catch(error => error);
- }
+  if(wish.image.includes('.jpg') || (wish.image.includes('.png') || (wish.image.includes('.jpeg') || (wish.image.includes('.webp'))))) {
+        Axios.put('https://my-wish-api.vercel.app/api/mikkel', data)
+      .then(response => {
+          console.log(response.data)
+      })
+      .catch(error => error);
+      setFlashMessage(`Ønsket er opdateret!`)
+      setTimeout(() => {
+        window.location.reload()  
+        }, 2000)
+      } else {
+        setFlashMessage(`Ugyldigt billedformat!`)
+        return;
+      }
+  
+      }
 
       const { userInfo} = useLoginStore((store) => ({
         userInfo: store.userInfo,
@@ -67,10 +76,6 @@ return(
       <form onSubmit={(e) => {
         e.preventDefault()
         onSubmit(wish.id)
-        setFlashMessage(`Ønsket er opdateret!`)
-        setTimeout(() => {
-          window.location.reload()  
-          }, 3000)
       }
         
         } >

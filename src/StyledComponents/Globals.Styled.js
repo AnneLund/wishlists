@@ -142,14 +142,6 @@ font-size: 1em;
 margin: auto;
 }
 
-.login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: black;
-}
-
 input {
   width: 250px;
   height: 40px;

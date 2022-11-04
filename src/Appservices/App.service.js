@@ -1,5 +1,5 @@
 import Axios from "axios";
-import {API, API_URL, API_ANNE, API_MIKKEL, API_REBECCA, API_VALDEMAR} from "./API_URL";
+import {API, API_URL, API_ANNE, API_MIKKEL, API_REBECCA, API_VALDEMAR, API_USERS} from "./API_URL";
 import authHeader from "./auth-header";
 
 const getAll = (id) => {
@@ -22,6 +22,10 @@ const create_ANNE = (titel, description, image, url, købt) => {
   });
 };
 
+const login = async (username, password) => {
+  return await Axios.post(`${API_USERS}`, { username, password });
+};
+
 const create_MIKKEL = (titel, description, image, url, købt) => {
   return Axios.post(`${API_MIKKEL}`, { titel, description, image, url, købt }, {
     headers: authHeader(),
@@ -40,11 +44,11 @@ const create_VALDEMAR = (titel, description, image, url, købt) => {
   });
 };
 
-const login = async (username, password) => {
-  return await Axios.post(`https://next-database.vercel.app/api/users`, { username, password }, {
-    headers: authHeader()
-  });
-};
+// const login = async (username, password) => {
+//   return await Axios.post(`https://next-database.vercel.app/api/users`, { username, password }, {
+//     headers: authHeader()
+//   });
+// };
 
 const logout = async () => {
   return await Axios.post(`${API_URL}/logout`, {

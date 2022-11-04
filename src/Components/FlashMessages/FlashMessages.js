@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Flashmessage } from "./FloatingAlerts.Styled";
 import { useFlashMessageStore } from "./useFlashMessageStore";
 
-const FlashMessages = () => {
+const FlashMessages = (props) => {
 
   //how long should the flashmessage be shown
   const flashDuration = 5000;
@@ -23,7 +23,7 @@ const FlashMessages = () => {
   return (
     flashMessages && (
       <>
-        <Flashmessage className="floating-alerts" flashDuration={flashDuration}>
+        <Flashmessage msgColor={props.msgColor} className="floating-alerts" flashDuration={flashDuration}>
           <div className="alert alert-success text-center floating-alert shadow-sm">{flashMessages}</div>
         </Flashmessage>
       </>

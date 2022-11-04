@@ -16,15 +16,16 @@ import AnneUpdate from '../../Pages/Anne/AnneUpdate'
 import MikkelUpdate from '../../Pages/Mikkel/MikkelUpdate'
 import RebeccaUpdate from '../../Pages/Rebecca/RebeccaUpdate'
 import ValdemarUpdate from '../../Pages/Valdemar/ValdemarUpdate'
+import { useLoginStore } from '../../Pages/Login/useLoginStore'
 
 const Router = () => {
 
-  // const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore((store) => ({
-  //   setLoggedIn: store.setLoggedIn,
-  //   loggedIn: store.loggedIn,
-  //   userInfo: store.userInfo,
-  //   userName: store.username,
-  // }));
+  const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore((store) => ({
+    setLoggedIn: store.setLoggedIn,
+    loggedIn: store.loggedIn,
+    userInfo: store.userInfo,
+    userName: store.username,
+  }));
 
   return (
     <>
@@ -33,28 +34,24 @@ const Router = () => {
         <Route index path="/" element={<Home/>} />
         <Route path="/login" element={<Loginform/>} />
 
-        {/* <Route path= "/anne" element={<AnneAdmin/>}/> */}
-       
-        <Route path='/anne' element={<Anne/>}/>
-          <Route path= "/anne/:id" element={<AnneUpdate/>}/> 
-          
-        <Route path= "/mikkel" element={<MikkelAdmin/>}/>
-        <Route path= "/mikkel/:id" element={<MikkelUpdate/>}/>
-
-        <Route path= "/adminrebecca" element={<RebeccaAdmin/>}/>
-        <Route path= "/adminrebecca/:id" element={<RebeccaUpdate/>}/>
-
-        <Route path= "/adminvaldemar" element={<ValdemarAdmin/>}/>
-        <Route path= "/adminvaldemar/:id" element={<ValdemarUpdate/>}/>
-   
         <Route path="/wishlists" element={<Wishlists/>}/>
 
-          <Route path='/wishlists/rebecca' element={<Rebecca/>}/>
-          <Route path='/wishlists/valdemar' element={<Valdemar/>}/>
+        <Route path='/anne' element={<Anne/>}/>
+        <Route path= "/anne/:id" element={<AnneUpdate/>}/> 
+        <Route path="/adminanne" element={<AnneAdmin/>}/>
 
-         
-          
-          <Route path='/wishlists/mikkel' element={<Mikkel/>}/>
+        <Route path='/mikkel' element={<Mikkel/>}/>  
+        <Route path= "/mikkel/:id" element={<MikkelUpdate/>}/>
+        <Route path= "/adminmikkel" element={<MikkelAdmin/>}/>
+       
+        <Route path='/rebecca' element={<Rebecca/>}/>
+        <Route path= "/rebecca/:id" element={<RebeccaUpdate/>}/>
+        <Route path= "/adminrebecca" element={<RebeccaAdmin/>}/>
+        
+        <Route path='/valdemar' element={<Valdemar/>}/>
+        <Route path= "/valdemar/:id" element={<ValdemarUpdate/>}/>
+        <Route path= "/adminvaldemar" element={<ValdemarAdmin/>}/>
+      
           
         <Route path='/contact' element={<Contact/>}/>
         <Route path="*" element={<Notfound/>} />

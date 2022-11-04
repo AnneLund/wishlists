@@ -6,10 +6,6 @@ import { useForm } from "react-hook-form";
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
 import { useFlashMessageStore } from '../FlashMessages/useFlashMessageStore';
 import { Link, Navigate } from 'react-router-dom';
-import { useModalStore } from "../Modal/useModalStore";
-import AnneUpdate from '../../Pages/Anne/AnneUpdate';
-
-
 
 const Card = () => {
   const [id, setId] = useState("")
@@ -17,13 +13,13 @@ const Card = () => {
   const {handleSubmit, reset} = useForm();
   const [isLoading, setLoading] = useState(true)
   const database = {id, købt: 1};
-
   const [data, setData] = useState([])
+
   useEffect(() => {
     fetch('https://my-wish-api.vercel.app/api/anne')
       .then((res) => res.json())
       .then((data) => {
-        setData(data)
+        setData(data.data)
       })
   }, [])
 
@@ -34,7 +30,6 @@ const Card = () => {
   
         Axios.put(`https://my-wish-api.vercel.app/api/anne`, database)
         .then(response => {
-
             console.log(response.data)
         })
     
@@ -55,7 +50,7 @@ const Card = () => {
 
 return(
     <>
-{data.data?.map(wish => {
+{data?.map(wish => {
     return(
 <StyledCard style={userInfo === 'Anne' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
       

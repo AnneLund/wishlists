@@ -8,20 +8,27 @@ const { setFlashMessage } = useFlashMessageStore();
 
     const onSubmit = (submitdata, e) => {
       e.preventDefault();
+      if(submitdata.image.includes('.jpg') || (submitdata.image.includes('.png') || (submitdata.image.includes('.jpeg') || (submitdata.image.includes('.webp'))))) {
         async function fetchResults() {
-          try {
-            await appService.create_REBECCA(submitdata.titel, submitdata.description, submitdata.image, submitdata.url, submitdata.købt= '0');
-        
-          } catch (error) {
-            console.log(error);
-          }
-        }
-        fetchResults();
-        setFlashMessage(`Ønsket er tilføjet!`)
-        reset()
-        setTimeout(() => {
-        window.location.reload()   
-        }, 2000)
+             try {
+               await appService.create_ANNE(submitdata.titel, submitdata.description, submitdata.image, submitdata.url, submitdata.købt= '0');
+           
+             } catch (error) {
+               console.log(error);
+             }
+           }
+           
+           fetchResults();
+           setFlashMessage(`Ønsket er tilføjet!`)
+           reset()
+           setTimeout(() => {
+             window.location.reload()   
+             }, 2000)
+       
+         } else {
+           setFlashMessage(`Ugyldigt billedformat!`)
+           return;
+         }  
        
       };
 

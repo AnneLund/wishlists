@@ -7,7 +7,6 @@ import rebecca from '../../Assets/Images/rebecca.jpg'
 import valdemar from '../../Assets/Images/valdemar.jpg'
 import mikkel from '../../Assets/Images/mikkel.PNG'
 import anne from '../../Assets/Images/anne.JPG'
-import {Nav, DropDown, DropDown2} from './WishNav.Styled'
 
 const Wishlists = () => {
 
@@ -40,7 +39,7 @@ const Wishlists = () => {
     margin: 0;
 
     .rebecca{
-    margin: 2em auto 0 auto;
+    margin: 4em auto 0 auto;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -203,15 +202,22 @@ const Wishlists = () => {
     @media screen and (max-width: 600px) {
         .mikkel, .anne, .valdemar, .rebecca{
            div{
-           height: 20vh; 
+           height: 18vh; 
+           width: 500px;
+           text-align: center;
+           padding: 0 2em;
            } 
+
+           li{
+            margin: auto;
+           }
         }
     }
 `
     return(
 <WishListsPage>
 <section className='rebecca'>
-  <Link to="/wishlists/rebecca"> 
+  <Link to="/rebecca"> 
    <div>
      <li>
             
@@ -225,7 +231,7 @@ const Wishlists = () => {
             </section>
 
     <section className='valdemar'>
-  <Link to="/wishlists/valdemar"> 
+  <Link to="/valdemar"> 
    <div>
      <li>
             
@@ -239,7 +245,7 @@ const Wishlists = () => {
  </section>
 
  <section className='mikkel'>
-  <Link to="/wishlists/mikkel"> 
+  <Link to="/mikkel"> 
    <div>
      <li>
             

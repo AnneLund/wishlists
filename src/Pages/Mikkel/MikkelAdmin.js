@@ -9,6 +9,7 @@ const { setFlashMessage } = useFlashMessageStore();
 
 const onSubmit = (submitdata, e) => {
   e.preventDefault();
+  
     async function fetchResults() {
       try {
         await appService.create_MIKKEL(submitdata.titel, submitdata.description, submitdata.image, submitdata.url, submitdata.købt= '0');
@@ -17,6 +18,7 @@ const onSubmit = (submitdata, e) => {
         console.log(error);
       }
     }
+    
     fetchResults();
     setFlashMessage(`Ønsket er tilføjet!`)
     reset()

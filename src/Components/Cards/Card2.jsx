@@ -21,8 +21,7 @@ const Card2 = () => {
       fetch('https://my-wish-api.vercel.app/api/valdemar')
         .then((res) => res.json())
         .then((data) => {
-          console.log(data)
-          setData(data)
+          setData(data.data)
         })
     }, [])
 
@@ -52,7 +51,7 @@ const onSubmit = () => {
 
 return(
     <>
-{data.data?.map(wish => {
+{data?.map(wish => {
     return(
 <StyledCard key={wish.id} style={userInfo === 'Anne' || 'Mikkel' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}}>
        
@@ -100,7 +99,7 @@ setTimeout(() => {
 value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
 <button>
-<Link to={"/adminvaldemar/" + wish.id}>Redigér ønske</Link>  
+<Link to={"/valdemar/" + wish.id}>Redigér ønske</Link>  
 </button>
 </div> : null}
 </figcaption>

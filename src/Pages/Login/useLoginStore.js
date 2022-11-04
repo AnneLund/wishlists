@@ -6,11 +6,12 @@ export const useLoginStore = create(
     (set) => {
       return {
         loggedIn: false,
-        userInfo: "",
-        userName: "",
-        setLoggedIn: (loggedIn, userInfo, userName) => set((state) => ({ ...state, loggedIn, userInfo, userName })),
+        username: "",
+        password: "",
+        setLoggedIn: (loggedIn, username, password) => set((state) => ({ ...state, loggedIn, username, password})),
+        setLogOut: () => set((state) => ({...state, loggedIn: false, username: "", password: "",}))
       };
     },
-    { name: "token" }
+    {name: "user"}
   )
 );
