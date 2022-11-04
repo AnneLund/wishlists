@@ -9,7 +9,7 @@ background-blend-mode: darken;
 background-color: #000000c6;
 background-size: cover;
 min-height: 100vh;
-padding: 4em 0;
+padding-top: 10em;
 
 h1{
 color: white;

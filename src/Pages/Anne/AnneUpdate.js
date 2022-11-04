@@ -53,10 +53,8 @@ const {reset} = useForm();
         setFlashMessage(`Ugyldigt billedformat!`)
         return;
       }
-  
       }
     
-  
       const { userInfo} = useLoginStore((store) => ({
         userInfo: store.userInfo,
       }));
@@ -69,9 +67,7 @@ const {reset} = useForm();
         });   
       };
 
-
 return(   
-
 data?.map(wish => {
   return(
     <section className="admin" key={wish.id}>
