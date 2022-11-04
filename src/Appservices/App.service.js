@@ -23,7 +23,7 @@ const create_ANNE = (titel, description, image, url, købt) => {
 };
 
 const login = async (username, password) => {
-  return await Axios.post('http://localhost:3000/api/users', { username, password });
+  return await Axios.post(`${API_USERS}`, { username, password });
 };
 
 const create_MIKKEL = (titel, description, image, url, købt) => {
