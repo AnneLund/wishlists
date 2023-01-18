@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const ModalStyled = styled.div`
   display: ${(props) => props.showmodal}; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -10,29 +9,72 @@ export const ModalStyled = styled.div`
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
-  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
+  animation: fade-in 1s ease-in-out;
+
+  @keyframes fade-in{
+   from{
+    opacity: 0%;
+   }
+   to{
+    opacity: 100%;
+   }
+  }
 
   main {
-    position: relative;
-    margin: 5% auto; /* 15% from the top and centered */
-    padding: 40px;
-    border: 3px solid #888;
+    position: absolute;
+    top: 0;
+    margin: 15% auto; /* 15% from the top and centered */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+div{
+width: 25%;
+padding: 0.5em;
+margin-top: 7em;
+flex-direction: column;
+backdrop-filter: blur(4px);
+ h4{
+   text-align: center;
+   margin: 0.5em auto;
+   font-size: 1em;
+   color: white;
+ }
+button{
+ width: 30%;
+ display: block;
+ margin: 0.5em auto;
+ cursor: pointer;
+}
+ }
+
+ @media screen and (max-width: 600px) {
+  div{
     width: 80%;
-    margin: 10% auto;
+    margin-top: 13em; 
+    button{
+      width: 50%;
+    }
   }
+ 
+ }
+  }
+
+  
 
   span {
     border-radius: 50%;
     position: absolute;
     text-align: center;
-    right: 20px;
-    top: 20px;
+    right: 15px;
+    top: 15px;
     padding: 3px;
     width: 40px;
     aspect-ratio: 1/1;
     color: #aaa;
     background-color: #fff;
-
     font-size: 30px;
     font-weight: bold;
 

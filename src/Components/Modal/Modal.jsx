@@ -1,6 +1,8 @@
 import React from "react";
 import { ModalStyled } from "./Modal.Styled";
 import { useModalStore } from "./useModalStore";
+import starsround from '../../Assets/Images/starsround.png'
+import Stars from "../Partials/Stars";
 //Når Modalen skal bruges, skal følgende importeres i det relevante komponent:
 //import { useModalStore } from "../Modal/useModalStore";
 
@@ -17,8 +19,8 @@ const Modal = () => {
 
   return (
     <ModalStyled showmodal={toggleModal}>
+       <Stars/>  
       <main>
-        <span onClick={() => setToggleModal("none")}>&times;</span>
         {modalPayload}
       </main>
     </ModalStyled>

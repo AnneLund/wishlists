@@ -6,49 +6,20 @@ import { useLoginStore } from '../../Pages/Login/useLoginStore';
 import styled from "styled-components";
 import useIsOpenNavStore from './useIsOpenNavStore'
 
-const Header = () => {
+const Hamburger = styled.div`
+flex-direction: column;
+cursor: pointer;
+span{
+  height: 5px;
+  width: 25px;
+  background-color: #ffffff;
+  margin-bottom: 4px;
+  border-radius: 5px;
 
-  const { setLoggedIn, loggedIn} = useLoginStore((store) => ({
-    setLoggedIn: store.setLoggedIn,
-    loggedIn: store.loggedIn,
-    userInfo: store.userInfo,
-    userName: store.username,
-  }));
-
-
-  const logOut = () => {
-    setLoggedIn(false, "", "", "")
-    window.location.replace('/#/login');
-}
-
-  const {isOpen, setIsOpen} = useIsOpenNavStore()
-  const [shrinkHeader, setShrinkHeader] = useState(false);
-
-
-  useEffect(() => {
-    const handler = () => {
-      let shrink = document.body.scrollTop > 50 || document.documentElement.scrollTop > 50 ? true : false;
-      setShrinkHeader(shrink)
-    }
-
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler)
-  }, [])
-
-  const Hamburger = styled.div`
-  flex-direction: column;
-  cursor: pointer;
-  span{
-    height: 5px;
-    width: 25px;
-    background-color: #ffffff;
-    margin-bottom: 4px;
-    border-radius: 5px;
-
-    @media screen and (max-width: 768px){
-      display: flex;
-    }
+  @media screen and (max-width: 768px){
+    display: flex;
   }
+}
 `
 
 const Menu = styled.nav`
@@ -60,55 +31,43 @@ gap: 1.5em;
 position: relative;
 
 @media (max-width: 768px){
-  flex-direction: column;
-  transition: max-height 0.3 ease-in;
-  width: 100%;
-  z-index: 50000;
-  max-height: ${({isOpen}) => isOpen ? 'auto' : '0'};
+flex-direction: column;
+transition: max-height 0.3 ease-in;
+width: 100%;
+z-index: 50000;
+max-height: ${({isOpen}) => isOpen ? 'auto' : '0'};
 }
 `
 
-const MenuLink = styled(Link)`
-  padding: 0.3em;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  transition: all 0.3s ease-in;
-  background-color: rgba(0, 0, 0, 0.618);
-  font-size: 1.5em;
-  &:hover{
-      background-color: grey;
-      cursor: pointer;
-      transition: 300ms;
+const Header = () => {
+
+  const { setLoggedIn, loggedIn} = useLoginStore((store) => ({
+    setLoggedIn: store.setLoggedIn,
+    loggedIn: store.loggedIn,
+    userInfo: store.userInfo,
+    userName: store.username,
+  }));
+
+  const logOut = () => {
+    setLoggedIn(false, "", "", "")
+    window.location.replace('/login');
+}
+
+  const {isOpen, setIsOpen} = useIsOpenNavStore()
+  const [shrinkHeader, setShrinkHeader] = useState(false);
+
+  useEffect(() => {
+    const handler = () => {
+      let shrink = document.body.scrollTop > 50 || document.documentElement.scrollTop > 50 ? true : false;
+      setShrinkHeader(shrink)
     }
 
-  @media (max-width: 768px){
-    display: block;
-    width: 100%;
-  }
+    window.addEventListener("scroll", handler);
+    return () => window.removeEventListener("scroll", handler)
+  }, [])
 
-  li{
-    padding: .4rem 1.2rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  transition: all 0.3s ease-in;
-  background-color: #333;
-  font-size: 1em;
-  &:hover{
-      background-color: grey;
-      cursor: pointer;
-      transition: 300ms;
-    }
+  console.log(loggedIn)
 
-  @media (max-width: 768px){
-    display: block;
-    width: 100%;
-  }
-  }
-`
   return (
     <MainNav shrinkHeader={shrinkHeader}>
       <Hamburger onClick={() => setIsOpen(!isOpen)}>
@@ -116,36 +75,27 @@ const MenuLink = styled(Link)`
        <span></span>
        <span></span>
       </Hamburger>
-      <Menu isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
-      <li>
-        <MenuLink to="/">Forside</MenuLink>
-      </li>
-      <li>
-        <MenuLink to="/contact">Kontakt</MenuLink>
-      </li>
-     
+      <Menu roll isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
+    
         {loggedIn ? 
         <>
         <li>
-        <MenuLink to="/wishlists">Ønskesedler</MenuLink>  
+        <Link to="/">Ønskesedler</Link>  
         </li>
         <li>
-         <MenuLink to="/login" onClick={logOut}>Log ud</MenuLink>      
+         <Link to="#" onClick={logOut}>Log ud</Link>      
         </li>
         </>
          :    
         <li>
-              <MenuLink to="/login">
+              <Link to="/login">
                 Log ind
-              </MenuLink>
+              </Link>
         </li> 
         }
-
-
       </Menu>
     </MainNav>
   );
-
 };
 
 export default Header;

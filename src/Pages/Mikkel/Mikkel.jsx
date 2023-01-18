@@ -1,45 +1,30 @@
 import React from 'react'
 import Grid from '../../StyledComponents/Grid.Styled'
-import Card4 from '../../Components/Cards/Card4'
+import Card2 from '../../Components/Cards/Card2'
 import { useLoginStore } from '../Login/useLoginStore'
-import { IoIosAddCircle } from "@react-icons/all-files/io/IoIosAddCircle";
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import AddButton from '../../Components/Partials/AddButton';
+import WishList from '../WishLists/WishList.Styled';
+import Transitions from '../../StyledComponents/Transition';
 
 const Mikkel = () => {
-  const { loggedIn, userInfo } = useLoginStore((store) => ({
-    loggedIn: store.loggedIn,
-    userInfo: store.userInfo
-  }));
 
-  const Add = styled.figure`
-    display: flex; 
-    color: white;
-    font-size: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  `
+const { role_id } = useLoginStore();
 
   return (
-<section className='wish'>
+    <Transitions>
+<WishList>
+<header>
 <h1>Mikkels ønskeseddel</h1> 
-<Grid as="section">
-<Card4/>
-{userInfo === 'Mikkel' ? 
-<div className='add'>
-     <Link to="/adminmikkel">
-      <Add><IoIosAddCircle/></Add>  
-      </Link> 
- 
-</div>
-       
-: null}
+{role_id === 4 ?   
+<span><Link to="/adminmikkel"><AddButton/></Link></span> 
+: null}  
+</header>
+<Grid as='section'>
+<Card2/>
 </Grid>
-</section>
-
-
+</WishList>
+</Transitions>
   )
 }
 

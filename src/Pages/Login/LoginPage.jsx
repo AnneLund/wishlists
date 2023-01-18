@@ -1,82 +1,89 @@
-import { useState, useEffect } from "react";
-import Axios from 'axios'
-import {useFlashMessageStore} from "../../Components/FlashMessages/useFlashMessageStore";
-import {useLoginStore} from "./useLoginStore";
-import {Navigate} from 'react-router-dom'
-import StyledLoginPage from "./LoginPage.Styled";
+import { useLoginStore } from "./useLoginStore";
+import { useState } from "react";
+import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
+import { Navigate } from "react-router-dom";
+import Admin from "../../StyledComponents/Admin_Styled";
+import Transitions from "../../StyledComponents/Transition";
 
 const LoginPage = () => {
-  const { setLoggedIn, loggedIn } = useLoginStore((store) => ({
-    setLoggedIn: store.setLoggedIn,
-    loggedIn: store.loggedIn,
-    userInfo: store.userInfo,
-    userName: store.username,
-  }));
+    const { setLoggedIn, loggedIn } = useLoginStore((store) => ({
+        setLoggedIn: store.setLoggedIn,
+        loggedIn: store.loggedIn,
+        userInfo: store.userInfo,
+        userName: store.userName,
+      }));
 
-  const [data, setData] = useState([]);
-  const { setFlashMessage } = useFlashMessageStore();
-
-  const [user, setUser] = useState({
-    username: "",
-    password: "",
-  });
-
-  const handleChange = (evt) => {
-    const value = evt.target.value;
-    setUser({
-      ...user,
-      [evt.target.name]: value,
-    });
-  };
-
-  useEffect(()=> {
-      const fetchData = async () => {
-      const result = await Axios('https://my-wish-api.vercel.app/api/users');
-        setData(result.data);
+      const { setFlashMessage } = useFlashMessageStore((store) => ({
+        setFlashMessage: store.setFlashMessage,
+      }));
+    
+      const [user, setUser] = useState({
+        username: "",
+        password: "",
+      });
+    
+      const handleChange = (evt) => {
+        const value = evt.target.value;
+        setUser({
+          ...user,
+          [evt.target.name]: value,
+        });
       };
-  
-       fetchData();
-  
-      }, []);
-
-const login = () => {
-  const username = user.username;
-  const password = user.password;
+    
+      const LogMeIn = (e) => {
+        e.preventDefault();
+    
+        const endPoint = "https://wishlists-api-annelund.vercel.app/login";
+        const username = user.username;
+        const password = user.password;
  
-  const userName = data.user.map(use => {
-    return use.username;
-  })
+        const data = { username: username, password: password};
+      
+        fetch(endPoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+          
+        })
+          .then((response) => response.json())
+   
+          .then((data) => {
+            console.log(data)
+            const role_id = data.payload.role_id;
+            const username = data.payload.username;
+            const token = data.payload.token;
+            if (data.token) {
+              setLoggedIn(true, role_id, username, token);
+              console.log(data)
+              setFlashMessage(`Velkommen ${data.payload.username}!`);
+            } else {
+              setFlashMessage("Ingen brugere med disse kriterier");
+            }
 
-  const passWord = data.user.map(pass => {
-    return pass.password;
-  })
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            setFlashMessage("Ingen brugere med disse kriterier");
+          });
+      };
 
-if(userName.includes(`${username}`) && passWord.includes(`${password}`)){
-  setFlashMessage(`Velkommen ${username}!`)
-  setLoggedIn(true, username, data.userInfo, data.userName)
-  window.location.replace('/#/wishlists');
-}
-else{
-  setFlashMessage('Forkert brugernavn eller password!')
-}
+      return !loggedIn ? (
+        <Transitions>
+        <Admin>
+          <h1>Log ind for at få adgang</h1>
+        <form onSubmit={LogMeIn}>
+          <input type="text" placeholder="Brugernavn" name="username" onChange={(e) => handleChange(e)} />
+          <input type="password" placeholder="Adgangskode" name="password" onChange={(e) => handleChange(e)} />
+          <button>Log ind</button>
+        </form>
+        </Admin>
+        </Transitions>
+      ) : (
+        <Navigate to="/"/>
+      );
 };
-
-   return (
-  <StyledLoginPage>
-   {!loggedIn ? 
-         <form className='login' onSubmit={login}>
-             <h1>Log ind for at få adgang</h1>
-             <input type="text" name="username" placeholder="Brugernavn" onChange={(e) => handleChange(e)} />
-      <input type="password" name="password" placeholder="Password" onChange={(e) => handleChange(e)} />
-      <button>Log ind</button>
- </form>
-:
-<Navigate to="/wishlists" />
-}
-
-</StyledLoginPage>
-   );
-}
 
 export default LoginPage;
 

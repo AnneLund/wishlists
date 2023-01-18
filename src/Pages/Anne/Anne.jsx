@@ -1,48 +1,30 @@
 import React from 'react'
-import Card3 from '../../Components/Cards/Card3'
+import Card1 from '../../Components/Cards/Card1'
 import Grid from '../../StyledComponents/Grid.Styled'
 import { useLoginStore } from '../Login/useLoginStore'
-import { IoIosAddCircle } from "@react-icons/all-files/io/IoIosAddCircle";
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
-
+import AddButton from '../../Components/Partials/AddButton';
+import { useNavigate, Link } from 'react-router-dom';
+import WishList from '../WishLists/WishList.Styled';
+import Transitions from '../../StyledComponents/Transition';
 
 const Anne = () => {
-
-  const { loggedIn, userInfo } = useLoginStore((store) => ({
-    loggedIn: store.loggedIn,
-    userInfo: store.userInfo
-  }));
+const Navigate = useNavigate()
+const { role_id } = useLoginStore();
   
-
-  const Add = styled.figure`
-    display: flex; 
-    color: white;
-    font-size: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  `
-
-  return (
-<section className='wish'>
+return (
+  <Transitions>
+<WishList>
+<header>
 <h1>Annes ønskeseddel</h1> 
+{role_id === 3 ?   
+<span><Link to="/admintest"><AddButton/></Link></span> 
+: null}  
+</header>
 <Grid as="section">
-<Card3/>
-{userInfo === 'Anne' ? 
-<div className='add'>
-     <Link to="/adminanne">
-      <Add><IoIosAddCircle/></Add>  
-      </Link> 
-</div>
-       
-: null}
+<Card1/>
 </Grid>
-</section>
-
-
+</WishList>
+</Transitions>
   )
 }
 

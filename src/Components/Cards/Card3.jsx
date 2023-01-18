@@ -1,119 +1,141 @@
 import {useState, useEffect} from 'react';
-import {StyledCard} from './Card.Styled'
-import Axios from 'axios'
-import Loading from '../../Components/Partials/Loading'
+import {StyledCard} from './Card.Styled';
+import NoButton from '../../StyledComponents/DeleteButton';
+import YesButton from '../../StyledComponents/YesButton';
 import { useForm } from "react-hook-form";
 import { useLoginStore } from '../../Pages/Login/useLoginStore';
 import { useFlashMessageStore } from '../FlashMessages/useFlashMessageStore';
-import { Link, Navigate } from 'react-router-dom';
+import Loading from '../Partials/Loading'
+import axios from 'axios';
+import { useModalStore } from "../Modal/useModalStore";
+import { useSuccesStore } from '../Succes/useSuccesStore';
 
-const Card = () => {
-  const [id, setId] = useState("")
-  const handleChange = (e) => {setId(e.target.value)}
-  const {handleSubmit, reset} = useForm();
-  const [isLoading, setLoading] = useState(true)
-  const database = {id, købt: 1};
-  const [data, setData] = useState([])
+const Card3 = () => {
+    const {reset} = useForm();
+    const [isLoading, setIsLoading] = useState(false)
+    const { setFlashMessage } = useFlashMessageStore();
+    const { role_id } = useLoginStore();
+    const { setModalPayload, setToggleModal } = useModalStore();
+    const { setSuccesPayload, setToggleSucces } = useSuccesStore();
 
-  useEffect(() => {
-    fetch('https://my-wish-api.vercel.app/api/anne')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data.data)
-      })
-  }, [])
-
-  const { setFlashMessage } = useFlashMessageStore();
- 
-  const onSubmit = () => {
-    setLoading(true)
-  
-        Axios.put(`https://my-wish-api.vercel.app/api/anne`, database)
-        .then(response => {
-            console.log(response.data)
+    const [data, setData] = useState([])
+    useEffect(() => {
+      axios.get('https://wishlists-api-annelund.vercel.app/member3')
+        .then((res) => {
+          setData(res.data)
         })
-    
-        .catch(error => error);
-        setTimeout(function(){
-            window.location.reload(1)
-        }, 3000)
-    
-        setLoading(false)
-    
-        if (isLoading) return <Loading/>
-        if (!data) return 
-    }
-    const { setLoggedIn, loggedIn, userInfo, userName } = useLoginStore();
-    console.log(userInfo)
+    }, [])
 
 return(
     <>
-{/* {data?.map(wish => {
-    return(
-<StyledCard style={username === 'Anne' ? {height: 'auto', paddingBottom: '1em'} : {display: 'block'}} key={wish.id}>
-      
-            <img src={wish.image}/>
-            <figcaption>
-            <p className='title'>{wish.titel.substring(0, 25) + "..."}</p> 
+      {isLoading ? <Loading/> : null} 
+        {data?.map(wish => {
 
-            <p className='description'>{wish.description}</p>
-          
-            {wish.købt === 1 ? <p style={username === 'Anne' ? {display: 'none'} : {display: 'block'}} className='bought'>Gaven er købt</p> 
-              : 
-              <div style={username === 'Anne' ? {display: 'none'} : {display: 'block'}}>
-              <p className='status'>Gaven er ikke købt endnu..</p>
-             
-              <form onSubmit={handleSubmit(onSubmit)} >
-                      <button 
-                      type="submit"
-                      value={wish.id}
-                      id="id"
-                      onClick={handleChange}
-                      >Denne gave vil jeg købe</button>
-            </form>
+          return(
+            <StyledCard key={wish.id} style={role_id !== 5 && wish.købt === 1 ? {'opacity': '30%'} : null}>
+                 <picture>
+            <img src={wish.image} alt="Wish"/>  
+            </picture> 
+                <figcaption>
+                  <h3>{wish.title.substring(0, 25) + "..."}</h3> 
+                    <p className='description' style={wish.description === null || wish.description === "" ? {'display': 'none'} : {'display': 'block'}}>{wish.description}</p>        
+                    
+                    <div style={role_id === 5 ? {'display': 'none'} : {'display': 'block'}}> 
+          {wish.købt === 1 ? 
+            <div className='bought'>Gaven er købt</div>
+            : 
+            <>
+            <p className='status'>Gaven er ikke købt endnu..</p>
+              <YesButton
+                value={wish.id}
+                id="id"
+                onClick={() => {
 
-             <p className='link'>Køb gaven <a href={wish.url} target="_blank" rel="noopener noreferrer">her</a></p>
-            
-              </div>
+                  setModalPayload(
+                    <div>
+                      <h4>Er du sikker på at du vil opfylde dette ønske?</h4>
+
+                      <button onClick={() => {
+                        setIsLoading(true)
+                        setSuccesPayload()
+                        setToggleModal("none")
+
+                        const payload = {id: wish.id,købt: 1};
+                         axios.put(`https://wishlists-api-annelund.vercel.app/member3`, payload)
+                          .then((res) => {
+                            console.log(res)
+                              
+                            if(res.data.message === "Product Updated") {
+                            setFlashMessage('Tak - den bliver hun glad for!')
+                            setIsLoading(false)
+
+                            setTimeout(() => {
+                              setToggleSucces("none")
+                              window.location.reload()
+                            }, 2000)
+                               
+
+                              } else {
+                                setFlashMessage('Der skete en fejl.. Prøv igen!')
+                              }
+                            })
+                        
+
+                          
+                      }}>Ja
+                      </button>
+
+                      <button onClick={() => {
+                        setToggleModal("none")
+                        }}>Nej</button>
+                    </div>
+                  )}}>Denne gave vil jeg købe
               
+              </YesButton>
+              <p className='link'>Køb gaven <a href={wish.url} target="_blank" rel="noopener noreferrer">her</a></p>
+              </>
               }
+      </div>
 
-{username === 'Anne' ? <div className='update'>
+{role_id === 5 || role_id === 4 || role_id === 3 ? 
 
-<button 
+<div className='update'>
+
+<NoButton
+className='deleteWish'
 id="id" 
 onClick={() => {
+setIsLoading(true)
+
 const payload = {
   data: {
     id: wish.id
   }
-}
+};
 
-Axios.delete(`https://my-wish-api.vercel.app/api/anne`, payload)
-setFlashMessage('Ønsket er slettet!')
-reset()
-setTimeout(() => {
-window.location.reload()  
-}, 2000)
-
+  axios.delete(`https://wishlists-api-annelund.vercel.app/member3`, payload)
+  .then((res) => {
+ 
+  if(res.data.message === 'Ønske slettet!') {
+  reset()  
+  setFlashMessage('Ønsket er slettet!')
+  setIsLoading(false)
+  window.location.reload()
+    }
+  })
 }}
-value={wish.id}><p className='deleteWish'>Slet ønske</p></button>   
 
-<button>
-<Link to={"/anne/" + wish.id}>Redigér ønske</Link>  
-</button>
-              </div> : null}
-            </figcaption>
-      
+value={wish.id}>Slet ønske</NoButton>   
+
+</div> : null}
+                </figcaption>
 </StyledCard>
     )
 }
   
-)}  */}
+)}    
     </>
 )               
-
-
 }
 
-export default Card;
+export default Card3;

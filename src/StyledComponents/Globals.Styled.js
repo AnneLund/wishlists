@@ -7,8 +7,8 @@ const GlobalStyle = createGlobalStyle`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Cormorant', serif;
-  
+  font-family: 'Bad Script', cursive;
+  font-weight: 100;
 }
 
 .App{
@@ -17,142 +17,66 @@ text-align: center;
 display: flex;
 flex-direction: column;
 color: white;
+background-color: black;
+
+@media screen and (max-width: 768px) {
+  min-height: auto;
+}
   }
 
 .container{
   min-height: 100vh;
-  padding: 1em;
   background-image: url(${stars});
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-blend-mode: darken;
-    background-color: #000000c6;
-    background-size: cover;
-    min-height: 110vh;
-    padding: 4em 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-   margin: 0;
-
-
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-blend-mode: darken;
+  background-color: #000000c6;
+  background-size: cover;
+  min-height: 110vh;
+  padding: 0 4em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  margin: 0;
 }  
 
 h1{
 font-size: 3em;
 padding: 1em;
-margin-top: 2em;
+margin-top: 1em;
 color: white;
+text-shadow: black 5px 5px 5px;
 }
 
-a{
-  background-color: none;
-  text-decoration: none;
+@media screen and (max-width: 600px) {
+  h1{
+    font-size: 1.5em;
+    padding-top: 2em;
+  }
 }
+
+
 
 h2{
   margin: 1em 0;
   font-size: 2em;
   width: 100%;
-  border-bottom: green solid 3px;
-
-}
-
-  button{
-    padding: 0.em;
-    margin: 0.5em;
-    font-size: 20px;
-  }
-
-.admin{
-    background-image: url(${stars});
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-blend-mode: darken;
-    background-color: #000000c6;
-    background-size: cover;
-    padding: 1em 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-
-    form{
-      display: flex;
-      flex-direction: column;
-      gap: 0.5em;
-      gap: 1.5em;
-
-      label{
-    margin: -1em;
-    padding: 0;
-  }
-    }
-
-    header{
-       h1{
-      margin: 0;
-    }
-
-    h3{
-      margin: -1em 0 2em 0;
-      font-size: 1.5em;
-    }   
-    }
-
-
-}
-
-.wish{
-background-image: url(${stars});
-background-repeat: no-repeat;
-background-attachment: fixed;
-background-blend-mode: darken;
-background-color: #000000c6;
-background-size: cover;
-min-height: 110vh;
-display: flex;
-flex-direction: column;
-padding-bottom: 2em;
-justify-content: center;
-}
-
-@media screen and (max-width: 600px) {
-  .wish{
-   
-    h1{
-      padding: 1em 0;
-      font-size: 8vw;
-    }
-  }
-}
-
-.add{
-width: 300px;
-height: auto;
-color: white;
-display: flex;
-justify-content: center;
-position: relative;
-align-items: center;
-font-size: 1em;
-margin: auto;
+  text-shadow: black 5px 5px 5px;
 }
 
 input {
   width: 250px;
   height: 40px;
   color: black;
-  
 }
 
-.update{
-  display: flex;
-  flex-direction: column;
+svg{
+  fill: green;
+}
 
+a{
+  text-decoration: none;
 }
 
 `;

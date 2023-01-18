@@ -2,9 +2,10 @@ import { useForm } from "react-hook-form";
 import appService from '../../Appservices/App.service';
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
 import { useLoginStore } from "../Login/useLoginStore";
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 import {useParams} from 'react-router-dom'
 import Axios from "axios";
+import ChooseFile from "../../StyledComponents/ChooseFile.Styled";
 
 const ValdemarUpdate = () => {
 const {register, handleSubmit, reset} = useForm();
@@ -12,65 +13,88 @@ const { setFlashMessage } = useFlashMessageStore();
 const {id} = useParams()
 const [data, setData] = useState([])
 const [wish, setWish] = useState({
-    titel: "",
+    title: "",
     description: "",
     image: "",
     url: "",
 })
 
+const [image, setImage] = useState('')
+const inputReference = useRef(null);
+
+ 
+     const handleImage = (e) => {
+     console.log(e.target.files)
+     setImage(e.target.files[0])  
+     }
+ 
+     const handleApi = () => {
+        inputReference.current.focus();  
+         const formData = new FormData;
+         formData.append('image', image)
+         Axios.post('https://api.imgbb.com/1/upload?expiration=600&key=0a60a912ef74fe6b2f381234baa648fe', formData)
+         .then((res) => {
+             console.log(res.data.data.display_url)
+             setImage(`${res.data.data.display_url}`)
+             setFlashMessage('Billedet er tilføjet!')
+         })
+     }
+
 
 useEffect(() => {
-  fetch('https://my-wish-api.vercel.app/api/valdemar/' + id)
+  fetch('https://wishlists-api-annelund.vercel.app/member4/' + id)
     .then((res) => res.json())
     .then((data) => {
-      setData(data.data)
+      setData(data)
     })
 }, [])
 
-    const onSubmit = (id) => {
+const onSubmit = (id) => {
 
-       const data = {
-            id,
-            titel: wish.titel,
-            description: wish.description,
-            image: wish.image,
-            url: wish.url,
-       }
-       if(wish.image.includes('.jpg') || (wish.image.includes('.png') || (wish.image.includes('.jpeg') || (wish.image.includes('.webp'))))) {
-        Axios.put('https://my-wish-api.vercel.app/api/valdemar', data)
-      .then(response => {
-          console.log(response.data)
-      })
-      .catch(error => error);
-      setFlashMessage(`Ønsket er opdateret!`)
-      setTimeout(() => {
-        window.location.reload()  
-        }, 2000)
-      } else {
-        setFlashMessage(`Ugyldigt billedformat!`)
-        return;
-      }
-  
-      }
+  const payload = {
+       id,
+       title: wish.title,
+       description: wish.description,
+       image: wish.image,
+       url: wish.url,
+  }
 
-      const { userInfo} = useLoginStore((store) => ({
-        userInfo: store.userInfo,
-      }));
+   Axios.put('https://wishlists-api-annelund.vercel.app/member4', payload)
+ .then(response => {
+     console.log(response.data)
+ })
+ .catch(error => error);
+ setFlashMessage(`Ønsket er opdateret!`)
 
-      const handleChange = (evt) => {
-        const value = evt.target.value;
-        setWish({
-          ...wish,
-          [evt.target.name]: value,
-        });
-      };
 
+ setTimeout(() => {
+   window.location.reload()  
+   }, 2000)
+
+ }
+
+ const { username } = useLoginStore();
+
+ const handleChange = (evt) => {
+   const value = evt.target.value;
+   setWish({
+     ...wish,
+     [evt.target.name]: value,
+   });
+ };
 return(   
     <>
     {data?.map(wish => {
         return(   
             <section className="admin" key={wish.id}>
        <header>          
+
+       <ChooseFile>
+              <label>Tilføj et billede</label>
+              <input type="file" name="file" onChange={handleImage}/>
+              <button type="submit" onClick={handleApi}>Tilføj valgt billede</button>
+        </ChooseFile> 
+
     <h1>Hej Valdemar!</h1> 
     <h3>Redigér ønsket '{wish.titel}'</h3>
       </header>
@@ -82,11 +106,10 @@ return(
         
         } >
               <label>Titel</label>
-              <input name="titel" type="text" onChange={(e) => handleChange(e)} />
+              <input name="title" type="text" onChange={(e) => handleChange(e)} />
               <label>Beskrivelse</label>
               <textarea id="textarea" style={{height: '10vh'}} name="description" type="text" onChange={(e) => handleChange(e)} />
-              <label>Billedets webadresse</label>
-              <input name="image" type="text" onChange={(e) => handleChange(e)}/>
+             <input name="image" style={{display: 'none'}} ref={inputReference} type="text" value={`${image}`} onChange={(e) => handleChange(e)}/>
               <label>Link til siden</label>
               <input name="url" type="text" onChange={(e) => handleChange(e)}/>
               <button type='submit'>Opdatér ønsket</button>                        
