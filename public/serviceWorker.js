@@ -1,47 +1,46 @@
-const CACHE_NAME = 'version-10';
-const urlsToCache = ['index.html', 'offline.html'];
+const CACHE_NAME = "version-11";
+const urlsToCache = ["index.html", "offline.html"];
 let staticUrlsToCache = ["images/icon-192x192.png", "images/icon-256x256.png", "images/icon-384x384.png", "images/icon-512x512.png"];
 
 const self = this;
 
 // Install SW
-self.addEventListener('install', (event) => {
-	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-			console.log('Opened cache');
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log("Opened cache");
 
-			return cache.addAll(urlsToCache);
-		})
-	);
+      return cache.addAll(urlsToCache);
+    })
+  );
 });
 
 // Listen for requests
-self.addEventListener('fetch', (event) => {
-	event.respondWith(
-		caches.match(event.request).then(() => {
-			return fetch(event.request).catch(() => caches.match('offline.html'));
-		})
-	);
+self.addEventListener("fetch", (event) => {
+  event.respondWith(
+    caches.match(event.request).then(() => {
+      return fetch(event.request).catch(() => caches.match("offline.html"));
+    })
+  );
 });
 
 // Activate the SW
-self.addEventListener('activate', (event) => {
-	const cacheWhitelist = [];
-	cacheWhitelist.push(CACHE_NAME);
+self.addEventListener("activate", (event) => {
+  const cacheWhitelist = [];
+  cacheWhitelist.push(CACHE_NAME);
 
-	event.waitUntil(
-		caches.keys().then((cacheNames) =>
-			Promise.all(
-				cacheNames.map((cacheName) => {
-					if (!cacheWhitelist.includes(cacheName)) {
-						return caches.delete(cacheName);
-					}
-				})
-			)
-		)
-	);
+  event.waitUntil(
+    caches.keys().then((cacheNames) =>
+      Promise.all(
+        cacheNames.map((cacheName) => {
+          if (!cacheWhitelist.includes(cacheName)) {
+            return caches.delete(cacheName);
+          }
+        })
+      )
+    )
+  );
 });
-
 
 // let staticUrlsToCache = ["/Assets/Images/anne.jpg", "/Assets/Images/icon-192x192.png", "Assets/Images/icon-384x384.png", "Assets/Images/icon-256x256.png", "Assets/Images/icon-512x512.png", "Assets/Styles/style.css"];
 // const cacheVersionName = ['staticCache-v1']
@@ -64,7 +63,7 @@ self.addEventListener('activate', (event) => {
 // })
 
 //CACHE FIRST - FALLING BACK TO NETWORK
- //Tjek om der er noget i cachen og returner det til browseren. Er der ikke noget, så prøv at finde det
+//Tjek om der er noget i cachen og returner det til browseren. Er der ikke noget, så prøv at finde det
 //på netværket hvorefter det caches og returneres til browseren.
 
 // self.addEventListener('fetch', (event) => {
@@ -77,20 +76,20 @@ self.addEventListener('activate', (event) => {
 //             console.log('Fandt noget i cachen')
 //             return cachedResponse;
 //           }
-  
+
 //           // Otherwise, hit the network
 //           return fetch(event.request).then((fetchedResponse) => {
 
 //              // Add the network response to the cache for later visits
 //             cache.put(event.request, fetchedResponse.clone());
 //             console.log('Fetchede noget..')
-            
+
 //              // Return the network response
 //             return fetchedResponse;
 //           });
 //         });
 //       }));
-   
+
 //   });
 
 //Stale-while-revalidate
@@ -108,11 +107,11 @@ self.addEventListener('activate', (event) => {
 //             cache.put(event.request, networkResponse.clone());
 //             return networkResponse;
 //           });
-  
+
 //           return cachedResponse || fetchedResponse;
 //         });
 //       }));
-      
+
 //   });
 
 // self.addEventListener('activate', (event) => {
