@@ -1,16 +1,12 @@
 import React from "react";
 import { Page } from "../Components/Layout/Page";
+import Transitions from "../StyledComponents/Transition";
 
 const Notfound = () => {
-  const path = window.location.href;
-
-  const url = path.substring(path.lastIndexOf("/") + 1);
-
   return (
-    <Page
-      title={`Siden ${url} blev ikke fundet`}
-      description={`Siden ${url} blev ikke fundet`}
-    />
+    <Transitions>
+      <Page title={`Siden blev ikke fundet`} />;
+    </Transitions>
   );
 };
 

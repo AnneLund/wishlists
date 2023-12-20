@@ -1,95 +1,49 @@
 import styled from "styled-components";
 
 export const MainNav = styled.ul`
-position: absolute;
-display: flex;
-width: 100%;
-height: 10vh;
-z-index: 800;
-background-color: rgba(0, 0, 0, 0.618);
-flex-wrap: wrap;
-justify-content: space-between;
-padding: ${(props) => (props.shrinkHeader ? "0.2rem" : "1rem")} 4rem;
-transition: padding 500ms ease;
-
-.burger{
-overflow: hidden;
-display: flex;
-justify-content: space-between;
-align-items: center;
-gap: 1.5em;
-position: relative;
-
-@media (max-width: 768px){
-  flex-direction: column;
-  transition: max-height 0.3 ease-in;
+  position: fixed;
+  display: flex;
   width: 100%;
-  z-index: 50000;
-  max-height: ${({isOpen}) => isOpen ? 'auto' : '0'};
-}    
-}
+  height: 10vh;
+  z-index: 800;
+  flex-wrap: wrap;
+  justify-content: space-between;
 
-li{
+  li {
     list-style: none;
-    &:last-of-type{
-        margin-left: auto;
+    &:last-of-type {
+      margin-left: auto;
     }
 
-    a{
-        padding: 0.3em;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  transition: all 0.3s ease-in;
-  background-color: rgba(0, 0, 0, 0.618);
-  font-size: 1.5em;
-  &:hover{
-      background-color: grey;
+    a {
+      padding: 0.3em;
       cursor: pointer;
-      transition: 300ms;
-    }
+      text-align: center;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease-in;
+      font-size: 1.5em;
+      &:hover {
+        cursor: pointer;
+        transition: 300ms;
+      }
 
-  @media (max-width: 768px){
-    display: block;
-    width: 100%;
+      @media (max-width: 768px) {
+        display: block;
+        width: 100%;
+      }
+    }
   }
 
-  li{
-    padding: .4rem 1.2rem;
-  cursor: pointer;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  transition: all 0.3s ease-in;
-  background-color: #333;
-  font-size: 1em;
-  &:hover{
-      background-color: grey;
-      cursor: pointer;
-      transition: 300ms;
-    }
-
-  @media (max-width: 768px){
-    display: block;
-    width: 100%;
-  }
-  }
-    }
-}
-
-@media (max-width: 768px){
-    background-color: black;
+  @media (max-width: 768px) {
+    background-color: ${(props) => (props.shrinkHeader ? "rgba(0, 0, 0, 0.9)" : "rgba(0, 0, 0, 0.618)")};
     padding: 1rem;
     height: auto;
-    display: flex;
+    margin: 0 auto;
     justify-content: flex-end;
 
-    li{
-        width: 100%;
-        background-color:  #fff7;
+    li {
+      width: 100%;
     }
-}
-
-`
-
+  }
+`;

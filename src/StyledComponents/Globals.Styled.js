@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import stars from '../Assets/Images/stars.jpeg' 
+import { createGlobalStyle } from "styled-components";
+import stars from "../Assets/Images/stars.jpeg";
 
 const GlobalStyle = createGlobalStyle`
 
@@ -7,8 +7,12 @@ const GlobalStyle = createGlobalStyle`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Bad Script', cursive;
+  font-family: 'Dosis', sans-serif;
   font-weight: 100;
+}
+
+body {
+  background-color: black;
 }
 
 .App{
@@ -33,30 +37,13 @@ background-color: black;
   background-color: #000000c6;
   background-size: cover;
   min-height: 110vh;
-  padding: 0 4em;
+  padding: 5em 2em;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
-  margin: 0;
+ 
 }  
-
-h1{
-font-size: 3em;
-padding: 1em;
-margin-top: 1em;
-color: white;
-text-shadow: black 5px 5px 5px;
-}
-
-@media screen and (max-width: 600px) {
-  h1{
-    font-size: 1.5em;
-    padding-top: 2em;
-  }
-}
-
-
 
 h2{
   margin: 1em 0;
@@ -80,6 +67,5 @@ a{
 }
 
 `;
- 
-export default GlobalStyle;
 
+export default GlobalStyle;

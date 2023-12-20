@@ -1,7 +1,9 @@
-export default function authHeader(users) {
-  const currentToken = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")) : "";
+export default function authHeader() {
+  const tokenString = localStorage.getItem("token");
 
-  if (currentToken && currentToken) {
+  const currentToken = tokenString ? JSON.parse(tokenString) : null;
+
+  if (currentToken && currentToken.access_token) {
     return {
       "Access-Control-Allow-Origin": "*",
       authorization: `Bearer ${currentToken.access_token}`,

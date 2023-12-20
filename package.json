@@ -2,6 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://wishlists-api-annelund.vercel.app",
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
     "@fortawesome/free-regular-svg-icons": "^6.2.0",

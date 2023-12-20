@@ -1,13 +1,26 @@
 import create from "zustand";
 
 export const useFlashMessageStore = create((set) => ({
-  flashMessages: null,
-  setFlashMessage: (message) => {
+  successMessages: [],
+  errorMessages: [],
+
+  setSuccessMessage: (message) => {
     set((state) => ({
-      flashMessages: (state.flashMessages = message),
+      successMessages: [...state.successMessages, message],
     }));
   },
-  removeFlashmessage: () => {
-    set((state) => ({ flashMessages: (state.flashMessages = null) }));
+
+  setErrorMessage: (message) => {
+    set((state) => ({
+      errorMessages: [...state.errorMessages, message],
+    }));
+  },
+
+  removeSuccessMessage: () => {
+    set((state) => ({ successMessages: state.successMessages.slice(1) }));
+  },
+
+  removeErrorMessage: () => {
+    set((state) => ({ errorMessages: state.errorMessages.slice(1) }));
   },
 }));

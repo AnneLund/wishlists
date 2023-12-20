@@ -3,7 +3,7 @@
   "background_color": "#4e35f6",
   "display": "standalone",
   "scope": "/",
-  "start_url": "/login",
+  "start_url": "/",
   "name": "Wishes",
   "short_name": "Wishes",
   "icons": [

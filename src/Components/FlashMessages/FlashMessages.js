@@ -3,31 +3,46 @@ import { Flashmessage } from "./FloatingAlerts.Styled";
 import { useFlashMessageStore } from "./useFlashMessageStore";
 
 const FlashMessages = (props) => {
+  const flashDuration = 2000;
 
-  //how long should the flashmessage be shown
-  const flashDuration = 5000;
- 
-  const { flashMessages, removeFlashmessage } = useFlashMessageStore((store) => ({
-    flashMessages: store.flashMessages, //Holds the message
-    removeFlashmessage: store.removeFlashmessage,//removes the message
+  const { successMessages, errorMessages, removeSuccessMessage, removeErrorMessage } = useFlashMessageStore((store) => ({
+    successMessages: store.successMessages,
+    errorMessages: store.errorMessages,
+    removeSuccessMessage: store.removeSuccessMessage,
+    removeErrorMessage: store.removeErrorMessage,
   }));
 
-  //remove the message according to the time in flashDuration
   useEffect(() => {
-    let flashTimer = setTimeout(() => removeFlashmessage(), flashDuration);
+    let successTimer, errorTimer;
+
+    if (successMessages.length > 0) {
+      successTimer = setTimeout(() => removeSuccessMessage(), flashDuration);
+    }
+
+    if (errorMessages.length > 0) {
+      errorTimer = setTimeout(() => removeErrorMessage(), flashDuration);
+    }
+
     return () => {
-      clearTimeout(flashTimer);
+      clearTimeout(successTimer);
+      clearTimeout(errorTimer);
     };
-  }, [flashMessages, removeFlashmessage]);
+  }, [successMessages, errorMessages, removeSuccessMessage, removeErrorMessage]);
 
   return (
-    flashMessages && (
-      <>
-        <Flashmessage msgColor={props.msgColor} className="floating-alerts" flashDuration={flashDuration}>
-          <div className="alert alert-success text-center floating-alert shadow-sm">{flashMessages}</div>
+    <>
+      {successMessages.length > 0 && (
+        <Flashmessage msgColor={props.successMsgColor} className="floating-alerts" flashDuration={flashDuration}>
+          <div className={`alert alert-success text-center floating-alert shadow-sm ${props.successMsgClass}`}>{successMessages[0]}</div>
         </Flashmessage>
-      </>
-    )
+      )}
+
+      {errorMessages.length > 0 && (
+        <Flashmessage msgColor={props.errorMsgColor} className="floating-alerts" flashDuration={flashDuration}>
+          <div className={`alert alert-danger text-center floating-alert shadow-sm ${props.errorMsgClass}`}>{errorMessages[0]}</div>
+        </Flashmessage>
+      )}
+    </>
   );
 };
 

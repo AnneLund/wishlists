@@ -1,13 +1,13 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-const Loading_Container = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1em;
-  position: absolute;
+const LoadingContainer = styled.div`
+  position: fixed;
+  z-index: 999999;
+  top: 50%;
   left: 50%;
-`
+  transform: translate(-50%, -50%);
+`;
 
 const Loader = styled.div`
   border: 16px solid rgba(0, 0, 0, 0.824); /* Light grey */
@@ -15,31 +15,24 @@ const Loader = styled.div`
   border-radius: 50%;
   width: 5em;
   height: 5em;
-  display: block;
-  justify-content: center;
-  position: fixed;
-  z-index: 999999;
   animation: spin 2s linear infinite;
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@media screen and (max-width: 600px) {
-  .loader{
-    left: 35%;
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-}
-`
+`;
 
 const Loading = () => {
- 
   return (
-  <Loading_Container>
-  <Loader/>  
-  </Loading_Container> 
-  )
-}
+    <LoadingContainer>
+      <Loader />
+    </LoadingContainer>
+  );
+};
 
 export default Loading;
