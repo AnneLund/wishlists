@@ -5,21 +5,28 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log("Opened cache");
-      return cache.addAll(staticUrlsToCache);
+
+      return cache.addAll([...staticUrlsToCache]);
     })
   );
 });
 
 self.addEventListener("fetch", (event) => {
   event.respondWith(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.match(event.request).then((cachedResponse) => {
-        const fetchPromise = fetch(event.request).then((networkResponse) => {
-          cache.put(event.request, networkResponse.clone());
-          return networkResponse;
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      return fetch(event.request).then((response) => {
+        const responseToCache = response.clone();
+        const requestClone = new Request(event.request.url); // Opret en ny Request
+
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(requestClone, responseToCache);
         });
 
-        return cachedResponse || fetchPromise;
+        return response;
       });
     })
   );

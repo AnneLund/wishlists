@@ -28,36 +28,36 @@ const AdminSite = () => {
     1: {
       name: "Anne",
       username: "anne",
-      update: appService.update_MEMBER1,
-      create: appService.create_MEMBER1,
+      update: appService.update_member1,
+      create: appService.create_member1,
       url: "https://wishlists-api-annelund.vercel.app/member1",
     },
     2: {
       name: "Mikkel",
       username: "mikkel",
-      update: appService.update_MEMBER2,
-      create: appService.create_MEMBER2,
+      update: appService.update_member2,
+      create: appService.create_member2,
       url: "https://wishlists-api-annelund.vercel.app/member2",
     },
     3: {
       name: "Rebecca",
       username: "rebecca",
-      update: appService.update_MEMBER3,
-      create: appService.create_MEMBER3,
+      update: appService.update_member3,
+      create: appService.create_member3,
       url: "https://wishlists-api-annelund.vercel.app/member3",
     },
     4: {
       name: "Valdemar",
       username: "valdemar",
-      update: appService.update_MEMBER4,
-      create: appService.create_MEMBER4,
+      update: appService.update_member4,
+      create: appService.create_member4,
       url: "https://wishlists-api-annelund.vercel.app/member4",
     },
     5: {
       name: "Alle",
       username: "allmembers",
-      update: appService.update_ALLMEMBERS,
-      create: appService.create_ALLMEMBERS,
+      update: appService.update_all_members,
+      create: appService.create_all_members,
       url: "https://wishlists-api-annelund.vercel.app/allmembers",
     },
   };
@@ -73,7 +73,6 @@ const AdminSite = () => {
       const res = await axios.get(`${url}/${id}`);
       const wishData = res.data;
 
-      // Set form values for update
       setValue("title", wishData.title);
       setValue("description", wishData.description);
       setValue("image", wishData.image);
@@ -108,7 +107,7 @@ const AdminSite = () => {
     formData.append("image", image);
 
     try {
-      const res = await axios.post("https://api.imgbb.com/1/upload?&key=e8a00b56282f272fb0399ee781aa3a44", formData);
+      const res = await appService.post_image(formData);
       setImage(`${res.data.data.image.url}`);
 
       if (res.data.status === 200) {
