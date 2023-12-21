@@ -1,4 +1,4 @@
-const CACHE_NAME = "version-12";
+const CACHE_NAME = "version-13";
 const staticUrlsToCache = ["images/icon-192x192.png", "images/icon-256x256.png", "images/icon-384x384.png", "images/icon-512x512.png"];
 
 self.addEventListener("install", (event) => {
@@ -18,16 +18,24 @@ self.addEventListener("fetch", (event) => {
         return cachedResponse;
       }
 
-      return fetch(event.request).then((response) => {
-        const responseToCache = response.clone();
-        const requestClone = new Request(event.request.url); // Opret en ny Request
+      return fetch(event.request)
+        .then((response) => {
+          if (!response || response.status !== 200 || response.type !== "basic") {
+            return response;
+          }
 
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(requestClone, responseToCache);
+          const responseToCache = response.clone();
+          const requestClone = new Request(event.request.url);
+
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(requestClone, responseToCache);
+          });
+
+          return response;
+        })
+        .catch((error) => {
+          console.error("Fetch failed:", error);
         });
-
-        return response;
-      });
     })
   );
 });

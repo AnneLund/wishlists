@@ -1,5 +1,5 @@
 import Axios from "axios";
-import { api_member1, api_member2, api_member3, api_member4, api_all_members, img_post } from "./API_URL";
+import { api_member1, api_member2, api_member3, api_member4, api_all_members, img_post } from "./api_urls";
 import authHeader from "./auth-header";
 
 const create_member1 = (title, description, image, url, købt) => {

@@ -108,6 +108,7 @@ const AdminSite = () => {
 
     try {
       const res = await appService.post_image(formData);
+      console.log(res);
       setImage(`${res.data.data.image.url}`);
 
       if (res.data.status === 200) {

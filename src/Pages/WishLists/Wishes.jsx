@@ -12,6 +12,7 @@ import { Page } from "../../Components/Layout/Page";
 import Grid from "../../StyledComponents/Grid.Styled";
 import Transitions from "../../StyledComponents/Transition";
 import AddButton from "../../Components/Partials/AddButton";
+import NonMember from "../../Components/Wishlist/NotAmember";
 
 // ØNSKESEDLER
 
@@ -43,6 +44,8 @@ const Wishes = () => {
   const routeData = Object.values(members).find((m) => m.route === location.pathname) || defaultMember;
 
   const { member, name, loggedInId, route } = routeData;
+
+  console.log("role_id:", role_id, "loggedinid:", loggedInId);
 
   const isRouteValid = Object.values(members).some((m) => m.route === location.pathname);
 
@@ -160,13 +163,18 @@ const Wishes = () => {
                     style={wish.description === null || wish.description === "" ? { display: "none" } : { display: "block" }}>
                     {wish.description}
                   </p>
+                  <NonMember
+                    wish={wish}
+                    handleConfirm={handleConfirm}
+                    members={members}
+                    route={route}
+                    routeData={routeData}
+                    member={member}
+                    name={name}
+                    loggedInId={loggedInId}
+                  />
 
-                  <div
-                    style={
-                      role_id === loggedInId || ([1, 2, 3, 4].includes(role_id) && route.pathname === "/allmembers")
-                        ? { display: "none" }
-                        : { display: "block" }
-                    }>
+                  {/* <div style={role_id === loggedInId && route.pathname === "/allmembers" ? { display: "none" } : { display: "block" }}>
                     {wish.købt === 1 && <p className="bought">Gaven er reserveret</p>}
 
                     {reservedByToken === token && reservedWishId === wish.id && <NoButton onClick={() => handleUndo(wish)}>Fortryd</NoButton>}
@@ -179,7 +187,7 @@ const Wishes = () => {
                     )}
 
                     {isLoading && <Loading />}
-                  </div>
+                  </div> */}
 
                   {wish.url && wish.købt === 0 && (
                     <p className="link">
@@ -190,7 +198,7 @@ const Wishes = () => {
                     </p>
                   )}
 
-                  {role_id === loggedInId || ([1, 2, 3, 4].includes(role_id) && route.pathname === "/allmembers") ? (
+                  {role_id === member.loggedInId && route.pathname === "/allmembers" ? (
                     <div className="update">
                       <DeleteButton
                         className="deleteWish"
