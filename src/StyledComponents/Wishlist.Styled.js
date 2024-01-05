@@ -94,7 +94,6 @@ const StyledCardUpdate = styled.figure`
   margin: 0 auto;
 
   ${({ isUpdateMode }) => {
-    // Use isUpdateMode in your styles if needed
     return isUpdateMode ? "update-mode-styles" : "normal-mode-styles";
   }};
 

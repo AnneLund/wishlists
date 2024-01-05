@@ -10,4 +10,8 @@ const api_all_members = "https://wishlists-api-annelund.vercel.app/allmembers";
 
 const img_post = "https://api.imgbb.com/1/upload?&key=e8a00b56282f272fb0399ee781aa3a44";
 
-export { api_member1, api_member2, api_member3, api_member4, api_all_members, img_post };
+const login_url = "https://wishlists-api-annelund.vercel.app/login";
+
+const api_url = "https://wishlists-api-annelund.vercel.app";
+
+export { api_url, api_member1, api_member2, api_member3, api_member4, api_all_members, img_post, login_url };

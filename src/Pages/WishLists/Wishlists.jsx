@@ -3,13 +3,9 @@ import styled from "styled-components";
 import React from "react";
 import LoginPage from "../Login/LoginPage";
 import bg from "../../Assets/Images/bg.jpg";
-import rebecca from "../../Assets/Images/rebecca.JPG";
-import valdemar from "../../Assets/Images/valdemar.jpg";
-import mikkel from "../../Assets/Images/mikkel.PNG";
-import anne from "../../Assets/Images/anne.JPG";
-import family from "../../Assets/Images/family.jpg";
 import { Link } from "react-router-dom";
 import Transitions from "../../StyledComponents/Transition";
+import { useMembers } from "../../Components/Members";
 
 const WishListsPage = styled.section`
   background-image: url(${bg});
@@ -65,55 +61,19 @@ const StyledLink = styled.figure`
 `;
 
 const Wishlists = () => {
+  const members = useMembers();
   const { loggedIn, username } = useLoginStore();
-  const wishlists = [
-    {
-      id: 1,
-      image: rebecca,
-      title: "Rebecca",
-      username: "rebecca",
-      loggedInUser: username,
-    },
-    {
-      id: 2,
-      image: valdemar,
-      title: "Valdemar",
-      username: "valdemar",
-      loggedInUser: username,
-    },
-    {
-      id: 3,
-      image: mikkel,
-      title: "Mikkel",
-      username: "mikkel",
-      loggedInUser: username,
-    },
-    {
-      id: 4,
-      image: anne,
-      title: "Anne",
-      username: "anne",
-      loggedInUser: username,
-    },
-    {
-      id: 5,
-      image: family,
-      title: "Vores allesammen",
-      username: "allmembers",
-      loggedInUser: username,
-    },
-  ];
 
   return (
     <Transitions>
       {loggedIn ? (
         <WishListsPage>
           <div>
-            {wishlists.map((wishlist) => {
+            {members.map((wishlist, i) => {
               return (
-                <StyledLink style={{ backgroundImage: `url(${wishlist.image})` }} key={wishlist.id}>
+                <StyledLink key={i} style={{ backgroundImage: `url(${wishlist.image})` }}>
                   <Link to={{ pathname: `/${wishlist.username}` }}>
-                    <li>{wishlist.loggedInUser === wishlist.title ? <p>Min ønskeseddel</p> : <p>{wishlist.title}'s ønskeseddel</p>}</li>
+                    <li>{wishlist.name === username ? <p>Min ønskeseddel</p> : <p>{wishlist.name}'s ønskeseddel</p>}</li>
                   </Link>
                 </StyledLink>
               );

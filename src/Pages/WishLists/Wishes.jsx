@@ -1,100 +1,50 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
-import { YesButton, NoButton, DeleteButton, UpdateButton } from "../../StyledComponents/Buttons";
-import { useForm } from "react-hook-form";
+import { useState, useEffect } from "react";
+import { YesButton, NoButton, AddButton, DeleteButton, UpdateButton } from "../../StyledComponents/Buttons";
 import { useLoginStore } from "../Login/useLoginStore";
+import useWishActions from "../../Components/CRUDhooks/wishActions";
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
 import Loading from "../../Components/Partials/Loading";
-import axios from "axios";
 import { useModalStore } from "../../Components/Modal/useModalStore";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { StyledCard } from "../../StyledComponents/Wishlist.Styled";
 import { Page } from "../../Components/Layout/Page";
 import Grid from "../../StyledComponents/Grid.Styled";
 import Transitions from "../../StyledComponents/Transition";
-import AddButton from "../../Components/Partials/AddButton";
-import NonMember from "../../Components/Wishlist/NotAmember";
+import { useMembers } from "../../Components/Members";
+import { FaRegEdit } from "react-icons/fa";
+import { RiDeleteBin5Fill } from "react-icons/ri";
+import { IoMdAdd } from "react-icons/io";
 
 // ØNSKESEDLER
 
 const Wishes = () => {
-  const { reset } = useForm();
-  const [isLoading, setIsLoading] = useState(false);
+  const members = useMembers();
+  const [isLoading] = useState(false);
+  const location = useLocation();
+
   const { setSuccessMessage, setErrorMessage } = useFlashMessageStore();
   const { role_id, token } = useLoginStore();
   const { setModalPayload, setToggleModal } = useModalStore();
-  const [data, setData] = useState([]);
-  const [reservedByToken, setReservedByToken] = useState([]);
-  const [reservedWishId, setReservedWishId] = useState(null);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const members = useMemo(
-    () => ({
-      1: { member: "member1", name: "Anne", loggedInId: 1, route: "/anne" },
-      2: { member: "member2", name: "Mikkel", loggedInId: 2, route: "/mikkel" },
-      3: { member: "member3", name: "Rebecca", loggedInId: 3, route: "/rebecca" },
-      4: { member: "member4", name: "Valdemar", loggedInId: 4, route: "/valdemar" },
-      5: { member: "allmembers", name: "Vores allesammen", loggedInId: 6, route: "/allmembers" },
-    }),
-    []
-  );
 
   const defaultMember = { member: "", name: "", loggedInId: null, route: "" };
+  const memberData = Object.values(members).find((m) => m.route === location.pathname) || defaultMember;
+  const { name, loggedInId, url } = memberData;
+  const navigate = useNavigate();
 
-  const routeData = Object.values(members).find((m) => m.route === location.pathname) || defaultMember;
-
-  const { member, name, loggedInId, route } = routeData;
-
-  console.log("role_id:", role_id, "loggedinid:", loggedInId);
-
-  const isRouteValid = Object.values(members).some((m) => m.route === location.pathname);
-
-  const fetchData = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      // Check if the route exists in members
-      if (!isRouteValid) {
-        navigate("/notfound");
-        return;
-      }
-
-      const response = await axios.get(`https://wishlists-api-annelund.vercel.app/${member}`);
-      setData(response.data);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [isRouteValid, member, navigate]);
+  const {
+    fetchWishData,
+    wishData,
+    handleConfirm,
+    deleteWish,
+    reservedByToken,
+    reservedWishId,
+    handleUndo,
+    isLoading: isActionLoading,
+  } = useWishActions(url, token, setSuccessMessage, setErrorMessage);
 
   useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
-  const handleConfirm = (wish) => {
-    setIsLoading(true);
-
-    const payload = { id: wish.id, købt: 1 };
-
-    axios
-      .put(`https://wishlists-api-annelund.vercel.app/${member}`, payload)
-      .then((res) => {
-        if (res.data.message === "Product Updated") {
-          setData((prevData) => prevData.map((item) => (item.id === wish.id ? { ...item, købt: 1 } : item)));
-          setSuccessMessage("Gaven er nu reserveret!");
-          setReservedByToken(token);
-          setReservedWishId(wish.id);
-          setIsLoading(false);
-        } else {
-          setErrorMessage("Der skete en fejl.. Prøv igen!");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setErrorMessage("Der skete en fejl.. Prøv igen!");
-        setIsLoading(false);
-      });
-  };
+    fetchWishData();
+  }, [fetchWishData, url]);
 
   const openModal = (wish) => {
     setModalPayload(
@@ -117,42 +67,41 @@ const Wishes = () => {
     );
   };
 
-  const handleUndo = (wish) => {
-    const undoPayload = { id: wish.id, købt: 0 };
-
-    axios
-      .put(`https://wishlists-api-annelund.vercel.app/${member}`, undoPayload)
-      .then((res) => {
-        if (res.data.message === "Product Updated") {
-          setSuccessMessage("Reservation fortrudt");
-          setData((prevData) => prevData.map((item) => (item.id === wish.id ? { ...item, købt: 0 } : item)));
-          setReservedWishId(wish.id);
-          setReservedByToken("");
-          setIsLoading(false);
-        } else {
-          setErrorMessage("Der skete en fejl.. Prøv igen!");
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-        setErrorMessage("Der skete en fejl.. Prøv igen!");
-        setIsLoading(false);
-      });
-  };
-
-  return isLoading ? (
+  return isActionLoading ? (
     <Loading />
+  ) : wishData && wishData.length === 0 ? (
+    <Page title={role_id === loggedInId ? "Min ønskeseddel" : `${name}'s ønskeseddel`}>
+      <h2>Tilføj det første ønske til ønskelisten!</h2>
+      <div className="action_buttons">
+        <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
+          <AddButton>
+            <IoMdAdd className="add" />
+          </AddButton>
+        </Link>
+      </div>
+    </Page>
   ) : (
     <Transitions>
       <Page title={role_id === loggedInId ? "Min ønskeseddel" : `${name}'s ønskeseddel`}>
-        <Link to="/admin">
-          <AddButton />
-        </Link>
+        <div className="action_buttons">
+          <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
+            <AddButton>
+              <IoMdAdd className="add" />
+            </AddButton>
+          </Link>
+        </div>
         <Grid>
-          {isLoading && <Loading />}
-          {data?.map((wish) => {
+          {wishData?.map((wish) => {
+            const isAllMembersPage = location.pathname === "/allmembers";
+            const isOwnWishlist = role_id === loggedInId;
+            const canViewReservation = !(isOwnWishlist || isAllMembersPage) || role_id >= 5;
+            const isReserved = canViewReservation && wish.købt === 1;
+            const isReservedByUser = reservedByToken === token && reservedWishId === wish.id;
+            const isAvailableForReservation = wish.købt === 0;
+            const canEditOrDelete = isOwnWishlist || !canViewReservation;
+
             return (
-              <StyledCard key={wish.id} style={role_id !== loggedInId && wish.købt === 1 ? { opacity: "30%" } : null}>
+              <StyledCard key={wish.id} style={isReserved && !isOwnWishlist ? { opacity: "30%" } : null}>
                 <picture>
                   <img src={wish.image} alt="Wish" />
                 </picture>
@@ -163,23 +112,13 @@ const Wishes = () => {
                     style={wish.description === null || wish.description === "" ? { display: "none" } : { display: "block" }}>
                     {wish.description}
                   </p>
-                  <NonMember
-                    wish={wish}
-                    handleConfirm={handleConfirm}
-                    members={members}
-                    route={route}
-                    routeData={routeData}
-                    member={member}
-                    name={name}
-                    loggedInId={loggedInId}
-                  />
 
-                  {/* <div style={role_id === loggedInId && route.pathname === "/allmembers" ? { display: "none" } : { display: "block" }}>
-                    {wish.købt === 1 && <p className="bought">Gaven er reserveret</p>}
+                  <div>
+                    {isReserved && !isOwnWishlist && <p className="bought">Gaven er reserveret</p>}
 
-                    {reservedByToken === token && reservedWishId === wish.id && <NoButton onClick={() => handleUndo(wish)}>Fortryd</NoButton>}
+                    {isReservedByUser && <NoButton onClick={() => handleUndo(wish)}>Fortryd</NoButton>}
 
-                    {wish.købt === 0 && (
+                    {canViewReservation && isAvailableForReservation && (
                       <>
                         <p className="status">Gaven er ikke reserveret endnu..</p>
                         <YesButton onClick={() => openModal(wish)}>Reservér</YesButton>
@@ -187,7 +126,7 @@ const Wishes = () => {
                     )}
 
                     {isLoading && <Loading />}
-                  </div> */}
+                  </div>
 
                   {wish.url && wish.købt === 0 && (
                     <p className="link">
@@ -198,51 +137,32 @@ const Wishes = () => {
                     </p>
                   )}
 
-                  {role_id === member.loggedInId && route.pathname === "/allmembers" ? (
-                    <div className="update">
-                      <DeleteButton
-                        className="deleteWish"
-                        id="id"
-                        onClick={() => {
-                          setIsLoading(true);
-                          const payload = {
-                            data: {
-                              id: wish.id,
-                            },
-                          };
-
-                          axios.delete(`https://wishlists-api-annelund.vercel.app/${member}`, payload).then((res) => {
-                            if (res.data.message === "Ønske slettet!") {
-                              reset();
-                              setSuccessMessage("Ønsket er slettet!");
-                              setIsLoading(false);
-                              window.location.reload();
-                            }
-                          });
-                        }}
-                        value={wish.id}>
-                        Slet ønske
+                  {canEditOrDelete && (
+                    <div className="action_buttons">
+                      <DeleteButton id="id" onClick={() => deleteWish(wish.id)} value={wish.id}>
+                        <RiDeleteBin5Fill className="deleteWish" />
                       </DeleteButton>
+
                       <UpdateButton
                         id={wish.id}
                         onClick={() => {
-                          navigate(`/admin/${wish.id}`);
+                          navigate(`/admin/${wish.id}?from=${encodeURIComponent(location.pathname)}`);
                         }}>
-                        Redigér
+                        <FaRegEdit className="edit" />
                       </UpdateButton>
                     </div>
-                  ) : null}
+                  )}
                 </figcaption>
               </StyledCard>
             );
           })}
-          <Link to="/admin">
-            <AddButton />
-          </Link>
+          <AddButton>
+            <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
+              <IoMdAdd className="add" />
+            </Link>
+          </AddButton>
         </Grid>
       </Page>
-
-      <div></div>
     </Transitions>
   );
 };

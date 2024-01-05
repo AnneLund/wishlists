@@ -28,24 +28,11 @@ const NoButton = styled.button`
   }
 `;
 
-const DeleteButton = styled.button`
-  background-color: rgba(255, 0, 0, 0.4);
-  color: black;
-  font-size: 1.5em;
-  font-weight: 600;
-  padding: 0.5em;
-
-  cursor: pointer;
-  box-shadow: black 3px 3px 3px;
-
-  &:hover {
-    background-color: red;
-    transition: 500ms;
-  }
-`;
-
-const UpdateButton = styled.button`
-  background-color: rgba(255, 0, 0, 0.4);
+const AddButton = styled.button`
+  display: flex; // Gør dette til en flex container
+  justify-content: center; // Centrerer indholdet horisontalt
+  align-items: center; // Centrerer indholdet vertikalt
+  background-color: rgba(0, 100, 20, 0.3);
   color: black;
   font-size: 1.5em;
   font-weight: 600;
@@ -55,9 +42,62 @@ const UpdateButton = styled.button`
   box-shadow: black 3px 3px 3px;
 
   &:hover {
-    background-color: red;
+    background-color: rgba(0, 100, 20, 0.8);
     transition: 500ms;
+  }
+
+  .add {
+    fill: white;
+    display: inline-block;
   }
 `;
 
-export { YesButton, NoButton, UpdateButton, DeleteButton };
+const DeleteButton = styled.button`
+  display: flex; // Gør dette til en flex container
+  justify-content: center; // Centrerer indholdet horisontalt
+  align-items: center; // Centrerer indholdet vertikalt
+  background-color: rgba(4, 0, 0, 0.4);
+  color: black;
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 0.5em;
+  margin: 0.5em;
+  cursor: pointer;
+  box-shadow: black 3px 3px 3px;
+
+  &:hover {
+    background-color: rgba(300, 0, 20, 0.3);
+    transition: 500ms;
+  }
+
+  .deleteWish {
+    fill: white;
+    display: inline-block;
+  }
+`;
+
+const UpdateButton = styled.button`
+  display: flex; // Gør dette til en flex container
+  justify-content: center; // Centrerer indholdet horisontalt
+  align-items: center; // Centrerer indholdet vertikalt
+  background-color: rgba(4, 0, 0, 0.4);
+  color: black;
+  font-size: 1.5em;
+  font-weight: 600;
+  padding: 0.5em;
+  margin: 0.5em;
+  cursor: pointer;
+  box-shadow: black 3px 3px 3px;
+
+  &:hover {
+    background-color: rgba(0, 100, 20, 0.3);
+    transition: 500ms;
+  }
+
+  .edit {
+    fill: white;
+    display: inline-block;
+  }
+`;
+
+export { YesButton, NoButton, AddButton, UpdateButton, DeleteButton };

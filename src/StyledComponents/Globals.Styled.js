@@ -58,12 +58,14 @@ input {
   color: black;
 }
 
-svg{
-  fill: green;
-}
-
 a{
   text-decoration: none;
+}
+
+.action_buttons {
+  display: flex;
+  justify-content: center;
+margin: 1.5em;
 }
 
 `;
