@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Transitions from "../../StyledComponents/Transition";
 import { useMembers } from "../../Components/Members";
 
-const WishListsPage = styled.section`
+export const WishListsPage = styled.section`
   background-image: url(${bg});
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -23,7 +23,7 @@ const WishListsPage = styled.section`
   margin: 0;
 `;
 
-const StyledLink = styled.figure`
+export const StyledLink = styled.figure`
   background-image: url(${(props) => props.image});
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -62,7 +62,7 @@ const StyledLink = styled.figure`
 
 const Wishlists = () => {
   const members = useMembers();
-  const { loggedIn, username } = useLoginStore();
+  const { loggedIn, username, } = useLoginStore();
 
   return (
     <Transitions>

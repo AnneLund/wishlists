@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import appService from "../../Appservices/App.service";
+import axios from "axios";
 
 export function useImageHandler(setErrorMessage, setIsLoading, setImage, setShouldUploadImage) {
   const handleImage = useCallback(
@@ -24,15 +25,26 @@ export function useImageHandler(setErrorMessage, setIsLoading, setImage, setShou
 
 export function usePostImageData(setImage, setIsLoading, setSuccessMessage, inputReference) {
   const postImage = useCallback(
-    async (image) => {
+    async (image, imageUrl = null) => {
+      let uploadedImageUrl = null;
       setIsLoading(true);
 
-      const formData = new FormData();
-      formData.append("image", image);
-
       try {
-        const res = await appService.post_image(formData);
+        let res;
+        if (imageUrl) {
+          // Hvis en image URL er givet, brug den til at uploade til imgbb
+          const apiKey = process.env.REACT_APP_IMGBB_API_KEY;
+          const url = `https://api.imgbb.com/1/upload?key=${apiKey}&image=${encodeURIComponent(imageUrl)}`;
+          res = await axios.post(url);
+        } else {
+          // Ellers brug den oprindelige metode til at uploade filen
+          const formData = new FormData();
+          formData.append("image", image);
+          res = await appService.post_image(formData);
+        }
+
         if (res.data.status === 200) {
+          uploadedImageUrl = res.data.data.url; 
           setImage(`${res.data.data.url}`);
           setSuccessMessage("Billedet er tilføjet!");
         }
@@ -44,6 +56,7 @@ export function usePostImageData(setImage, setIsLoading, setSuccessMessage, inpu
           inputReference.current.focus();
         }
       }
+      return uploadedImageUrl;
     },
     [setImage, setIsLoading, setSuccessMessage, inputReference]
   );

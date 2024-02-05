@@ -29,9 +29,9 @@ img{
 const Stars = () => {
   return (
     <Twinkle> 
-        <img className='stars' src={stars}/>
-        <img className='stars2' src={stars2}/>
-        <img className='stars3' src={stars3}/>
+        <img alt='star' className='stars' src={stars}/>
+        <img alt='star' className='stars2' src={stars2}/>
+        <img alt='star' className='stars3' src={stars3}/>
     </Twinkle>
   )
 }

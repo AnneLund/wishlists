@@ -1,6 +1,13 @@
 import appService from "../Appservices/App.service";
-import { api_member1, api_member2, api_member3, api_member4, api_all_members } from "../Appservices/api_urls";
-import rebecca from "../Assets/Images/rebecca.JPG";
+import {
+  api_member1,
+  api_member2,
+  api_member3,
+  api_member4,
+  api_all_members,
+  api_other_members,
+} from "../Appservices/api_urls";
+import rebecca from "../Assets/Images/rebecca.jpg";
 import valdemar from "../Assets/Images/valdemar.jpg";
 import mikkel from "../Assets/Images/mikkel.PNG";
 import anne from "../Assets/Images/anne.JPG";
@@ -63,6 +70,18 @@ export const useMembers = () => {
       update: appService.update_all_members,
       create: appService.create_all_members,
       url: api_all_members,
+    },
+    6: {
+      member: "othermember",
+      name: "Andre",
+      username: "othermembers",
+      loggedInId: 7,
+      loggedInUser: "Andre",
+      route: "/othermembers",
+      // image: family,
+      update: appService.update_other_members,
+      create: appService.create_other_members,
+      url: api_other_members,
     },
   };
 

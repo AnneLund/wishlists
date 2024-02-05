@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useState, useRef, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import OpenAI from "openai";
 
 // Custom hooks
 import { useFlashMessageStore } from "../Components/FlashMessages/useFlashMessageStore";
@@ -20,7 +21,7 @@ import Loading from "../Components/Partials/Loading";
 
 const AdminSite = () => {
   const { register, handleSubmit, reset, setValue } = useForm();
-  const [image, setImage] = useState("");
+  let [image, setImage] = useState("");
   const inputReference = useRef(null);
   const Navigate = useNavigate();
   const { id } = useParams();
@@ -31,6 +32,11 @@ const AdminSite = () => {
   const [shouldUploadImage, setShouldUploadImage] = useState(false);
   const postImage = usePostImageData(setImage, setIsLoading, setSuccessMessage, inputReference);
   const handleImage = useImageHandler(setErrorMessage, setIsLoading, setImage, setShouldUploadImage);
+
+  const openai = new OpenAI({
+    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+    dangerouslyAllowBrowser: true,
+  });
 
   const isUpdateMode = !!id;
 
@@ -76,13 +82,34 @@ const AdminSite = () => {
   const onSubmit = async (submitdata, e) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      const updatedImageUrl = shouldUploadImage ? image : submitdata.image;
-      const res = isUpdateMode
-        ? await update(id, submitdata.title, submitdata.description, updatedImageUrl, submitdata.url)
-        : await create(submitdata.title, submitdata.description, updatedImageUrl, submitdata.url, submitdata.købt);
+      let imageUrl;
+    
+      // If there's a user-uploaded image, use it
+      if (shouldUploadImage && image) {
+        imageUrl = image;
+      }
+      // If there's no user-uploaded image and a title is provided for auto-generation
+      else if (!image && submitdata.title) {
+        const generatedImageResponse = await openai.images.generate({
+          model: "dall-e-3",
+          prompt: `${submitdata.title}`,
+        });
+        const generatedImageUrl = generatedImageResponse.data[0].url;
 
+    // Opdater imageUrl med den URL, som postImage returnerer
+    imageUrl = await postImage(null, generatedImageUrl);
+      }
+      // Otherwise, use the image URL from the form data (if any)
+      else {
+        imageUrl = submitdata.image;
+      }
+
+      // Update or create wish list item with the selected image URL
+      const res = isUpdateMode
+        ? await update(id, submitdata.title, submitdata.description, imageUrl, submitdata.url)
+        : await create(submitdata.title, submitdata.description, imageUrl, submitdata.url, submitdata.købt);
+    
       if (res.status === 200) {
         reset();
         setSuccessMessage(isUpdateMode ? "Ønske opdateret!" : "Ønske oprettet!");
@@ -91,10 +118,12 @@ const AdminSite = () => {
     } catch (error) {
       console.error("Fejl:", error);
       setErrorMessage("Det skete en fejl - prøv igen.");
-    } finally {
+    }
+    finally {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <Transitions>

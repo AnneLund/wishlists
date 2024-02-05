@@ -1,11 +1,10 @@
-import Router from './Components/Router/Router'
+import Router from "./Components/Router/Router";
 
 function App() {
-
   return (
-       <div className='App'>
-      <Router/>
-      </div>
+    <div className='App'>
+      <Router />
+    </div>
   );
 }
 

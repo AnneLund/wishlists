@@ -39,6 +39,19 @@ const AdminStyled = styled.section`
     }
   }
 
+  .newUser {
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 1em 0;
+    padding: 0.2em;
+    transition: 300ms ease-in-out;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   header {
     h2 {
       margin: 2em 0;

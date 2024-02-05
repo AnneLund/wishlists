@@ -29,6 +29,16 @@ const Menu = styled.nav`
   gap: 1.5em;
   position: relative;
 
+  .link {
+  display: flex;
+  flex-direction: column;
+  padding: 0.3em;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  font-size: 0.8em;
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
     gap: 0;
@@ -42,7 +52,7 @@ const Menu = styled.nav`
 `;
 
 const Header = () => {
-  const { setLoggedIn, loggedIn } = useLoginStore((store) => ({
+  const { setLoggedIn, loggedIn, role_id } = useLoginStore((store) => ({
     setLoggedIn: store.setLoggedIn,
     loggedIn: store.loggedIn,
     userInfo: store.userInfo,
@@ -52,6 +62,7 @@ const Header = () => {
   const { isOpen, setIsOpen } = useIsOpenNavStore();
   const [shrinkHeader, setShrinkHeader] = useState(false);
   const navigate = useNavigate();
+  const {username} = useLoginStore()
 
   const logOut = async () => {
     await setLoggedIn(false, "", "", "", "");
@@ -78,10 +89,14 @@ const Header = () => {
       <Menu roll isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
         {loggedIn ? (
           <>
-            <li>
-              <Link to="/">Ønskesedler</Link>
-            </li>
-            <li>
+          {role_id !== 6 ? <li>
+              <Link to="/wishlists">Ønskesedler</Link>
+            </li> : <li>
+              <Link to="/guest">Ønskesedler</Link>
+              </li>}
+            
+            <li className="link">
+              Logget ind som {username}
               <Link to="#" onClick={logOut}>
                 Log ud
               </Link>

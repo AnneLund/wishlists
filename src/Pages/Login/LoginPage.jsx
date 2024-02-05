@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 // Costum hooks
 import { useLoginStore } from "./useLoginStore";
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
-import { login_url } from "../../Appservices/api_urls";
+import appService from "../../Appservices/App.service";
 
 // Styles
 import StyledAdmin from "../../StyledComponents/Admin_Styled";
@@ -26,15 +26,12 @@ const LoginPage = () => {
 
   const logInUser = async (username, password) => {
     setIsLoading(true);
-
+  
     try {
-      const response = await fetch(login_url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-      const data = await response.json();
-
+      const response = await appService.login(username, password);
+      console.log('DATA:', response.data); // Opdateret for at logge den faktiske data
+      const data = response.data; // Opdateret for korrekt at tilgå dataen
+      
       if (data.token) {
         const { role_id, username } = data.payload;
         setLoggedIn(true, role_id, username, data.token);
@@ -43,19 +40,21 @@ const LoginPage = () => {
         setErrorMessage("Ingen brugere med disse kriterier");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Error:", error.response ? error.response.data : "Error under login");
       setErrorMessage("Der opstod en fejl under login");
     } finally {
       setIsLoading(false);
     }
-  };
+};
+
+  
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const { username, password } = user;
+    const { username, password } = user; // Ændret fra hashedPassword til password
     logInUser(username, password);
   };
-
+  
   if (loggedIn) {
     return <Navigate to="/" />;
   }

@@ -15,7 +15,7 @@ export const MainNav = styled.ul`
       margin-left: auto;
     }
 
-    a {
+    a{
       padding: 0.3em;
       cursor: pointer;
       text-align: center;
