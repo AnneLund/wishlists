@@ -29,9 +29,9 @@ const NoButton = styled.button`
 `;
 
 const AddButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; // Gør dette til en flex container
+  justify-content: center; // Centrerer indholdet horisontalt
+  align-items: center; // Centrerer indholdet vertikalt
   background-color: rgba(0, 100, 20, 0.3);
   color: black;
   font-size: 1.5em;
@@ -53,9 +53,9 @@ const AddButton = styled.button`
 `;
 
 const DeleteButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; // Gør dette til en flex container
+  justify-content: center; // Centrerer indholdet horisontalt
+  align-items: center; // Centrerer indholdet vertikalt
   background-color: rgba(4, 0, 0, 0.4);
   color: black;
   font-size: 1.5em;
@@ -77,9 +77,9 @@ const DeleteButton = styled.button`
 `;
 
 const UpdateButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; // Gør dette til en flex container
+  justify-content: center; // Centrerer indholdet horisontalt
+  align-items: center; // Centrerer indholdet vertikalt
   background-color: rgba(4, 0, 0, 0.4);
   color: black;
   font-size: 1.5em;
