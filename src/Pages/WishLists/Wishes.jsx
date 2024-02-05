@@ -1,22 +1,16 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-
-// Custom Hooks
+import { YesButton, NoButton, AddButton, DeleteButton, UpdateButton } from "../../StyledComponents/Buttons";
 import { useLoginStore } from "../Login/useLoginStore";
 import useWishActions from "../../Components/CRUDhooks/wishActions";
 import { useFlashMessageStore } from "../../Components/FlashMessages/useFlashMessageStore";
 import Loading from "../../Components/Partials/Loading";
 import { useModalStore } from "../../Components/Modal/useModalStore";
-import { useMembers } from "../../Components/Members";
-import { Page } from "../../Components/Layout/Page";
-
-// Styles
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { StyledCard } from "../../StyledComponents/Wishlist.Styled";
-import { YesButton, NoButton, AddButton, DeleteButton, UpdateButton } from "../../StyledComponents/Buttons";
+import { Page } from "../../Components/Layout/Page";
 import Grid from "../../StyledComponents/Grid.Styled";
 import Transitions from "../../StyledComponents/Transition";
-
-// Icons
+import { useMembers } from "../../Components/Members";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
@@ -24,17 +18,18 @@ import { IoMdAdd } from "react-icons/io";
 // ØNSKESEDLER
 
 const Wishes = () => {
+  const members = useMembers();
   const [isLoading] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
+
   const { setSuccessMessage, setErrorMessage } = useFlashMessageStore();
   const { role_id, token } = useLoginStore();
   const { setModalPayload, setToggleModal } = useModalStore();
 
-  const members = useMembers();
   const defaultMember = { member: "", name: "", loggedInId: null, route: "" };
   const memberData = Object.values(members).find((m) => m.route === location.pathname) || defaultMember;
   const { name, loggedInId, url } = memberData;
+  const navigate = useNavigate();
 
   const {
     fetchWishData,
@@ -76,34 +71,25 @@ const Wishes = () => {
     <Loading />
   ) : wishData && wishData.length === 0 ? (
     <Page title={role_id === loggedInId ? "Min ønskeseddel" : `${name}'s ønskeseddel`}>
-      {role_id <= 4 ? (
-        <>
-          <h2>Tilføj det første ønske til ønskelisten!</h2>
-          <div className="action_buttons">
-            <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
-              <AddButton>
-                <IoMdAdd className="add" />
-              </AddButton>
-            </Link>
-          </div>
-        </>
-      ) : (
-        <h2>Ønskelisten er tom..</h2>
-      )}
+      <h2>Tilføj det første ønske til ønskelisten!</h2>
+      <div className="action_buttons">
+        <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
+          <AddButton>
+            <IoMdAdd className="add" />
+          </AddButton>
+        </Link>
+      </div>
     </Page>
   ) : (
     <Transitions>
       <Page title={role_id === loggedInId ? "Min ønskeseddel" : `${name}'s ønskeseddel`}>
-        {role_id === loggedInId && (
-          <div className="action_buttons">
-            <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
-              <AddButton>
-                <IoMdAdd className="add" />
-              </AddButton>
-            </Link>
-          </div>
-        )}
-
+        <div className="action_buttons">
+          <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
+            <AddButton>
+              <IoMdAdd className="add" />
+            </AddButton>
+          </Link>
+        </div>
         <Grid>
           {wishData?.map((wish) => {
             const isAllMembersPage = location.pathname === "/allmembers";
@@ -170,15 +156,11 @@ const Wishes = () => {
               </StyledCard>
             );
           })}
-          {role_id === loggedInId && (
-            <div className="action_buttons">
-              <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
-                <AddButton>
-                  <IoMdAdd className="add" />
-                </AddButton>
-              </Link>
-            </div>
-          )}
+          <AddButton>
+            <Link to={`/admin?from=${encodeURIComponent(location.pathname)}`}>
+              <IoMdAdd className="add" />
+            </Link>
+          </AddButton>
         </Grid>
       </Page>
     </Transitions>
